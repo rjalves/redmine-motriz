@@ -1,0 +1,22 @@
+# Normaliza fim de linha: o repositório guarda LF e o checkout entrega LF.
+# Necessário porque a árvore veio com CRLF e os shebangs de bin/rails, bin/rake,
+# bin/bundle e Rakefile falham no Linux com "bad interpreter: /usr/bin/env ruby^M".
+* text=auto eol=lf
+
+# Em e-mail, CRLF é semântico (SMTP exige) — os fixtures do mail handler
+# precisam ser preservados byte a byte, senão os testes quebram.
+*.eml -text
+
+# Binários: nunca normalizar
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.eot  binary
+*.zip  binary
+*.gz   binary
