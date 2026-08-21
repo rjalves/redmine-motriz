@@ -1,0 +1,46 @@
+# Redmine 7.0.0 + tema Motriz Digital, com Postgres.
+# Uso:
+#   cp .env.example .env && edite os segredos
+#   docker compose up -d --build
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-redmine}
+      POSTGRES_USER: ${POSTGRES_USER:-redmine}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-redmine} -d ${POSTGRES_DB:-redmine}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redmine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-redmine}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-redmine}
+      # Sem isto o container gera uma chave nova a cada deploy e todas as
+      # sessões caem. Gere com: openssl rand -hex 64
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:?defina SECRET_KEY_BASE no .env}
+      REDMINE_LANG: ${REDMINE_LANG:-pt-BR}
+      # Só no primeiro start: cria tipos de tarefa, situações e prioridades.
+      REDMINE_DEFAULT_DATA: ${REDMINE_DEFAULT_DATA:-}
+      TZ: ${TZ:-America/Sao_Paulo}
+    ports:
+      - "${HTTP_PORT:-80}:3000"
+    volumes:
+      # Anexos das tarefas. Sem este volume eles somem a cada redeploy.
+      - redmine_files:/redmine/files
+
+volumes:
+  pgdata:
+  redmine_files:

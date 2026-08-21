@@ -10,3 +10,6 @@ __pycache__/
 # As fontes ficam versionadas: _base.css, frag_*.html, *.dc.html, canvas.json, build.py.
 # O canvas publicado vive em https://claude.ai/code/artifact/a80afa4d-459b-46bd-be9c-af8dea28f2c4
 design/tema-redmine-motriz.html
+
+# --- segredos de implantacao ---
+.env
