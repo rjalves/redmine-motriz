@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  PLACEHOLDER — não é o logotipo oficial.
-  As letras estão em uma pilha genérica geométrica com textLength travado, para que a
-  largura seja idêntica em qualquer sistema. Substitua este arquivo pelo SVG oficial da
-  Motriz Digital (versão NEGATIVA, para fundo verde escuro) mantendo o mesmo nome —
-  nenhuma alteração de CSS é necessária.
+  PLACEHOLDER — não é o logotipo oficial da Motriz Digital.
+
+  Versão NEGATIVA (para o masthead verde escuro): "motriz" em branco, "digital"
+  em verde claro institucional.
+
+  Substitua este arquivo pelo SVG oficial mantendo o mesmo nome — nenhuma
+  alteração de CSS é necessária. O CSS dimensiona pela ALTURA
+  (background-size: auto <altura>), então largura diferente não quebra o layout.
+
+  Nota: a versão anterior usava textLength com lengthAdjust="spacingAndGlyphs"
+  para travar a largura. Isso DEFORMAVA as letras quando a fonte disponível no
+  sistema diferia da prevista. Removido.
 -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" width="200" height="64" role="img" aria-label="Motriz Digital">
-  <text x="0" y="34" textLength="196" lengthAdjust="spacingAndGlyphs"
-        font-family="Avenir Next, Century Gothic, Futura, Poppins, Verdana, sans-serif"
-        font-size="40" font-weight="600" letter-spacing="-0.8" fill="#ffffff">motriz</text>
-  <text x="200" y="56" text-anchor="end" textLength="94" lengthAdjust="spacingAndGlyphs"
-        font-family="Avenir Next, Century Gothic, Futura, Poppins, Verdana, sans-serif"
-        font-size="21" font-weight="400" fill="#4dcb93">digital</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 66" width="210" height="66" role="img" aria-label="Motriz Digital">
+  <text x="0" y="40" font-family="Avenir Next, Century Gothic, Futura, Trebuchet MS, Verdana, sans-serif"
+        font-size="44" font-weight="600" letter-spacing="-1.6" fill="#ffffff">motriz</text>
+  <text x="0" y="61" font-family="Avenir Next, Century Gothic, Futura, Trebuchet MS, Verdana, sans-serif"
+        font-size="20" font-weight="400" letter-spacing="1.2" fill="#4dcb93">digital</text>
 </svg>

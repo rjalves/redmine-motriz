@@ -66,12 +66,14 @@
 }
 
 /* ==========================================================================
-   3. TOKENS — a paleta Motriz sobre a escala Open Color do Redmine.
-   Ao mudar --oc-X, mude também --oc-X-rgb se ele existir: o core usa
-   rgba(var(--oc-gray-9-rgb), …) em sombras e overlays.
+   3. TOKENS — paleta Motriz sobre a escala Open Color do Redmine.
+   Gerados e validados por tools/build_tokens.py (19 pares de contraste em AA).
+   Cobrem TODAS as famílias que o core usa: sem isso sobram resquícios fora da
+   marca, como o bege de #login-form (--oc-orange-1) e o vinho dos avisos
+   (--oc-pink-9).
    ========================================================================== */
 :root {
-  /* Cores da marca, para uso direto */
+  /* Cores do brandbook, para uso direto */
   --motriz-verde-escuro:  #024b40;
   --motriz-verde-claro:   #4dcb93;
   --motriz-ciano:         #26c1c8;
@@ -82,56 +84,152 @@
   --motriz-marrom:        #4a1702;
   --motriz-azul-petroleo: #253b61;
 
-  /* Tipografia */
+  /* Linguagem visual: superfícies, raios, sombras, foco */
+  --motriz-fundo-pagina:  #eef2f4;
+  --motriz-raio:          10px;
+  --motriz-raio-sm:       7px;
+  --motriz-raio-lg:       16px;
+  --motriz-sombra:        0 1px 2px rgba(12, 32, 27, .04), 0 1px 3px rgba(12, 32, 27, .06);
+  --motriz-sombra-md:     0 4px 14px rgba(12, 32, 27, .08);
+  --motriz-sombra-lg:     0 18px 50px rgba(2, 40, 33, .28);
+  --motriz-foco:          0 0 0 3px rgba(2, 75, 64, .16);
+  --motriz-transicao:     140ms ease;
+
   --fonts-main:  "Archivo", "Helvetica Neue", Arial, sans-serif;
   --fonts-title: "Bricolage Grotesque", "Archivo", sans-serif;
 
-  /* Escala neutra — ancorada nos dois cinzas do brandbook (gray-3 e gray-6) */
+  --oc-blue-0: #e7fafb;
+  --oc-blue-1: #d0f5f6;
+  --oc-blue-2: #b0edf0;
+  --oc-blue-3: #84e3e7;
+  --oc-blue-4: #4dd4da;
+  --oc-blue-5: #00c1ca;
+  --oc-blue-6: #00adb6;
+  --oc-blue-7: #024b40;
+  --oc-blue-8: #007980;
+  --oc-blue-9: #00747c;
+  --oc-cyan-0: #e7fafb;
+  --oc-cyan-1: #d0f5f6;
+  --oc-cyan-2: #b0edf0;
+  --oc-cyan-3: #84e3e7;
+  --oc-cyan-4: #4dd4da;
+  --oc-cyan-5: #00c1ca;
+  --oc-cyan-6: #007e86;
+  --oc-cyan-7: #00939c;
+  --oc-cyan-8: #007980;
+  --oc-cyan-9: #005f65;
+  --oc-grape-0: #f8f3ff;
+  --oc-grape-1: #f1e7ff;
+  --oc-grape-2: #e7d7ff;
+  --oc-grape-3: #dac3ff;
+  --oc-grape-4: #caacfc;
+  --oc-grape-5: #b895ef;
+  --oc-grape-6: #a47edc;
+  --oc-grape-7: #5c2e91;
+  --oc-grape-8: #73559e;
+  --oc-grape-9: #59417d;
   --oc-gray-0: #f6f9fb;
   --oc-gray-1: #f0f2f4;
   --oc-gray-2: #e8ebed;
-  --oc-gray-3: #dfe1e3;   /* cinza claro institucional */
-  --oc-gray-4: #cacccf;   /* bordas — 45 usos no core */
+  --oc-gray-3: #dfe1e3;
+  --oc-gray-4: #cacccf;
   --oc-gray-5: #9c9fa1;
-  --oc-gray-6: #6d6e71;   /* cinza escuro institucional */
+  --oc-gray-6: #6d6e71;
   --oc-gray-7: #4d4f51;
   --oc-gray-8: #36383a;
   --oc-gray-9: #212325;
   --oc-gray-9-rgb: 33, 35, 37;
-
-  /* Ação — matiz do ciano institucional, escurecida até AA */
-  --oc-blue-0: #e5f8f9;
-  --oc-blue-7: #024b40;   /* fundo de hover de menu e avatar, com texto branco */
-  --oc-blue-9: #00747c;   /* links e traço dos ícones — 5,54:1 */
-
-  /* Atenção — matiz do laranja institucional */
-  --oc-red-8: #be3b00;    /* etiqueta privada, ícone de erro — 5,50:1 com branco */
-  --oc-red-9: #ce4b03;    /* hover, prazo vencido, campo obrigatório — 4,53:1 */
-
-  /* Sucesso — matiz do verde Educação */
+  --oc-green-0: #eff9ec;
+  --oc-green-1: #e0f3db;
+  --oc-green-2: #ccebc3;
+  --oc-green-3: #b3dfa6;
+  --oc-green-4: #97d087;
+  --oc-green-5: #7dbd6a;
+  --oc-green-6: #65a951;
   --oc-green-7: #41852b;
   --oc-green-8: #3a7e23;
   --oc-green-9: #216600;
-
-  /* Aviso — matiz do amarelo institucional */
-  --oc-yellow-4: #a56a00;
-  --oc-yellow-9: #a56a00;
-  /* ATENÇÃO: --oc-yellow-0 NÃO é cor de aviso no Redmine. Ele pinta o hover das
-     linhas de tabela, o fundo do painel da tarefa (div.issue) e o índice do wiki.
-     Os avisos de verdade usam --oc-yellow-1/-3 e --oc-pink-9. Por isso aqui ele é
-     uma superfície institucional clara, não um creme alaranjado. */
-  --oc-yellow-0: #f1f9f6;
-
-  /* Seleção e menu de projeto — matiz institucional */
-  --oc-indigo-0: #e8f9f4;  /* fundo do #main-menu */
-  --oc-indigo-1: #daf3ed;  /* fundo do item selecionado na barra lateral */
-  --oc-indigo-5: #00804e;  /* fundo de .badge-count, com texto branco */
+  --oc-indigo-0: #e8fbf6;
+  --oc-indigo-1: #d3f5ed;
+  --oc-indigo-2: #b4eee0;
+  --oc-indigo-3: #8ce4d1;
+  --oc-indigo-4: #5bd6be;
+  --oc-indigo-5: #00804e;
+  --oc-indigo-6: #00b095;
+  --oc-indigo-7: #00967e;
+  --oc-indigo-8: #007b67;
   --oc-indigo-9: #024b40;
-
-  --oc-cyan-6:  #007e86;
-  --oc-grape-7: #5c2e91;
-
-  /* Filete do item ativo na barra lateral — decorativo, pode ser a cor viva */
+  --oc-lime-0: #ebfaf1;
+  --oc-lime-1: #d7f5e4;
+  --oc-lime-2: #bdedd3;
+  --oc-lime-3: #9be3bd;
+  --oc-lime-4: #74d5a5;
+  --oc-lime-5: #4dc38e;
+  --oc-lime-6: #23ae78;
+  --oc-lime-7: #009563;
+  --oc-lime-8: #007a50;
+  --oc-lime-9: #00603e;
+  --oc-orange-0: #fff2ec;
+  --oc-orange-1: #ffffff;
+  --oc-orange-2: #ffd3c1;
+  --oc-orange-3: #ffbda3;
+  --oc-orange-4: #fda483;
+  --oc-orange-5: #ee8b66;
+  --oc-orange-6: #db744c;
+  --oc-orange-7: #bd5e3a;
+  --oc-orange-8: #9d4c2d;
+  --oc-orange-9: #be3b00;
+  --oc-pink-0: #fff2ec;
+  --oc-pink-1: #ffe5d9;
+  --oc-pink-2: #ffd3c1;
+  --oc-pink-3: #ffbda3;
+  --oc-pink-4: #fda483;
+  --oc-pink-5: #ee8b66;
+  --oc-pink-6: #db744c;
+  --oc-pink-7: #bd5e3a;
+  --oc-pink-8: #9d4c2d;
+  --oc-pink-9: #be3b00;
+  --oc-red-0: #fff2ec;
+  --oc-red-1: #ffe5d9;
+  --oc-red-2: #ffd3c1;
+  --oc-red-3: #ffbda3;
+  --oc-red-4: #fda483;
+  --oc-red-5: #ee8b66;
+  --oc-red-6: #db744c;
+  --oc-red-7: #bd5e3a;
+  --oc-red-8: #be3b00;
+  --oc-red-9: #ce4b03;
+  --oc-teal-0: #e8fbf6;
+  --oc-teal-1: #d3f5ed;
+  --oc-teal-2: #b4eee0;
+  --oc-teal-3: #8ce4d1;
+  --oc-teal-4: #5bd6be;
+  --oc-teal-5: #15c4aa;
+  --oc-teal-6: #00b095;
+  --oc-teal-7: #00967e;
+  --oc-teal-8: #007b67;
+  --oc-teal-9: #006050;
+  --oc-violet-0: #f8f3ff;
+  --oc-violet-1: #f1e7ff;
+  --oc-violet-2: #e7d7ff;
+  --oc-violet-3: #dac3ff;
+  --oc-violet-4: #caacfc;
+  --oc-violet-5: #b895ef;
+  --oc-violet-6: #a47edc;
+  --oc-violet-7: #8b68bf;
+  --oc-violet-8: #73559e;
+  --oc-violet-9: #59417d;
+  --oc-yellow-0: #f1f9f6;
+  --oc-yellow-1: #f9ebd0;
+  --oc-yellow-2: #f5ddb2;
+  --oc-yellow-3: #eecb8c;
+  --oc-yellow-4: #a56a00;
+  --oc-yellow-5: #d2a036;
+  --oc-yellow-6: #bf8a00;
+  --oc-yellow-7: #a47400;
+  --oc-yellow-8: #875e00;
+  --oc-yellow-9: #a56a00;
+  --oc-gray-9-rgb: 33, 35, 37;
   --color-current-marker: var(--motriz-verde-claro);
 }
 
@@ -144,150 +242,332 @@ nav.top-menu { background: var(--motriz-verde-escuro); }
 #header      { background: var(--motriz-verde-escuro); }
 
 /* ==========================================================================
-   5. MASTHEAD — logotipo Motriz Digital + título fixo "Gestão de Projetos"
-   O logo entra como background do #header. #main-menu é absoluto (inset-inline-start:0),
-   então o padding abaixo não desloca as abas do projeto.
+   5. MASTHEAD — logotipo + título fixo
    ========================================================================== */
+nav.top-menu {
+  font-size: 0.75rem;
+  padding-block: 3px;
+  border-block-end: 1px solid rgba(255, 255, 255, .08);
+}
 #header {
-  padding-inline-start: 168px;
+  padding-inline-start: 196px;
+  padding-block: 0.35rem 0;
   background-image: url(../images/logo-motriz-digital.svg);
   background-repeat: no-repeat;
-  background-position: 20px 4px;
-  background-size: 132px auto;
+  /* Dimensiona pela ALTURA: largura diferente no SVG oficial não quebra nada. */
+  background-position: 20px 12px;
+  background-size: auto 38px;
 }
-/* Filete entre o logotipo e o título, como no canvas aprovado */
-#header::after {
-  content: "";
-  position: absolute;
-  inset-block-start: 13px;
-  inset-inline-start: 152px;
-  inline-size: 1px;
-  block-size: 26px;
-  background: rgba(255, 255, 255, 0.28);
+#header h1 {
+  font-size: 0;
+  line-height: 0;
+  border-inline-start: 1px solid rgba(255, 255, 255, .26);
+  padding-inline-start: 18px;
 }
-
-/* O h1 do Redmine carrega o nome do projeto. Aqui ele dá lugar ao título fixo —
-   o nome do projeto continua visível no seletor de projeto, no topo à direita. */
-#header h1 { font-size: 0; line-height: 0; }
 #header h1 > * { display: none; }
 #header h1::before {
   content: "Gestão de Projetos";
   display: block;
   font-family: var(--fonts-title);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -.012em;
   color: var(--oc-white);
 }
+#quick-search #q, #project-jump .drdn-trigger {
+  block-size: 30px;
+  border-radius: var(--motriz-raio-sm);
+  border-color: rgba(255, 255, 255, .3);
+  background-color: rgba(255, 255, 255, .12);
+  color: var(--oc-white);
+}
+#quick-search #q::placeholder { color: rgba(255, 255, 255, .6); }
 
 /* Abas do projeto */
-#main-menu li a { font-family: var(--fonts-main); }
+#main-menu { padding-inline: 20px; }
+#main-menu li a {
+  border-radius: var(--motriz-raio-sm) var(--motriz-raio-sm) 0 0;
+  padding-block: 9px 7px;
+  transition: background-color var(--motriz-transicao);
+  border-block-end: 3px solid transparent;
+}
 #main-menu li a.selected {
-  border-block-end: 3px solid var(--motriz-verde-educacao);
+  border-block-end-color: var(--motriz-verde-educacao);
   font-weight: 600;
 }
 
 /* ==========================================================================
-   6. BARRA LATERAL À ESQUERDA
-   O core usa flex-direction: row-reverse em #main, o que joga a sidebar para a direita.
+   6. CASCA DA PÁGINA — conteúdo e barra lateral como cartões sobre fundo neutro
+   É o que dá o aspecto de painel administrativo moderno. A barra lateral também
+   sai do padrão do core, que a joga para a direita com flex-direction: row-reverse.
    ========================================================================== */
-#main { flex-direction: row; }
+#main {
+  flex-direction: row;
+  background: var(--motriz-fundo-pagina);
+  padding: 16px;
+  gap: 16px;
+  align-items: flex-start;
+}
+#content, #sidebar {
+  background: var(--oc-white);
+  border: 1px solid var(--oc-gray-3);
+  border-radius: var(--motriz-raio);
+  box-shadow: var(--motriz-sombra);
+}
+#content { padding: 22px 24px 26px; overflow-x: auto; }
 #sidebar {
-  border-inline-start: 0;
-  border-inline-end: 1px solid var(--oc-gray-4);
-  padding-inline: 16px 18px;
+  border-inline-start: 1px solid var(--oc-gray-3);
+  padding: 18px 16px;
+  flex-shrink: 0;
 }
 #sidebar h3 {
   font-family: var(--fonts-main);
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--oc-gray-6);
+  margin-block: 18px 8px;
 }
-/* A largura da sidebar é uma escada de media queries no core: precisa cobrir todas. */
-@media screen and (min-width: 0px)    and (max-width: 1089px) { #sidebar { width: 24%;  } }
+#sidebar h3:first-child { margin-block-start: 0; }
+#sidebar ul li a {
+  display: block;
+  padding: 6px 9px;
+  border-radius: var(--motriz-raio-sm);
+  transition: background-color var(--motriz-transicao), color var(--motriz-transicao);
+}
+#sidebar ul li a:hover { background: var(--oc-gray-1); text-decoration: none; }
+#footer {
+  background: var(--motriz-fundo-pagina);
+  border-block-start: 0;
+  padding-block: 14px;
+  color: var(--oc-gray-6);
+}
+/* A largura da barra lateral é uma escada de media queries no core. */
+@media screen and (min-width: 0px)    and (max-width: 1089px) { #sidebar { width: 25%;  } }
 @media screen and (min-width: 1090px) and (max-width: 1279px) { #sidebar { width: 250px; } }
-@media screen and (min-width: 1280px) and (max-width: 1599px) { #sidebar { width: 266px; } }
+@media screen and (min-width: 1280px) and (max-width: 1599px) { #sidebar { width: 268px; } }
 @media screen and (min-width: 1600px) and (max-width: 1919px) { #sidebar { width: 300px; } }
 @media screen and (min-width: 1920px) and (max-width: 2559px) { #sidebar { width: 340px; } }
 
 /* ==========================================================================
-   7. TIPOGRAFIA APLICADA
+   7. TIPOGRAFIA
    Títulos em verde institucional — regra do brandbook para texto sobre branco.
-   Feito por seletor, não por token: --oc-gray-7 tem outros 18 usos que devem
-   continuar neutros.
+   Por seletor, não por token: --oc-gray-7 tem outros 18 usos que seguem neutros.
    ========================================================================== */
 #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
   font-family: var(--fonts-title);
   color: var(--motriz-verde-escuro);
   font-weight: 600;
-  letter-spacing: -0.012em;
+  letter-spacing: -.014em;
 }
-#content h1 { font-size: 1.625rem; }
-#sidebar h3 { color: var(--oc-gray-6); }
+#content h1 { font-size: 1.6rem; margin-block-end: 16px; }
+#content h2 { font-size: 1.3rem; }
+#content h3 { font-size: 1.06rem; }
+h2.inline-flex, #content h2 { display: flex; align-items: center; gap: 8px; }
 
 /* ==========================================================================
-   8. LISTAGENS — legibilidade
-   O core centraliza tudo (tr.issue { text-align: center }), o que dificulta a leitura.
+   8. CARTÕES
    ========================================================================== */
-table.list th, .table-list-header {
+.box, div.box {
+  background: var(--oc-white);
+  border: 1px solid var(--oc-gray-3);
+  border-radius: var(--motriz-raio);
+  box-shadow: var(--motriz-sombra);
+  padding: 18px 20px;
+}
+.splitcontentleft .box, .splitcontentright .box { margin-block-end: 16px; }
+fieldset {
+  border: 1px solid var(--oc-gray-3);
+  border-radius: var(--motriz-raio);
+  padding: 14px 18px;
+}
+fieldset legend { font-weight: 600; color: var(--oc-gray-7); padding-inline: 6px; }
+/* O core deixa `fieldset.collapsible` com borda só no topo
+   (border-width: 1px 0 0 0), o que na tela vira um traço solto acima da legenda.
+   Precisa de `.collapsible` no seletor para superar a especificidade de lá. */
+fieldset.collapsible, #query_form_content > fieldset {
+  border: 1px solid var(--oc-gray-3);
+  border-radius: var(--motriz-raio);
+  background: var(--oc-gray-0);
+  padding: 6px 16px 14px;
+  margin-block-end: 14px;
+}
+fieldset.collapsible > legend, #query_form_content > fieldset > legend {
   font-size: 0.6875rem;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--oc-gray-6);
+  padding-inline: 5px;
+}
+#query_form_with_buttons > p.contextual { gap: 6px; margin-block: 6px 14px; }
+
+/* ==========================================================================
+   9. FORMULÁRIOS
+   ========================================================================== */
+input[type="text"], input[type="password"], input[type="email"], input[type="number"],
+input[type="search"], input[type="date"], input[type="url"], select, textarea {
+  font-family: var(--fonts-main);
+  font-size: 0.875rem;
+  color: var(--oc-gray-9);
+  background: var(--oc-white);
+  border: 1px solid var(--oc-gray-4);
+  border-radius: var(--motriz-raio-sm);
+  padding-block: 7px;
+  padding-inline: 10px;
+  transition: border-color var(--motriz-transicao), box-shadow var(--motriz-transicao);
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
+input[type="number"]:focus, input[type="search"]:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--motriz-verde-escuro);
+  box-shadow: var(--motriz-foco);
+}
+select { padding-block: 6px; }
+label { color: var(--oc-gray-7); font-weight: 600; }
+.tabular label { color: var(--oc-gray-7); }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--motriz-verde-escuro); }
+
+/* ==========================================================================
+   10. BOTÕES
+   ========================================================================== */
+input[type="submit"], input[type="button"], button:not(.tab-left):not(.tab-right) {
+  font-family: var(--fonts-main);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--oc-white);
+  background: var(--motriz-verde-escuro);
+  border: 1px solid var(--motriz-verde-escuro);
+  border-radius: var(--motriz-raio-sm);
+  padding-block: 8px;
+  padding-inline: 16px;
+  cursor: pointer;
+  transition: background-color var(--motriz-transicao), box-shadow var(--motriz-transicao);
+}
+input[type="submit"]:hover, input[type="button"]:hover, button:not(.tab-left):not(.tab-right):hover {
+  background: #03614f;
+  border-color: #03614f;
+}
+input[type="submit"]:focus-visible, button:focus-visible { outline: none; box-shadow: var(--motriz-foco); }
+input[type="submit"][name="commit"] + input[type="submit"],
+input.button-small { padding-block: 5px; padding-inline: 11px; }
+
+.contextual { gap: 4px; align-items: center; }
+.contextual a.icon, .contextual a.icon-only {
+  padding: 6px 10px;
+  border-radius: var(--motriz-raio-sm);
+  transition: background-color var(--motriz-transicao);
+}
+.contextual a.icon:hover, .contextual a.icon-only:hover {
+  background: var(--oc-gray-1);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   11. TABELAS
+   CUIDADO com o combinador: a barra de progresso é uma <table class="progress">
+   ANINHADA dentro de td.done_ratio. Daqui para baixo, sempre `> tbody > tr > td`.
+   ========================================================================== */
+table.list, .table-list {
+  border: 1px solid var(--oc-gray-3);
+  border-radius: var(--motriz-raio);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+table.list th, .table-list-header {
+  background: var(--oc-gray-1);
+  color: var(--oc-gray-6);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: .06em;
   text-transform: uppercase;
   text-align: start;
+  padding-block: 10px;
+  padding-inline: 12px;
+  border-block-end: 1px solid var(--oc-gray-3);
 }
 table.list th.num, table.list th.id { text-align: right; }
-
-table.list td.subject,
-table.list td.parent-subject,
-table.list td.description,
-table.list td.category,
-table.list td.assigned_to,
-table.list td.author,
-table.list td.last_updated_by,
-table.list td.fixed_version,
-table.list td.project { text-align: start; }
-
+table.list > tbody > tr > td {
+  padding-block: 9px;
+  padding-inline: 12px;
+  border-block-start: 1px solid var(--oc-gray-2);
+}
+table.list > tbody > tr:first-child > td { border-block-start: 0; }
+table.list td.subject, table.list td.parent-subject, table.list td.description,
+table.list td.category, table.list td.assigned_to, table.list td.author,
+table.list td.last_updated_by, table.list td.fixed_version, table.list td.project,
+table.list td.name, table.list td.comments { text-align: start; }
+/* Largura PROPORCIONAL, não mínima: com min-inline-size a tabela estoura o
+   cartão e a última coluna some. A porcentagem dá espaço ao título sem forçar
+   a largura total. */
+table.list th.subject, table.list td.subject { inline-size: 30%; }
 table.list td.subject a { font-weight: 500; color: var(--oc-gray-9); }
 table.list td.subject a:hover { color: var(--oc-blue-9); }
 
-/* O hover das linhas vem de --oc-yellow-0 (regra do core, mais específica que
-   `table.list tbody tr:hover`). Está definido nos tokens, acima.
-
-   CUIDADO com o combinador: a barra de progresso é uma <table class="progress">
-   ANINHADA dentro de td.done_ratio. `table.list td` alcançaria as células dela
-   também. Daqui para baixo, sempre `> tbody > tr > td`. */
-table.list > tbody > tr > td { padding-block: 7px; }
-
 /* ==========================================================================
-   9. PRIORIDADE — marcador de cor à esquerda da linha.
-   position_name é estável entre instalações (lowest / low2… / default / …high2 / highest),
-   ao contrário do id. Por isso a régua abaixo usa os nomes, não os números.
+   12. ABAS DE CONTEÚDO
    ========================================================================== */
-table.list tr.issue td.priority { font-weight: 600; white-space: nowrap; }
-
-/* O marcador vai na PRIMEIRA célula da linha, não em td.subject: a ordem das colunas
-   é configurável no Redmine e o assunto raramente é a primeira. */
-table.list > tbody > tr.issue.priority-highest > td:first-child { box-shadow: inset 3px 0 0 var(--oc-red-8); }
-table.list tr.issue.priority-highest td.priority { color: var(--oc-red-8); }
-
-table.list > tbody > tr.issue[class*="priority-high"]:not(.priority-highest) > td:first-child { box-shadow: inset 3px 0 0 var(--oc-red-9); }
-table.list tr.issue[class*="priority-high"]:not(.priority-highest) td.priority { color: var(--oc-red-9); }
-
-table.list tr.issue.priority-default td.priority { color: var(--oc-gray-6); font-weight: 400; }
-table.list tr.issue[class*="priority-low"] td.priority { color: var(--oc-gray-5); font-weight: 400; }
-
-/* ==========================================================================
-   10. PRAZO VENCIDO — etiqueta em vez de texto colorido solto.
-   No core o vencido é só texto em --oc-red-9, a mesma cor do hover de link,
-   o que faz a data parecer clicável.
-   ========================================================================== */
-table.list tr.overdue:not(.context-menu-selection) td.due_date {
-  color: var(--oc-red-8);
-  font-weight: 700;
+#content .tabs ul { border-block-end: 1px solid var(--oc-gray-3); }
+#content .tabs ul li a {
+  border: 0;
+  border-block-end: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--oc-gray-6);
+  font-weight: 500;
+  padding-block: 9px;
+  transition: color var(--motriz-transicao), border-color var(--motriz-transicao);
 }
+#content .tabs ul li a:hover { background: transparent; color: var(--motriz-verde-escuro); }
+#content .tabs ul li a.selected {
+  background: transparent;
+  color: var(--motriz-verde-escuro);
+  font-weight: 600;
+  border-block-end-color: var(--motriz-verde-escuro);
+}
+
+/* ==========================================================================
+   13. MENSAGENS
+   ========================================================================== */
+div.flash, .nodata, .warning, #errorExplanation {
+  border-radius: var(--motriz-raio);
+  border-width: 1px;
+  padding: 12px 16px;
+  box-shadow: none;
+}
+div.flash { display: flex; align-items: center; gap: 9px; }
+
+/* ==========================================================================
+   14. TAREFA — painel de atributos e histórico
+   ========================================================================== */
+div.issue {
+  background: var(--oc-white);
+  border: 1px solid var(--oc-gray-3);
+  border-radius: var(--motriz-raio);
+  box-shadow: var(--motriz-sombra);
+  padding: 20px;
+}
+div.issue div.subject h3 { font-family: var(--fonts-title); }
+div.issue .attributes th, div.issue table.attributes th { color: var(--oc-gray-6); font-weight: 600; }
+.journal { border-block-start: 1px solid var(--oc-gray-2); padding-block: 14px; }
+.journal .journal-actions a { border-radius: var(--motriz-raio-sm); }
+
+/* ==========================================================================
+   15. PRIORIDADE, PRAZO E SITUAÇÃO
+   position_name é estável entre instalações (lowest / low2… / default / …high2 /
+   highest), ao contrário do id.
+   ========================================================================== */
+table.list > tbody > tr.issue.priority-highest > td:first-child { box-shadow: inset 3px 0 0 var(--oc-red-8); }
+table.list tr.issue.priority-highest td.priority { color: var(--oc-red-8); font-weight: 700; }
+table.list > tbody > tr.issue[class*="priority-high"]:not(.priority-highest) > td:first-child { box-shadow: inset 3px 0 0 var(--oc-red-9); }
+table.list tr.issue[class*="priority-high"]:not(.priority-highest) td.priority { color: var(--oc-red-9); font-weight: 600; }
+table.list tr.issue.priority-default td.priority { color: var(--oc-gray-6); }
+table.list tr.issue[class*="priority-low"] td.priority { color: var(--oc-gray-5); }
+
+table.list tr.overdue:not(.context-menu-selection) td.due_date { color: var(--oc-red-8); font-weight: 700; }
 table.list tr.overdue:not(.context-menu-selection) td.due_date::before {
   content: "";
   display: inline-block;
@@ -300,117 +580,217 @@ table.list tr.overdue:not(.context-menu-selection) td.due_date::before {
 }
 div.issue.overdue .due-date .value { color: var(--oc-red-8); font-weight: 700; }
 
-/* ==========================================================================
-   11. SITUAÇÃO
-   Os ids de status variam por instalação, então a régua genérica usa só o que o
-   core garante: a classe .closed na linha. Para colorir status específicos,
-   descomente e ajuste os ids em ADAPTAÇÕES (seção 15).
-   ========================================================================== */
 table.list td.status { white-space: nowrap; font-weight: 500; }
 table.list tr.issue.closed td.status { color: var(--oc-gray-6); font-weight: 400; }
 table.list tr.issue.closed td.subject a { color: var(--oc-gray-6); }
 
 /* ==========================================================================
-   12. BARRA DE PROGRESSO — concluído em verde Educação
+   16. BARRA DE PROGRESSO
    progress_bar() gera <table class="progress"> com td.closed / td.done / td.todo.
    ========================================================================== */
-table.progress { border-radius: 3px; overflow: hidden; }
+table.progress { border-radius: 999px; overflow: hidden; block-size: 7px; }
+table.progress td { block-size: 7px; }
 table.progress td.closed { background: var(--motriz-verde-educacao); }
 table.progress td.done   { background: var(--motriz-verde-claro); }
 table.progress td.todo   { background: var(--oc-gray-3); }
 
 /* ==========================================================================
-   13. BOTÕES E AÇÕES
+   17. LOGIN
+   Página inteira em verde escuro com o cartão branco ao centro — a única
+   combinação de fundos que o brandbook permite para o logo.
+   Ganchos: body.controller-account.action-login (body_css_classes).
    ========================================================================== */
-input[type="submit"], button, .buttons a, a.icon-add {
-  font-family: var(--fonts-main);
-}
-input[type="submit"] {
+body.controller-account.action-login #main {
   background: var(--motriz-verde-escuro);
-  color: var(--oc-white);
-  border: 1px solid var(--motriz-verde-escuro);
-  border-radius: 5px;
-  padding-block: 5px;
-  padding-inline: 12px;
-  font-weight: 600;
-  cursor: pointer;
+  background-image:
+    radial-gradient(1100px 460px at 82% -12%, rgba(38, 193, 200, .20), transparent 62%),
+    radial-gradient(760px 380px at 8% 108%, rgba(77, 203, 147, .16), transparent 60%);
+  padding: 0;
+  min-block-size: calc(100vh - 116px);
+  align-items: center;
+  justify-content: center;
 }
-input[type="submit"]:hover { background: #036355; border-color: #036355; }
-
-.box { border-radius: 8px; border-color: var(--oc-gray-4); }
-div.flash { border-radius: 6px; }
+body.controller-account.action-login #sidebar { display: none; }
+body.controller-account.action-login #content {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  inline-size: 100%;
+}
+body.controller-account.action-login #login-form {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 404px;
+  margin: 0;
+  /* Espaço reservado para o cabeçalho do cartão, que é desenhado com
+     ::before e ::after posicionados de forma absoluta. Em fluxo normal o
+     ::after cairia no FIM do cartão, por cima do botão. */
+  padding: 96px 34px 30px;
+  background: var(--oc-white);
+  border: 0;
+  border-radius: var(--motriz-raio-lg);
+  box-shadow: var(--motriz-sombra-lg);
+}
+body.controller-account.action-login #login-form::before {
+  content: "Acessar";
+  position: absolute;
+  inset-block-start: 34px;
+  inset-inline-start: 34px;
+  font-family: var(--fonts-title);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--motriz-verde-escuro);
+  letter-spacing: -.015em;
+  line-height: 1.2;
+}
+body.controller-account.action-login #login-form::after {
+  content: "Gestão de Projetos · Motriz Digital";
+  position: absolute;
+  inset-block-start: 66px;
+  inset-inline-start: 34px;
+  font-size: 0.8125rem;
+  color: var(--oc-gray-6);
+}
+body.controller-account.action-login #login-form table { inline-size: 100%; }
+/* O link "perdi minha senha" fica DENTRO do <label for="password"> na view do
+   Redmine, então herdaria o caixa-alta e o espaçamento do rótulo. */
+body.controller-account.action-login #login-form label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--oc-gray-6);
+  margin-block-end: 7px;
+}
+body.controller-account.action-login #login-form label a.lost_password {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  color: var(--oc-blue-9);
+}
+body.controller-account.action-login #login-form label[for="autologin"] {
+  justify-content: flex-start;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  color: var(--oc-gray-7);
+  margin-block-start: 4px;
+}
+body.controller-account.action-login #login-form input[type="text"],
+body.controller-account.action-login #login-form input[type="password"] {
+  block-size: 44px;
+  inline-size: 100%;
+  border-radius: var(--motriz-raio-sm);
+  padding-inline: 12px;
+  margin-block-end: 16px;
+  font-size: 0.9375rem;
+}
+body.controller-account.action-login #login-form input[type="submit"] {
+  block-size: 46px;
+  inline-size: 100%;
+  font-size: 0.9375rem;
+  border-radius: var(--motriz-raio-sm);
+  margin-block-start: 6px;
+}
+body.controller-account.action-login #footer { background: transparent; color: rgba(255, 255, 255, .55); }
+body.controller-account.action-login #footer a { color: rgba(255, 255, 255, .8); }
 
 /* ==========================================================================
-   14. RESPONSIVO
-   Abaixo de 900px o core troca de modo: esconde #top-menu, #main-menu e #sidebar,
-   e move o conteúdo deles para o menu flyout. O logo precisa sair do caminho
-   do botão de menu, e a sidebar volta ao fluxo normal.
+   18. RESPONSIVO
+   ATENÇÃO À ESPECIFICIDADE: o layout carrega 'application', 'dropdown',
+   'responsive' nessa ordem, e o tema ocupa o lugar de 'application'. Ou seja,
+   responsive.css vem DEPOIS e ganha nos empates. Os seletores abaixo levam um
+   `body` na frente justamente para superar as regras de lá.
    ========================================================================== */
 @media screen and (max-width: 899px) {
-  /* ATENÇÃO À ESPECIFICIDADE: o layout carrega 'application', 'dropdown', 'responsive'
-     nessa ordem, e o tema ocupa o lugar de 'application'. Ou seja, responsive.css vem
-     DEPOIS e ganha nos empates. Os seletores abaixo levam um `body` na frente
-     justamente para superar as regras de lá. */
-
   /* responsive.css:99 — #header vira fixo, 64px, com background-color: #628db6 */
   body #header {
     background-color: var(--motriz-verde-escuro);
-    background-image: url(../images/logo-motriz-digital.svg);
-    background-repeat: no-repeat;
-    background-position: 62px center;
-    background-size: 108px auto;
     padding: 0;
   }
-  /* O core esconde o h1 no mobile (o projeto continua no seletor de projeto) */
-  #header::after { display: none; }
+  /* SEM logotipo no header mobile: o core transforma #project-jump num bloco
+     absoluto que ocupa os 64px inteiros e vira o título da tela (o nome do
+     projeto, em branco e negrito). Qualquer imagem de fundo colide com ele. */
+  body #header { background-image: none; }
+  #header h1 { border-inline-start: 0; padding-inline-start: 0; }
+
+  /* Na tela de login não existe projeto — o seletor mostraria só
+     "Ir para o projeto…". Ali ele cede o lugar para o logotipo. */
+  body.controller-account.action-login #header {
+    background-image: url(../images/logo-motriz-digital.svg);
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    background-size: auto 26px;
+  }
+  body.controller-account.action-login #header #quick-search { display: none; }
 
   /* responsive.css:288 — .flyout-menu com background-color: #3e5b76 */
   body .flyout-menu { background-color: #01342c; }
   /* responsive.css:308 — faixas h3 com #628db6 e borda #506a83 */
-  body .flyout-menu h3 {
-    background-color: #046354;
-    border-block-color: #0a7a68;
-  }
+  body .flyout-menu h3 { background-color: #046354; border-block-color: #0a7a68; }
   body .flyout-menu a { color: #d6efe8; }
 
-  #main { flex-direction: column; }
-  #sidebar { border-inline-end: 0; }
+  /* O core usa `#main { padding-block: 64px 0 }` para compensar o header, que
+     no mobile vira `position: fixed` com 64px. Sobrescrever o padding inteiro
+     faz o conteúdo passar por baixo do header. */
+  body #main { flex-direction: column; padding: 64px 12px 12px; gap: 12px; }
+  body #content { padding: 16px 14px 20px; overflow-x: auto; }
 
-  /* Alvos de toque: mínimo 44px */
-  table.list td a, .contextual a, #sidebar a {
+  /* Listagem no mobile: a tabela ROLA em vez de comprimir. Com a coluna de
+     título em 30% de uma tabela estreita, os assuntos quebravam em cinco linhas
+     e a linha chegava a 88px de altura. */
+  table.list { min-inline-size: 700px; }
+  table.list th.subject, table.list td.subject { inline-size: auto; min-inline-size: 220px; }
+  body #sidebar { border-inline-end: 1px solid var(--oc-gray-3); }
+
+  /* Alvos de toque de 44px só onde há espaço para isso. Aplicar em todo link de
+     tabela inflava a linha para 88px — as listagens do Redmine já rolam
+     horizontalmente no mobile e as linhas já são tocáveis. */
+  .contextual a, #sidebar ul li a, .flyout-menu a {
     min-block-size: 44px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
   }
+  body.controller-account.action-login #main { min-block-size: calc(100vh - 64px); }
+  /* O cabeçalho do cartão é desenhado com ::before/::after posicionados de
+     forma absoluta — o padding-block-start é o espaço reservado para ele. */
+  body.controller-account.action-login #login-form { padding: 84px 22px 24px; }
+  body.controller-account.action-login #login-form::before { inset-block-start: 26px; inset-inline-start: 22px; }
+  body.controller-account.action-login #login-form::after  { inset-block-start: 58px; inset-inline-start: 22px; }
 }
 
 /* ==========================================================================
-   15. ADAPTAÇÕES — ajuste por instalação
+   19. ADAPTAÇÕES — ajuste por instalação
    ==========================================================================
 
    COR POR PROJETO (frentes e programas aceleradores)
-   O Redmine entrega body.project-<identificador> em toda página. O masthead
-   continua verde escuro em todos — a regra do brandbook só permite o logo sobre
-   verde escuro ou branco. A cor da frente entra como acento.
+   O masthead continua verde escuro em todos — a regra do brandbook só permite o
+   logo sobre verde escuro ou branco. A cor da frente entra como acento.
    Troque os identificadores pelos reais e descomente:
 
-   body.project-educacao            #main-menu li a.selected { border-block-end-color: #5ba046; }
-   body.project-liderancas          #main-menu li a.selected { border-block-end-color: #f36d36; }
-   body.project-trainee-gestao      #main-menu li a.selected { border-block-end-color: #5c2e91; }
-   body.project-liderancas-negras   #main-menu li a.selected { border-block-end-color: #4a1702; }
-   body.project-liderancas-exec     #main-menu li a.selected { border-block-end-color: #253b61; }
+   body.project-educacao          #main-menu li a.selected { border-block-end-color: #5ba046; }
+   body.project-liderancas        #main-menu li a.selected { border-block-end-color: #f36d36; }
+   body.project-trainee-gestao    #main-menu li a.selected { border-block-end-color: #5c2e91; }
+   body.project-liderancas-negras #main-menu li a.selected { border-block-end-color: #4a1702; }
+   body.project-liderancas-exec   #main-menu li a.selected { border-block-end-color: #253b61; }
 
    SITUAÇÕES COM COR PRÓPRIA
-   Descubra os ids em Administração → Situações das tarefas (a URL de edição
-   termina no id) e mapeie:
+   Os ids variam por instalação. Veja em Administração → Situações das tarefas:
 
    table.list tr.issue.status-1 td.status { color: var(--oc-gray-7); }
    table.list tr.issue.status-2 td.status { color: var(--oc-blue-9); }
-   table.list tr.issue.status-3 td.status { color: var(--oc-yellow-9); }
-   table.list tr.issue.status-5 td.status { color: var(--oc-green-7); }
+   table.list tr.issue.status-3 td.status { color: var(--oc-green-7); }
 
    PLUGINS DE TERCEIROS COM ÍCONES ANTIGOS
-   O Redmine 7 removeu os ícones raster. Se algum plugin não migrou:
-
    @import url('/legacy-icons-compat.css');
 */
