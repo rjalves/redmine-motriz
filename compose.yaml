@@ -35,8 +35,12 @@ services:
       # Só no primeiro start: cria tipos de tarefa, situações e prioridades.
       REDMINE_DEFAULT_DATA: ${REDMINE_DEFAULT_DATA:-}
       TZ: ${TZ:-America/Sao_Paulo}
-    expose:
-      - "3000"
+    # Publica na porta do host. Quando o perfil "tls" estiver ativo, o Caddy é
+    # quem atende 80/443 — defina HTTP_PORT=8080 no .env para não conflitar.
+    # NÃO trocar por `expose`: sem o Caddy rodando, nada publicaria a porta e o
+    # serviço fica inacessível de fora.
+    ports:
+      - "${HTTP_PORT:-80}:3000"
     volumes:
       # Anexos das tarefas. Sem este volume eles somem a cada redeploy.
       - redmine_files:/redmine/files
