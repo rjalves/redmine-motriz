@@ -51,7 +51,9 @@ services:
     depends_on:
       - redmine
     environment:
-      DOMINIO: ${DOMINIO:?defina DOMINIO no .env}
+      # Sem :? de proposito — o Compose interpola TODOS os servicos mesmo com
+      # o perfil inativo, e a forma obrigatoria quebrava `up` sem o perfil tls.
+      DOMINIO: ${DOMINIO:-}
       ACME_EMAIL: ${ACME_EMAIL:-}
     ports:
       - "80:80"

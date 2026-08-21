@@ -250,13 +250,15 @@ nav.top-menu {
   border-block-end: 1px solid rgba(255, 255, 255, .08);
 }
 #header {
-  padding-inline-start: 196px;
+  padding-inline-start: 132px;
   padding-block: 0.35rem 0;
-  background-image: url(../images/logo-motriz-digital.svg);
+  /* Versão NEGATIVA: o arquivo enviado é positivo (motriz em verde escuro) e
+     sumiria neste fundo. Ver themes/motriz/src/LEIAME.md. */
+  background-image: url(../images/logo-motriz-digital-negativo.png);
   background-repeat: no-repeat;
-  /* Dimensiona pela ALTURA: largura diferente no SVG oficial não quebra nada. */
-  background-position: 20px 12px;
-  background-size: auto 38px;
+  /* Dimensiona pela ALTURA: largura diferente não quebra o layout. */
+  background-position: 20px 4px;
+  background-size: auto 44px;
 }
 #header h1 {
   font-size: 0;
@@ -730,10 +732,10 @@ body.controller-account.action-login #footer a { color: rgba(255, 255, 255, .8);
   /* Na tela de login não existe projeto — o seletor mostraria só
      "Ir para o projeto…". Ali ele cede o lugar para o logotipo. */
   body.controller-account.action-login #header {
-    background-image: url(../images/logo-motriz-digital.svg);
+    background-image: url(../images/logo-motriz-digital-negativo.png);
     background-repeat: no-repeat;
     background-position: 20px center;
-    background-size: auto 26px;
+    background-size: auto 34px;
   }
   body.controller-account.action-login #header #quick-search { display: none; }
 
