@@ -1,0 +1,21 @@
+# Fora do contexto de build: nada disso vai para a imagem.
+.git
+.gitattributes
+.gitignore
+.DS_Store
+CLAUDE.md
+docs/
+design/
+tools/
+**/__pycache__/
+**/*.pyc
+
+# Voláteis do Redmine — recriados em runtime
+redmine-7/files/*
+redmine-7/log/*
+redmine-7/tmp/*
+redmine-7/public/assets/*
+redmine-7/public/plugin_assets/*
+redmine-7/config/database.yml
+redmine-7/config/configuration.yml
+redmine-7/config/initializers/secret_token.rb
