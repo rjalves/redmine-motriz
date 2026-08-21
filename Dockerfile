@@ -35,14 +35,19 @@ RUN set -eux; \
 RUN groupadd -r redmine && useradd -r -g redmine -d "$REDMINE_HOME" redmine
 
 WORKDIR $REDMINE_HOME
-COPY redmine-7/ $REDMINE_HOME/
+
+# ORDEM DAS CAMADAS: só o Gemfile primeiro, depois `bundle install`, e só então o
+# resto da aplicação. Copiar a árvore inteira antes fazia qualquer mudança no
+# tema invalidar o cache do bundle e custar ~12 min de recompilação de gems
+# nativas. Assim, mexer no CSS reconstrói em segundos.
+COPY redmine-7/Gemfile $REDMINE_HOME/Gemfile
 
 # O Gemfile do Redmine LÊ config/database.yml para decidir quais gems de banco
 # instalar (linha 54 do Gemfile). Sem este arquivo, nenhum adaptador é instalado.
 # Declaramos os três para que a escolha do banco seja feita em runtime, sem
 # rebuild — e o entrypoint mantém essas mesmas três declarações no arquivo final,
 # senão o bundler acusa "Gemfile changed" a cada `bundle exec`.
-RUN printf '%s\n' \
+RUN mkdir -p config && printf '%s\n' \
       'production:'        '  adapter: postgresql' \
       '_adapter_mysql2:'   '  adapter: mysql2' \
       '_adapter_sqlite3:'  '  adapter: sqlite3' \
@@ -73,6 +78,11 @@ RUN set -eux; \
       | xargs -r apt-mark manual > /dev/null; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/* /usr/local/bundle/cache/*.gem
+
+# Agora sim o resto da aplicação. Nem config/database.yml nem Gemfile.local
+# existem em redmine-7/ (ambos são gitignored pelo Redmine), então esta cópia
+# não sobrescreve o que foi gerado acima.
+COPY redmine-7/ $REDMINE_HOME/
 
 # Diretórios que o Redmine escreve em runtime.
 # public/assets é populado no boot: production.rb traz

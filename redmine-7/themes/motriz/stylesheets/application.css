@@ -261,8 +261,6 @@ nav.top-menu {
 #header h1 {
   font-size: 0;
   line-height: 0;
-  border-inline-start: 1px solid rgba(255, 255, 255, .26);
-  padding-inline-start: 18px;
 }
 #header h1 > * { display: none; }
 #header h1::before {
@@ -433,7 +431,12 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--motriz-verde-e
 /* ==========================================================================
    10. BOTÕES
    ========================================================================== */
-input[type="submit"], input[type="button"], button:not(.tab-left):not(.tab-right) {
+/* NÃO incluir `button` aqui. No Redmine, <button> é usado só para controles
+   utilitários — barra do editor wiki (.jstElements button), mover opções entre
+   listas (.move-left/.move-right), rolar as abas do projeto. Estilizá-los como
+   botão primário os transformava em blocos verdes sólidos, escondendo os
+   ícones. Os botões de ação do Redmine são input[type=submit]. */
+input[type="submit"], input[type="button"] {
   font-family: var(--fonts-main);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -446,7 +449,7 @@ input[type="submit"], input[type="button"], button:not(.tab-left):not(.tab-right
   cursor: pointer;
   transition: background-color var(--motriz-transicao), box-shadow var(--motriz-transicao);
 }
-input[type="submit"]:hover, input[type="button"]:hover, button:not(.tab-left):not(.tab-right):hover {
+input[type="submit"]:hover, input[type="button"]:hover {
   background: #03614f;
   border-color: #03614f;
 }
