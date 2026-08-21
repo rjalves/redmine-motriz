@@ -4,3 +4,9 @@
 # --- ferramentas do projeto ---
 __pycache__/
 *.pyc
+
+# --- design ---
+# Bundle publicado do canvas (~2,3 MB, quase tudo código do editor, não do projeto).
+# As fontes ficam versionadas: _base.css, frag_*.html, *.dc.html, canvas.json, build.py.
+# O canvas publicado vive em https://claude.ai/code/artifact/a80afa4d-459b-46bd-be9c-af8dea28f2c4
+design/tema-redmine-motriz.html

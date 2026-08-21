@@ -1,0 +1,193 @@
+<div class="sheet">
+
+  <div class="sheet-head">
+    <div>
+      <h1>Sistema visual — Redmine Motriz</h1>
+      <div class="sub">Paleta do brandbook mapeada nos tokens do Redmine 7, com contraste verificado. Os tons derivados preservam a matiz exata da cor institucional de origem e alteram só a luminosidade.</div>
+    </div>
+    <div class="brand" style="display:flex;flex-direction:column;align-items:flex-end;background:#024b40;border-radius:8px;padding:13px 18px">
+      <span class="wm-motriz" style="font-size:27px">motriz</span>
+      <span class="wm-digital" style="font-size:13px;margin-block-start:1px">digital</span>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h2>Paleta institucional — legibilidade sobre branco</h2>
+    <div class="swatches">
+      <div class="sw">
+        <div class="chipbox" style="background:#024b40"><span style="color:#fff;font-size:11px;font-weight:600">texto branco</span></div>
+        <div class="meta"><span class="nm">Verde escuro institucional</span><span class="hx">#024b40</span><span class="ct ct-ok">10,08:1 — passa AA</span></div>
+      </div>
+      <div class="sw">
+        <div class="chipbox" style="background:#4dcb93"><span style="color:#04302a;font-size:11px;font-weight:600">só sobre escuro</span></div>
+        <div class="meta"><span class="nm">Verde claro institucional</span><span class="hx">#4dcb93</span><span class="ct ct-no">2,04:1 — não serve como texto</span></div>
+      </div>
+      <div class="sw">
+        <div class="chipbox" style="background:#26c1c8"><span style="color:#04302a;font-size:11px;font-weight:600">só sobre escuro</span></div>
+        <div class="meta"><span class="nm">Ciano</span><span class="hx">#26c1c8</span><span class="ct ct-no">2,20:1 — não serve como texto</span></div>
+      </div>
+      <div class="sw">
+        <div class="chipbox" style="background:#f36d36"><span style="color:#3d1400;font-size:11px;font-weight:600">preenchimento</span></div>
+        <div class="meta"><span class="nm">Laranja</span><span class="hx">#f36d36</span><span class="ct ct-no">2,98:1 — não serve como texto</span></div>
+      </div>
+      <div class="sw">
+        <div class="chipbox" style="background:#ffc033"><span style="color:#4a3200;font-size:11px;font-weight:600">preenchimento</span></div>
+        <div class="meta"><span class="nm">Amarelo</span><span class="hx">#ffc033</span><span class="ct ct-no">1,64:1 — não serve como texto</span></div>
+      </div>
+      <div class="sw">
+        <div class="chipbox" style="background:#5ba046"><span style="color:#0d2705;font-size:11px;font-weight:600">frente Educação</span></div>
+        <div class="meta"><span class="nm">Verde Educação</span><span class="hx">#5ba046</span><span class="ct ct-no">3,20:1 — só texto grande</span></div>
+      </div>
+      <div class="sw">
+        <div class="chipbox" style="background:#dfe1e3"><span style="color:#4d4f51;font-size:11px;font-weight:600">bordas e fundos</span></div>
+        <div class="meta"><span class="nm">Cinza claro</span><span class="hx">#dfe1e3</span><span class="ct ct-ok">âncora da escala neutra</span></div>
+      </div>
+      <div class="sw">
+        <div class="chipbox" style="background:#6d6e71"><span style="color:#fff;font-size:11px;font-weight:600">texto secundário</span></div>
+        <div class="meta"><span class="nm">Cinza escuro</span><span class="hx">#6d6e71</span><span class="ct ct-ok">5,10:1 — passa AA</span></div>
+      </div>
+    </div>
+    <div class="note"><strong>É por isso que o logo preferencial do brandbook é o negativo sobre verde escuro.</strong> A paleta Motriz foi desenhada para fundo escuro: sobre branco, só o verde escuro e o cinza escuro funcionam como texto. Verde claro, ciano, laranja e amarelo ficam para masthead, preenchimentos e gráficos.</div>
+  </div>
+
+  <div class="blk">
+    <h2>Tons derivados para estados de interface</h2>
+    <table class="maptable">
+      <thead>
+        <tr><th>Token do Redmine</th><th>Onde aparece</th><th>Derivado de</th><th>Cor no tema</th><th class="num">Contraste</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--oc-blue-9</code></td><td>Links e traço dos ícones</td>
+          <td><span class="puck"><i style="background:#26c1c8"></i>Ciano</span></td>
+          <td><span class="puck"><i style="background:#00747c"></i><code>#00747c</code></span></td><td class="num ct-ok">5,54:1</td>
+        </tr>
+        <tr>
+          <td><code>--oc-red-9</code></td><td>Hover de link, prazo vencido, campo obrigatório</td>
+          <td><span class="puck"><i style="background:#f36d36"></i>Laranja</span></td>
+          <td><span class="puck"><i style="background:#ce4b03"></i><code>#ce4b03</code></span></td><td class="num ct-ok">4,53:1</td>
+        </tr>
+        <tr>
+          <td><code>--oc-red-8</code></td><td>Etiqueta de tarefa privada, ícone de erro</td>
+          <td><span class="puck"><i style="background:#f36d36"></i>Laranja</span></td>
+          <td><span class="puck"><i style="background:#be3b00"></i><code>#be3b00</code></span></td><td class="num ct-ok">5,50:1</td>
+        </tr>
+        <tr>
+          <td><code>--oc-green-7</code></td><td>Barra de progresso concluída, avatar</td>
+          <td><span class="puck"><i style="background:#5ba046"></i>Verde Educação</span></td>
+          <td><span class="puck"><i style="background:#41852b"></i><code>#41852b</code></span></td><td class="num ct-ok">4,55:1</td>
+        </tr>
+        <tr>
+          <td><code>--oc-yellow-9</code></td><td>Avisos</td>
+          <td><span class="puck"><i style="background:#ffc033"></i>Amarelo</span></td>
+          <td><span class="puck"><i style="background:#a56a00"></i><code>#a56a00</code></span></td><td class="num ct-ok">4,51:1</td>
+        </tr>
+        <tr>
+          <td><code>--oc-blue-7</code>, <code>--oc-indigo-9</code></td><td>Fundo de hover de menu, item selecionado</td>
+          <td><span class="puck"><i style="background:#024b40"></i>Verde escuro</span></td>
+          <td><span class="puck"><i style="background:#024b40"></i><code>#024b40</code></span></td><td class="num ct-ok">10,08:1</td>
+        </tr>
+        <tr>
+          <td><code>--oc-indigo-0</code></td><td>Fundo das abas do projeto</td>
+          <td><span class="puck"><i style="background:#024b40"></i>Verde escuro</span></td>
+          <td><span class="puck"><i style="background:#e8f9f4"></i><code>#e8f9f4</code></span></td><td class="num">fundo</td>
+        </tr>
+        <tr>
+          <td><code>--color-current-marker</code></td><td>Filete do item ativo na barra lateral</td>
+          <td><span class="puck"><i style="background:#4dcb93"></i>Verde claro</span></td>
+          <td><span class="puck"><i style="background:#4dcb93"></i><code>#4dcb93</code></span></td><td class="num">decorativo</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>Uma armadilha do Redmine vale registro:</strong> <code>--oc-red-9</code> é ao mesmo tempo o hover dos links e o sinal de prazo vencido. Não dá para separar sem sobrescrever seletor — o laranja institucional atende aos dois porque é a cor de atenção da marca.</div>
+  </div>
+
+  <div class="blk">
+    <h2>Tipografia</h2>
+    <div class="type-row">
+      <div class="spec"><b>Bricolage Grotesque 600</b>26px · −0,015em<br>títulos de página</div>
+      <div style="font-family:var(--fonts-title);font-size:26px;font-weight:600;color:#024b40;letter-spacing:-.015em">Consolidar diagnóstico de alfabetização</div>
+    </div>
+    <div class="type-row">
+      <div class="spec"><b>Bricolage Grotesque 500</b>20px<br>título no masthead</div>
+      <div style="font-family:var(--fonts-title);font-size:20px;font-weight:500;color:#024b40">Motriz Educação</div>
+    </div>
+    <div class="type-row">
+      <div class="spec"><b>Archivo 700</b>11px · 0,07em · caixa alta<br>rótulos e cabeçalho de tabela</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6d6e71">Responsável · Prazo · Progresso</div>
+    </div>
+    <div class="type-row">
+      <div class="spec"><b>Archivo 400</b>14px · 1,62<br>corpo e descrições</div>
+      <div style="font-size:14px;line-height:1.62;color:#36383a;max-width:56ch">Reunir os resultados das três ondas de avaliação diagnóstica aplicadas na rede municipal e produzir o consolidado que vai subsidiar o plano de recomposição.</div>
+    </div>
+    <div class="type-row">
+      <div class="spec"><b>Archivo 400</b>13,5px<br>listas e tabelas</div>
+      <div style="font-size:13.5px;color:#212325">Trilha de onboarding da turma 2026 do Trainee de Gestão Pública</div>
+    </div>
+    <div class="note">Ambas estão no Google Fonts. Em produção vão embutidas em <code>themes/motriz/fonts/</code> por <code>@font-face</code>, para o Redmine não depender de rede externa. <strong>Greycliff CF é comercial e fica de fora</strong> — o próprio brandbook (p. 75) já prevê Archivo como alternativa, e o Redmine não tem nada que corresponda a "título de programa acelerador".</div>
+  </div>
+
+  <div class="blk">
+    <h2>Componentes</h2>
+    <div class="comps">
+      <div class="comp">
+        <h4>Situação da tarefa</h4>
+        <div class="rowline">
+          <span class="chip chip-nova">Nova</span>
+          <span class="chip chip-andamento">Em andamento</span>
+          <span class="chip chip-revisao">Em revisão</span>
+          <span class="chip chip-resolvida">Resolvida</span>
+          <span class="chip chip-fechada">Fechada</span>
+        </div>
+      </div>
+      <div class="comp">
+        <h4>Prioridade</h4>
+        <div class="rowline">
+          <span class="prio prio-urgente"><span class="dot"></span>Urgente</span>
+          <span class="prio prio-alta"><span class="dot"></span>Alta</span>
+          <span class="prio prio-normal"><span class="dot"></span>Normal</span>
+          <span class="prio prio-baixa"><span class="dot"></span>Baixa</span>
+        </div>
+      </div>
+      <div class="comp">
+        <h4>Botões</h4>
+        <div class="rowline">
+          <a class="btn btn-primary" href="#"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg><span>Nova tarefa</span></a>
+          <a class="btn btn-ghost" href="#"><span>Exportar</span></a>
+          <span class="field on"><span>Situação</span><strong>em aberto</strong></span>
+          <span class="field"><span>Prazo</span><strong>60 dias</strong></span>
+        </div>
+      </div>
+      <div class="comp">
+        <h4>Prazo e progresso</h4>
+        <div class="rowline">
+          <span class="due">28/08</span>
+          <span class="due-late"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>19/08</span>
+          <div class="progress" style="min-width:150px"><div class="bar"><span style="width:80%"></span></div><span class="pct">80%</span></div>
+        </div>
+      </div>
+      <div class="comp">
+        <h4>Avatares — cores de frente e programa</h4>
+        <div class="rowline">
+          <span class="avatar" style="width:30px;height:30px;font-size:11px;background:#4dcb93;color:#04302a">CN</span>
+          <span class="avatar" style="width:30px;height:30px;font-size:11px;background:#26c1c8;color:#04302a">AB</span>
+          <span class="avatar" style="width:30px;height:30px;font-size:11px;background:#5ba046;color:#fff">DM</span>
+          <span class="avatar" style="width:30px;height:30px;font-size:11px;background:#5c2e91;color:#fff">RS</span>
+          <span class="avatar" style="width:30px;height:30px;font-size:11px;background:#4a1702;color:#fff">JF</span>
+          <span class="avatar" style="width:30px;height:30px;font-size:11px;background:#253b61;color:#fff">TL</span>
+        </div>
+      </div>
+      <div class="comp">
+        <h4>Tipo de registro</h4>
+        <div class="rowline">
+          <span class="tag">Tarefa</span>
+          <span class="tag">Entrega</span>
+          <span class="tag">Risco</span>
+          <a href="#">link de exemplo</a>
+        </div>
+      </div>
+    </div>
+    <div class="note"><strong>Efeito colateral verificado:</strong> os avatares do Redmine reaproveitam os mesmos tokens que redefinimos, então mudam de cor sozinhos. Os seis pares acima já foram testados com texto branco por cima e todos passam em AA.</div>
+  </div>
+
+</div>

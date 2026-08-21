@@ -1,0 +1,69 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "Lista de tarefas",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900
+    },
+    {
+      "file": "Tarefa.dc.html",
+      "title": "Detalhe da tarefa",
+      "x": 1540,
+      "y": 0,
+      "w": 1440,
+      "h": 1400
+    },
+    {
+      "file": "Sistema.dc.html",
+      "title": "Sistema visual",
+      "x": 0,
+      "y": 1520,
+      "w": 1240,
+      "h": 1820
+    },
+    {
+      "file": "Frentes.dc.html",
+      "title": "Cor por projeto",
+      "x": 1540,
+      "y": 1520,
+      "w": 1440,
+      "h": 820
+    }
+  ],
+  "annotations": [
+    {
+      "id": "nota-sidebar",
+      "x": 0,
+      "y": -170,
+      "w": 470,
+      "text": "Mudança de usabilidade a confirmar: a barra lateral foi para a ESQUERDA.\nO Redmine entrega ela à direita (#main usa flex-direction: row-reverse). É uma linha de CSS, mas mexe no hábito de quem já usa a ferramenta todo dia."
+    },
+    {
+      "id": "nota-lista",
+      "x": 510,
+      "y": -170,
+      "w": 470,
+      "text": "Também mudou na lista: texto alinhado à esquerda (o Redmine centraliza tudo), situação como chip, prioridade com marcador de cor, e prazo vencido como etiqueta — hoje é texto vermelho solto, que se confunde com link."
+    },
+    {
+      "id": "nota-logo",
+      "x": 1540,
+      "y": -170,
+      "w": 490,
+      "text": "PLACEHOLDER — o lockup 'motriz digital' está desenhado em Poppins, não na tipografia real do logo.\nO brandbook proíbe reescrever o logo em outra tipografia, então a produção precisa do SVG oficial.\n\nAqui ele aparece em NEGATIVO (motriz branco, digital em verde claro) porque o arquivo enviado é positivo e sumiria sobre o verde escuro. Contraste: 10,08:1 e 4,93:1 — os dois passam."
+    },
+    {
+      "id": "nota-sistema",
+      "x": 0,
+      "y": 3390,
+      "w": 620,
+      "text": "Os 16 pares de contraste desta folha são calculados, não estimados: tools/build_tokens.py deriva as cores em OKLCH a partir da paleta do brandbook e falha se algum par ficar abaixo de AA."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}

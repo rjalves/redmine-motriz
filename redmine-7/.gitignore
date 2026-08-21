@@ -30,6 +30,8 @@
 /public/plugin_assets/*
 /themes/*
 !/themes/README
+# tema da Motriz Digital: versionado neste repositório
+!/themes/motriz
 /tmp/*
 /tmp/cache/*
 /tmp/pdf/*

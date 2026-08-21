@@ -1,0 +1,254 @@
+<div class="app">
+
+  <nav class="top-menu">
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Minha página</a>
+      <a href="#">Projetos</a>
+      <a href="#">Ajuda</a>
+    </nav>
+    <div class="user">
+      <span>Roberto Alves</span>
+      <span class="avatar">RA</span>
+    </div>
+  </nav>
+
+  <div class="header">
+    <div class="brand">
+      <span class="wm-motriz">motriz</span>
+      <span class="wm-digital">digital</span>
+    </div>
+    <div class="rule"></div>
+    <h1>Gestão de Projetos</h1>
+    <div class="spacer"></div>
+    <div class="tools">
+      <div class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <span>Buscar neste projeto</span>
+      </div>
+      <a class="ghost-btn" href="#">
+        <span>Ir para o projeto</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="main-menu">
+    <a href="#">Visão geral</a>
+    <a href="#">Atividade</a>
+    <a class="selected" href="#">Tarefas</a>
+    <a href="#">Tempo gasto</a>
+    <a href="#">Gantt</a>
+    <a href="#">Calendário</a>
+    <a href="#">Documentos</a>
+    <a href="#">Wiki</a>
+    <a href="#">Arquivos</a>
+    <a href="#">Configurações</a>
+  </div>
+
+  <div class="main">
+
+    <div class="sidebar">
+      <h3>Consultas</h3>
+      <ul>
+        <li><a class="selected" href="#"><span>Entregas em aberto</span><span class="count">38</span></a></li>
+        <li><a href="#"><span>Atribuídas a mim</span><span class="count">12</span></a></li>
+        <li><a href="#"><span>Atrasadas</span><span class="count">4</span></a></li>
+        <li><a href="#"><span>Sem responsável</span><span class="count">7</span></a></li>
+        <li><a href="#"><span>Fechadas no mês</span><span class="count">23</span></a></li>
+      </ul>
+
+      <h3>Imersões temáticas</h3>
+      <ul>
+        <li><a href="#"><span>Alfabetização na Idade Certa</span><span class="count">14</span></a></li>
+        <li><a href="#"><span>Escola das Adolescências</span><span class="count">9</span></a></li>
+        <li><a href="#"><span>Recomposição das Aprendizagens</span><span class="count">11</span></a></li>
+        <li><a href="#"><span>Diagnóstico e Planejamento</span><span class="count">4</span></a></li>
+      </ul>
+
+      <h3>Territórios</h3>
+      <ul>
+        <li><a href="#"><span>Amazônia</span><span class="count">16</span></a></li>
+        <li><a href="#"><span>Nordeste</span><span class="count">13</span></a></li>
+        <li><a href="#"><span>Centro-Oeste</span><span class="count">9</span></a></li>
+      </ul>
+    </div>
+
+    <div class="content">
+
+      <div class="page-head">
+        <div>
+          <h1>Tarefas</h1>
+          <div class="sub">Motriz Educação · 38 tarefas em aberto · 4 atrasadas</div>
+        </div>
+        <div class="contextual">
+          <a class="btn btn-primary" href="#">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+            <span>Nova tarefa</span>
+          </a>
+          <a class="btn btn-ghost" href="#">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 11l5 5 5-5"></path><path d="M4 20h16"></path></svg>
+            <span>Exportar</span>
+          </a>
+          <a class="btn btn-ghost" href="#">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2.2"></circle><circle cx="10" cy="17" r="2.2"></circle></svg>
+            <span>Opções</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="box filters">
+        <div class="row">
+          <span class="legend">Filtros</span>
+          <span class="field on"><span>Situação</span><strong>em aberto</strong></span>
+          <span class="field on"><span>Imersão</span><strong>todas</strong></span>
+          <span class="field"><span>Responsável</span><strong>qualquer</strong></span>
+          <span class="field"><span>Prazo</span><strong>próximos 60 dias</strong></span>
+          <a class="field" href="#">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+            <span>Adicionar filtro</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="list-meta">
+        <span class="n">Mostrando <strong>7</strong> de 38 tarefas</span>
+        <span class="n">Agrupadas por prioridade</span>
+      </div>
+
+      <table class="list">
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Tipo</th>
+            <th>Situação</th>
+            <th>Prioridade</th>
+            <th>Assunto</th>
+            <th>Responsável</th>
+            <th>Prazo</th>
+            <th>Progresso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">4802</td>
+            <td><span class="tag">Risco</span></td>
+            <td><span class="chip chip-nova">Nova</span></td>
+            <td><span class="prio prio-urgente"><span class="dot"></span>Urgente</span></td>
+            <td>
+              <div class="subject">
+                <a href="#">Sem confirmação da secretaria para o Encontro Saber em Movimento</a>
+                <span class="path">Educação Comunidade · Nordeste</span>
+              </div>
+            </td>
+            <td><span class="who"><span class="none">não atribuída</span></span></td>
+            <td>
+              <span class="due-late">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                19/08
+              </span>
+            </td>
+            <td><div class="progress"><div class="bar"><span style="width:0%"></span></div><span class="pct">0%</span></div></td>
+          </tr>
+
+          <tr class="odd">
+            <td class="num">4821</td>
+            <td><span class="tag">Entrega</span></td>
+            <td><span class="chip chip-revisao">Em revisão</span></td>
+            <td><span class="prio prio-alta"><span class="dot"></span>Alta</span></td>
+            <td>
+              <div class="subject">
+                <a href="#">Consolidar diagnóstico de alfabetização — Rede Municipal de Sobral</a>
+                <span class="path">Alfabetização na Idade Certa · Nordeste</span>
+              </div>
+            </td>
+            <td><span class="who"><span class="avatar" style="background:#4dcb93;color:#04302a">CN</span>Camila Nogueira</span></td>
+            <td><span class="due">28/08</span></td>
+            <td><div class="progress"><div class="bar"><span style="width:80%"></span></div><span class="pct">80%</span></div></td>
+          </tr>
+
+          <tr>
+            <td class="num">4796</td>
+            <td><span class="tag">Entrega</span></td>
+            <td><span class="chip chip-andamento">Em andamento</span></td>
+            <td><span class="prio prio-alta"><span class="dot"></span>Alta</span></td>
+            <td>
+              <div class="subject">
+                <a href="#">Relatório de recomposição das aprendizagens — 12 redes de ensino</a>
+                <span class="path">Recomposição das Aprendizagens</span>
+              </div>
+            </td>
+            <td><span class="who"><span class="avatar" style="background:#26c1c8;color:#04302a">AB</span>Aline Barbosa</span></td>
+            <td><span class="due">05/09</span></td>
+            <td><div class="progress"><div class="bar"><span style="width:60%"></span></div><span class="pct">60%</span></div></td>
+          </tr>
+
+          <tr class="odd">
+            <td class="num">4815</td>
+            <td><span class="tag">Tarefa</span></td>
+            <td><span class="chip chip-andamento">Em andamento</span></td>
+            <td><span class="prio prio-normal"><span class="dot"></span>Normal</span></td>
+            <td>
+              <div class="subject">
+                <a href="#">Ajustar cronograma da imersão Escola das Adolescências</a>
+                <span class="path">Escola das Adolescências · Centro-Oeste</span>
+              </div>
+            </td>
+            <td><span class="who"><span class="avatar" style="background:#5ba046;color:#fff">DM</span>Diego Martins</span></td>
+            <td><span class="due">02/09</span></td>
+            <td><div class="progress"><div class="bar"><span style="width:45%"></span></div><span class="pct">45%</span></div></td>
+          </tr>
+
+          <tr>
+            <td class="num">4788</td>
+            <td><span class="tag">Tarefa</span></td>
+            <td><span class="chip chip-revisao">Em revisão</span></td>
+            <td><span class="prio prio-normal"><span class="dot"></span>Normal</span></td>
+            <td>
+              <div class="subject">
+                <a href="#">Trilha de onboarding da turma 2026 do Trainee de Gestão Pública</a>
+                <span class="path">Programas aceleradores</span>
+              </div>
+            </td>
+            <td><span class="who"><span class="avatar" style="background:#5c2e91;color:#fff">RS</span>Rafael Siqueira</span></td>
+            <td><span class="due">11/09</span></td>
+            <td><div class="progress"><div class="bar"><span style="width:70%"></span></div><span class="pct">70%</span></div></td>
+          </tr>
+
+          <tr class="odd">
+            <td class="num">4771</td>
+            <td><span class="tag">Tarefa</span></td>
+            <td><span class="chip chip-andamento">Em andamento</span></td>
+            <td><span class="prio prio-baixa"><span class="dot"></span>Baixa</span></td>
+            <td>
+              <div class="subject">
+                <a href="#">Mapear lideranças públicas do território Amazônia</a>
+                <span class="path">Educação Amazônia · Amazônia</span>
+              </div>
+            </td>
+            <td><span class="who"><span class="avatar" style="background:#4a1702;color:#fff">JF</span>Júlia Ferraz</span></td>
+            <td><span class="due">30/09</span></td>
+            <td><div class="progress"><div class="bar"><span style="width:25%"></span></div><span class="pct">25%</span></div></td>
+          </tr>
+
+          <tr>
+            <td class="num">4750</td>
+            <td><span class="tag">Entrega</span></td>
+            <td><span class="chip chip-resolvida">Resolvida</span></td>
+            <td><span class="prio prio-normal"><span class="dot"></span>Normal</span></td>
+            <td>
+              <div class="subject">
+                <a href="#">Publicar e-book Gestos que Alfabetizam</a>
+                <span class="path">Alfabetização na Idade Certa</span>
+              </div>
+            </td>
+            <td><span class="who"><span class="avatar" style="background:#4dcb93;color:#04302a">CN</span>Camila Nogueira</span></td>
+            <td><span class="due">12/08</span></td>
+            <td><div class="progress"><div class="bar"><span style="width:100%"></span></div><span class="pct">100%</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
