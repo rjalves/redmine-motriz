@@ -18,6 +18,17 @@ get 'home/more-projects', :to => 'welcome#more_projects', :as => 'home_more_proj
 post 'homepage/project/:id/bookmark', :to => 'welcome#bookmark', :as => 'welcome_bookmark_project'
 delete 'homepage/project/:id/bookmark', :to => 'welcome#bookmark', :as => 'welcome_bookmark_project_delete'
 
+# Papéis de parede da tela de login.
+# `format: false` + a restrição de nome impedem o Rails de comer o ".jpg" como
+# formato. Só POST nas mutações: a tela de configuração aciona estes endpoints
+# por botões com `formaction` de dentro do form do Redmine, e formmethod em
+# HTML só aceita GET e POST — DELETE exigiria o _method do Rails.
+get  'motriz2/wallpaper/:nome', :to => 'motriz_wallpapers#show',    :as => 'motriz_wallpaper',
+     :format => false, :constraints => { :nome => /[^\/]+/ }
+post 'motriz2/wallpapers',           :to => 'motriz_wallpapers#create',  :as => 'motriz_wallpapers'
+post 'motriz2/wallpapers/excluir',   :to => 'motriz_wallpapers#destroy', :as => 'motriz_wallpaper_excluir'
+post 'motriz2/wallpapers/restaurar', :to => 'motriz_wallpapers#restore', :as => 'motriz_wallpapers_restaurar'
+
 # Project logo
 get    'projects/:id/logo', :to => 'projects#get_logo',    :as => 'asap_project_logo'
 post   'projects/:id/logo', :to => 'projects#save_logo',   :as => 'project_save_logo'

@@ -217,3 +217,22 @@ en:
     action_inbox: Inbox
     action_my_notes: My notes
     action_admin: Administration
+  motriz_wallpaper_enviar_titulo: "Add a background image"
+  motriz_wallpaper_enviar: "Upload"
+  motriz_wallpaper_ajuda: "JPG, PNG, WebP or GIF, up to 5 MB. The uploaded image is stored outside the plugin package, so it survives a redeploy."
+  motriz_wallpaper_enviada: "uploaded"
+  motriz_wallpaper_excluir: "Delete"
+  motriz_wallpaper_ocultar: "Remove from list"
+  motriz_wallpaper_confirma_excluir: "Delete \"%{nome}\" permanently?"
+  motriz_wallpaper_confirma_ocultar: "\"%{nome}\" ships with the plugin and cannot be deleted, only hidden from this list. Hide it?"
+  motriz_wallpaper_ocultas_contagem: "%{count} image(s) that ship with the plugin are hidden."
+  motriz_wallpaper_restaurar: "Restore defaults"
+  motriz_wallpaper_aviso_salvar: "Uploading or removing an image takes effect immediately and does not save the other changes on this screen — use Save for those."
+  motriz_wallpaper_enviado: "Background image uploaded and selected."
+  motriz_wallpaper_excluido: "Image removed from the list."
+  motriz_wallpaper_restaurado: "Images that ship with the plugin are back in the list."
+  motriz_wallpaper_erro_excluir: "Could not remove this image."
+  motriz_wallpaper_erro_vazio: "Choose a file to upload."
+  motriz_wallpaper_erro_extensao: "Unsupported file name or extension. Use JPG, PNG, WebP or GIF."
+  motriz_wallpaper_erro_tamanho: "File is larger than 5 MB."
+  motriz_wallpaper_erro_formato: "This file is not a valid image."

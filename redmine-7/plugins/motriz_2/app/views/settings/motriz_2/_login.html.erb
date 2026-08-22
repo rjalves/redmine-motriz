@@ -1,11 +1,79 @@
+<%
+  w = RedmineAsapTheme::Wallpapers
+  itens       = w.disponiveis
+  selecionado = w.selecionado
+  ocultos     = w.ocultos
+%>
+
+<%# Esta parcial é renderizada DENTRO do form_tag único da tela de configuração
+    do Redmine. Um <form> aninhado é descartado pelo navegador — o arquivo nunca
+    chegaria ao servidor — então o envio e a exclusão saem por botões com
+    `formaction`, que redirecionam a submissão deste mesmo form. É também por
+    isso que o botão de envio traz `formenctype`: o form do Redmine não nasce
+    multipart. %>
+
+<div class="mb-8 p-4 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+  <div class="font-medium text-sm mb-2 text-gray-800 dark:text-gray-100">
+    <%= l(:motriz_wallpaper_enviar_titulo) %>
+  </div>
+  <div class="flex flex-wrap items-center gap-3">
+    <input type="file" name="wallpaper_file"
+           accept="image/jpeg,image/png,image/webp,image/gif"
+           class="text-sm text-gray-700 dark:text-gray-200" />
+    <button type="submit"
+            formaction="<%= motriz_wallpapers_path %>"
+            formmethod="post"
+            formenctype="multipart/form-data"
+            class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 font-medium rounded text-sm px-3 py-2">
+      <%= l(:motriz_wallpaper_enviar) %>
+    </button>
+  </div>
+  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+    <%= l(:motriz_wallpaper_ajuda) %>
+  </p>
+</div>
+
 <div class="grid grid-cols-6 gap-4">
-  <% images_dir = Rails.root.join('plugins', 'motriz_2', 'assets', 'images', 'login') %>
-<% @urls = Dir.glob("#{images_dir}/*.{jpg,png,jpeg,gif}").map { |f| File.basename(f) } %>
-<% @urls.each do |filename| %>
-  <div class="flex flex-col items-center bg-white p-4 shadow rounded">
-    <!-- DONNE LE CHEMIN login/FICHIER -->
-    <%= image_tag "login/#{filename}", :plugin => 'motriz_2', class: 'w-full mb-6 max-w-none' %>
-    <%= radio_button_tag 'settings[redmine_asap_login_wallpaper]', filename, (Setting.plugin_motriz_2['redmine_asap_login_wallpaper'] == filename) %>
+  <% itens.each do |identificador, nome, enviado| %>
+    <div class="flex flex-col items-center bg-white dark:bg-gray-800 p-4 shadow rounded">
+      <img src="<%= motriz_wallpaper_src(identificador) %>" alt="<%= nome %>"
+           class="w-full mb-3 max-w-none rounded" />
+
+      <label class="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-200 mb-2 text-center break-all">
+        <%= radio_button_tag 'settings[redmine_asap_login_wallpaper]', identificador,
+                             selecionado.to_s == identificador.to_s %>
+        <span><%= nome %></span>
+      </label>
+
+      <% if enviado %>
+        <span class="text-2xs uppercase tracking-wider text-blue-700 dark:text-blue-300 mb-2">
+          <%= l(:motriz_wallpaper_enviada) %>
+        </span>
+      <% end %>
+
+      <button type="submit" name="identificador" value="<%= identificador %>"
+              formaction="<%= motriz_wallpaper_excluir_path %>"
+              formmethod="post"
+              data-confirm="<%= enviado ? l(:motriz_wallpaper_confirma_excluir, :nome => nome) : l(:motriz_wallpaper_confirma_ocultar, :nome => nome) %>"
+              class="cursor-pointer text-xs text-red-700 hover:text-red-800 dark:text-red-300 hover:underline">
+        <%= enviado ? l(:motriz_wallpaper_excluir) : l(:motriz_wallpaper_ocultar) %>
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<% if ocultos.any? %>
+  <div class="mt-6 text-sm text-gray-600 dark:text-gray-300">
+    <%= l(:motriz_wallpaper_ocultas_contagem, :count => ocultos.size) %>
+    <button type="submit"
+            formaction="<%= motriz_wallpapers_restaurar_path %>"
+            formmethod="post"
+            class="cursor-pointer text-blue-700 hover:text-blue-800 dark:text-blue-300 hover:underline ml-1">
+      <%= l(:motriz_wallpaper_restaurar) %>
+    </button>
   </div>
 <% end %>
-</div>
+
+<p class="mt-6 text-xs text-gray-500 dark:text-gray-400">
+  <%= l(:motriz_wallpaper_aviso_salvar) %>
+</p>

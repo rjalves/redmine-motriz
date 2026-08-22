@@ -1,6 +1,10 @@
 <%= call_hook :view_account_login_top %>
 
-<div id="login-form" class="w-full h-full bg-fixed flex bg-no-repeat bg-left-top bg-cover"  style="background-image: url(<%= asset_path("plugin_assets/motriz_2/login/#{Setting.plugin_motriz_2['redmine_asap_login_wallpaper']}") %>)">
+<%# O fundo pode vir do pacote do plugin ou de um envio do administrador, que
+    mora em files/ e sai por rota própria. O helper resolve as duas formas; se
+    não houver nenhum selecionado, sai sem style em vez de um url() vazio. %>
+<% fundo = motriz_wallpaper_src(RedmineAsapTheme::Wallpapers.selecionado) %>
+<div id="login-form" class="w-full h-full bg-fixed flex bg-no-repeat bg-left-top bg-cover" style="<%= "background-image: url(#{fundo})" if fundo %>">
   <%# rounded-2xl = 1rem, o mesmo --motriz-raio-lg do tema. overflow-hidden é o que
       faz o painel verde escuro respeitar a curva: sem ele, o filho de canto reto
       vaza por cima do raio do pai. %>
