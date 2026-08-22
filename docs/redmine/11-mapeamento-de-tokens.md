@@ -64,7 +64,7 @@ copiados do próprio cinza da marca (levemente frio, C ≈ 0,004).
 | `--oc-green-8` | `#3a7e23` | verde Educação | ícone de OK |
 | `--oc-green-9` | `#216600` | verde Educação | texto de sucesso |
 | `--oc-yellow-9` | `#a56a00` | amarelo `#ffc033` | aviso — 4,51:1 |
-| `--oc-yellow-0` | `#fff4e0` | amarelo | fundo de aviso |
+| `--oc-yellow-0` | `#f1f9f6` | verde escuro | **não é aviso** — hover de linha, painel da tarefa e TOC do wiki (armadilha 15 em [08](08-receitas-e-armadilhas.md)) |
 | `--oc-indigo-0` | `#e8f9f4` | verde escuro | **fundo do `#main-menu`** |
 | `--oc-indigo-1` | `#daf3ed` | verde escuro | fundo do item selecionado na sidebar |
 | `--oc-indigo-5` | `#00804e` | verde claro `#4dcb93` | fundo de `.badge-count` — 5,00:1 |

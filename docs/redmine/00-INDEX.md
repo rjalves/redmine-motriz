@@ -22,6 +22,9 @@ Coletado em **21/08/2026**. Versão mais recente do Redmine na época: **7.0.0**
 | 09 | [O plugin fino](09-plugin-fino.md) | Fronteira tema/plugin, hooks de view, esqueleto do plugin |
 | 10 | [Identidade Motriz](10-identidade-motriz.md) | Paleta, tipografia, regras de logo e arquitetura de marcas do brandbook |
 | 11 | [Mapeamento de tokens](11-mapeamento-de-tokens.md) | Paleta Motriz → tokens do Redmine, com contraste validado |
+| 12 | [AdminLTE como base](12-adminlte-como-base.md) | Diagnóstico: por que o template AdminLTE 4 não serve de base, e o que dele se aproveita |
+| 13 | [ASAP Theme como base](13-asap-theme-como-base.md) | Diagnóstico: o `redmine_asap_theme` é plugin, não tema — e desliga o CSS do tema Motriz |
+| 14 | [Desenvolvimento de plugins](14-plugins-tutorial.md) | A API de plugins do Redmine 7 conferida contra o código: ciclo de carga, DSL do `init.rb`, hooks, assets, migrations, testes — e onde a wiki oficial está desatualizada |
 
 ## Fontes de referência (`reference/`)
 
@@ -40,6 +43,14 @@ Cópias locais dos arquivos reais — **prefira `grep` nelas a rebuscar na web**
 | `redmine-lib-themes.rb` | `lib/redmine/themes.rb` — o motor de temas |
 | `redmine-icons_helper.rb` | `app/helpers/icons_helper.rb` — resolução de sprite |
 | `redmine-lib-hook.rb` | `lib/redmine/hook.rb` — API de hooks para o plugin |
+| `redmine7-hook-listener.rb` | `lib/redmine/hook/listener.rb` @ 7.0 — a base `Singleton` que se auto-registra |
+| `redmine7-hook-view_listener.rb` | `lib/redmine/hook/view_listener.rb` @ 7.0 — `render_on` e os helpers já incluídos |
+| `redmine7-hook-names.txt` | os 85 hooks do 7.0, agrupados por origem (view/helper/controller/lib) |
+| `redmine7-lib-plugin.rb` | `lib/redmine/plugin.rb` @ 7.0 — a DSL inteira do `init.rb` |
+| `redmine7-lib-plugin_loader.rb` | `lib/redmine/plugin_loader.rb` @ 7.0 — ordem de carga e autoload Zeitwerk |
+| `redmine7-lib-access_control.rb` | `lib/redmine/access_control.rb` @ 7.0 — semântica de `permission` e `project_module` |
+| `redmine7-lib-menu_manager.rb` | `lib/redmine/menu_manager.rb` @ 7.0 — todas as opções de item de menu |
+| `redmine7-sample-plugin/` | `extra/sample_plugin` @ 7.0 — o plugin de exemplo oficial, completo |
 | `redmine51-core-application.css` | o core do 5.1 (1943 linhas), para quem alvejar Redmine 5 |
 | `redmine51-responsive.css` | responsive do 5.1 |
 | `redmine51-theme-alternate.css` | tema nativo `alternate` (78 linhas) — exemplo minimalista |
@@ -53,4 +64,6 @@ Cópias locais dos arquivos reais — **prefira `grep` nelas a rebuscar na web**
 
 - Wiki oficial — criar tema: https://www.redmine.org/projects/redmine/wiki/HowTo_create_a_custom_Redmine_theme
 - Wiki oficial — temas: https://www.redmine.org/projects/redmine/wiki/Themes
+- Wiki oficial — tutorial de plugins: https://www.redmine.org/projects/redmine/wiki/Plugin_Tutorial
+  (desatualizada; as divergências contra o 7.0 estão na seção final do doc 14)
 - Código-fonte: https://github.com/redmine/redmine

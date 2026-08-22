@@ -3,6 +3,10 @@
 Fonte: `reference/redmine-lib-hook.rb` (`lib/redmine/hook.rb`) e
 `reference/redmine7-layout-base.html.erb`.
 
+> Este documento é sobre **a fronteira** tema × plugin. A API de plugins em si —
+> ciclo de carga, DSL completa do `init.rb`, permissões, assets, migrations e testes —
+> está em [14 — Desenvolvimento de plugins](14-plugins-tutorial.md).
+
 Escopo decidido para este projeto: **tema para o visual + plugin fino para
 estrutura.** Este documento delimita o que vai para cada lado.
 
@@ -77,17 +81,18 @@ plugins/motriz_ui/
 `init.rb`:
 
 ```ruby
-require 'redmine'
-
 Redmine::Plugin.register :motriz_ui do
   name        'Motriz UI'
   author      'Roberto Alves'
   description 'Ajustes estruturais que acompanham o tema Motriz'
   version     '0.1.0'
-  requires_redmine version_or_higher: '6.0.0'
+  requires_redmine version_or_higher: '7.0.0'
 end
 
-require_relative 'lib/motriz_ui/hooks'
+# Referenciar a constante basta: o Zeitwerk carrega lib/motriz_ui/hooks.rb e o
+# `inherited` de Listener registra o hook. NÃO use require/require_dependency —
+# o Redmine 7 autoloada o lib/ do plugin e o require duplica a constante no reload.
+MotrizUi::Hooks
 ```
 
 `lib/motriz_ui/hooks.rb`:
@@ -122,3 +127,5 @@ sujeito ao pipeline de temas (que resolve digest e fallback de ícone sozinho).
   sem consulta ao banco sem necessidade.
 - Assets de plugin ficam em `assets/` e são servidos sob `plugin_assets/<plugin>/`.
   O helper de ícones já reconhece esse caminho (`sprite_source` com `plugin:`).
+  O subdiretório é **achatado** no caminho lógico, igual aos temas: nomes precisam
+  ser únicos entre `images/`, `stylesheets/` e `javascripts/`.
