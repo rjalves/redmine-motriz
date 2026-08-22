@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Regras de marca — o que a paleta sozinha não alcança.
+
+   Fica sem camada e depois do legado do ASAP: na cascata de camadas do CSS,
+   regra sem camada vence regra em camada, e entre as sem camada vale a ordem.
+   ========================================================================== */
+
+/* Tipografia: corpo em Archivo, títulos em Bricolage Grotesque.
+   O `--font-sans` do @theme já alimenta o preflight do Tailwind; declarar aqui
+   cobre também o CSS legado, que fixa font-family em vários seletores. */
+body,
+input, select, textarea, button {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6,
+#main-navbar .app-title,
+.wiki h1, .wiki h2, .wiki h3, .wiki h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.011em;
+}
+
+/* Slot do logotipo no canto superior esquerdo.
+   O brandbook admite o logo colorido sobre dois fundos apenas — verde escuro
+   institucional (preferencial) e branco. O verde escuro é o padrão, e o valor
+   vem da configuração do plugin, que já nasce preenchida no init.rb. */
+#main-navbar .motriz-logo {
+  background-color: var(--color-motriz-verde-escuro);
+}
+
+/* Área de proteção do logo: o brandbook pede folga equivalente à altura do
+   "m" minúsculo em todos os lados. Com o logotipo a 32px de altura, 12px de
+   respiro horizontal cobre a exigência com margem. */
+#main-navbar .motriz-logo img,
+#login-form .motriz-logo img {
+  block-size: 2rem;
+  inline-size: auto;
+  max-inline-size: none;
+}
+
+#login-form .motriz-logo img {
+  block-size: 3.5rem;
+}

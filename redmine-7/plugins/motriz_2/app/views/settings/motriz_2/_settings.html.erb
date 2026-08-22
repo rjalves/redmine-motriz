@@ -1,0 +1,28 @@
+<%
+  theme_tabs = [
+    {
+      name:    'asap_theme_general',
+      partial: 'settings/motriz_2/general',
+      label:   :label_redmine_asap_theme_general
+    },
+    {
+      name:    'asap_theme_colors',
+      partial: 'settings/motriz_2/colors',
+      label:   :label_redmine_asap_theme_colors
+    },
+    {
+      name:    'asap_theme_login',
+      partial: 'settings/motriz_2/login',
+      label:   :label_redmine_asap_theme_login
+    },
+    {
+      name:    'asap_theme_cf_icons',
+      partial: 'settings/motriz_2/custom_fields_icons',
+      label:   :label_redmine_asap_theme_cf_icons
+    },
+  ]
+%>
+
+<% html_title l(:label_settings), l(:general) %>
+
+<%= render_tabs theme_tabs %>

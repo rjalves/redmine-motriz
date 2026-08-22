@@ -1,0 +1,320 @@
+/* ==========================================================================
+   Paleta Motriz — gerado por tools/build_tailwind_theme.py. NÃO editar à mão.
+
+   O Tailwind v4 compila `bg-gray-900` para `var(--color-gray-900)`, então
+   redefinir as escalas aqui recolore os 1.059 utilitários das views de uma
+   vez. As matizes vêm do brandbook Motriz (fev/2025); só L e croma variam.
+   ========================================================================== */
+@theme {
+  /* Tipografia da marca */
+  --font-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Bricolage Grotesque", "Archivo", sans-serif;
+  --font-inter: "Archivo", sans-serif;  /* alias herdado do ASAP */
+
+  /* Cores institucionais, para uso direto */
+  --color-motriz-verde-escuro: #024b40;
+  --color-motriz-verde-claro: #4dcb93;
+  --color-motriz-ciano: #26c1c8;
+  --color-motriz-laranja: #f36d36;
+  --color-motriz-amarelo: #ffc033;
+  --color-motriz-verde-educacao: #5ba046;
+  --color-motriz-violeta: #5c2e91;
+  --color-motriz-azul-petroleo: #253b61;
+  --color-motriz-marrom: #4a1702;
+
+  /* gray — neutra — ancorada nos dois cinzas do brandbook */
+  --color-gray-50: #f8fafd;
+  --color-gray-100: #f2f4f7;
+  --color-gray-200: #dfe1e3;
+  --color-gray-300: #d3d5d7;
+  --color-gray-400: #9fa1a3;
+  --color-gray-500: #6d6e71;
+  --color-gray-600: #525456;
+  --color-gray-700: #3f4143;
+  --color-gray-800: #27292a;
+  --color-gray-900: #17181a;
+  --color-gray-950: #060709;
+
+  /* slate */
+  --color-slate-50: #f8fafd;
+  --color-slate-100: #f2f4f7;
+  --color-slate-200: #dfe1e3;
+  --color-slate-300: #d3d5d7;
+  --color-slate-400: #9fa1a3;
+  --color-slate-500: #6d6e71;
+  --color-slate-600: #525456;
+  --color-slate-700: #3f4143;
+  --color-slate-800: #27292a;
+  --color-slate-900: #17181a;
+  --color-slate-950: #060709;
+
+  /* zinc */
+  --color-zinc-50: #f8fafd;
+  --color-zinc-100: #f2f4f7;
+  --color-zinc-200: #dfe1e3;
+  --color-zinc-300: #d3d5d7;
+  --color-zinc-400: #9fa1a3;
+  --color-zinc-500: #6d6e71;
+  --color-zinc-600: #525456;
+  --color-zinc-700: #3f4143;
+  --color-zinc-800: #27292a;
+  --color-zinc-900: #17181a;
+  --color-zinc-950: #060709;
+
+  /* neutral */
+  --color-neutral-50: #f8fafd;
+  --color-neutral-100: #f2f4f7;
+  --color-neutral-200: #dfe1e3;
+  --color-neutral-300: #d3d5d7;
+  --color-neutral-400: #9fa1a3;
+  --color-neutral-500: #6d6e71;
+  --color-neutral-600: #525456;
+  --color-neutral-700: #3f4143;
+  --color-neutral-800: #27292a;
+  --color-neutral-900: #17181a;
+  --color-neutral-950: #060709;
+
+  /* stone */
+  --color-stone-50: #f8fafd;
+  --color-stone-100: #f2f4f7;
+  --color-stone-200: #dfe1e3;
+  --color-stone-300: #d3d5d7;
+  --color-stone-400: #9fa1a3;
+  --color-stone-500: #6d6e71;
+  --color-stone-600: #525456;
+  --color-stone-700: #3f4143;
+  --color-stone-800: #27292a;
+  --color-stone-900: #17181a;
+  --color-stone-950: #060709;
+
+  /* blue — ação — ciano/verde escuro institucional */
+  --color-blue-50: #f1fdfd;
+  --color-blue-100: #e3f9fa;
+  --color-blue-200: #c4f1f3;
+  --color-blue-300: #9be4e7;
+  --color-blue-400: #33b5bb;
+  --color-blue-500: #009fa7;
+  --color-blue-600: #00828a;
+  --color-blue-700: #024b40;
+  --color-blue-800: #003e34;
+  --color-blue-900: #005961;
+  --color-blue-950: #000c0f;
+
+  /* sky */
+  --color-sky-50: #f1fdfd;
+  --color-sky-100: #e3f9fa;
+  --color-sky-200: #c4f1f3;
+  --color-sky-300: #9be4e7;
+  --color-sky-400: #33b5bb;
+  --color-sky-500: #008790;
+  --color-sky-600: #006872;
+  --color-sky-700: #00515a;
+  --color-sky-800: #00353b;
+  --color-sky-900: #002126;
+  --color-sky-950: #000c0f;
+
+  /* cyan */
+  --color-cyan-50: #f1fdfd;
+  --color-cyan-100: #e3f9fa;
+  --color-cyan-200: #c4f1f3;
+  --color-cyan-300: #9be4e7;
+  --color-cyan-400: #33b5bb;
+  --color-cyan-500: #008790;
+  --color-cyan-600: #006872;
+  --color-cyan-700: #00515a;
+  --color-cyan-800: #00353b;
+  --color-cyan-900: #002126;
+  --color-cyan-950: #000c0f;
+
+  /* teal */
+  --color-teal-50: #f2fdfa;
+  --color-teal-100: #e4faf4;
+  --color-teal-200: #c7f2e7;
+  --color-teal-300: #a1e5d5;
+  --color-teal-400: #43b6a1;
+  --color-teal-500: #008a73;
+  --color-teal-600: #006b55;
+  --color-teal-700: #005441;
+  --color-teal-800: #003629;
+  --color-teal-900: #002219;
+  --color-teal-950: #000d07;
+
+  /* emerald */
+  --color-emerald-50: #f4fdf7;
+  --color-emerald-100: #e7f9ef;
+  --color-emerald-200: #cef1dd;
+  --color-emerald-300: #abe4c6;
+  --color-emerald-400: #5cb58a;
+  --color-emerald-500: #008958;
+  --color-emerald-600: #006a39;
+  --color-emerald-700: #005329;
+  --color-emerald-800: #003617;
+  --color-emerald-900: #00220b;
+  --color-emerald-950: #000d02;
+
+  /* green — sucesso — verde Educação */
+  --color-green-50: #f6fcf4;
+  --color-green-100: #ecf8e9;
+  --color-green-200: #d8efd2;
+  --color-green-300: #bde1b3;
+  --color-green-400: #7db16f;
+  --color-green-500: #458332;
+  --color-green-600: #408429;
+  --color-green-700: #2d7112;
+  --color-green-800: #053300;
+  --color-green-900: #012000;
+  --color-green-950: #000b00;
+
+  /* lime */
+  --color-lime-50: #f4fdf7;
+  --color-lime-100: #e7f9ef;
+  --color-lime-200: #cef1dd;
+  --color-lime-300: #abe4c6;
+  --color-lime-400: #5cb58a;
+  --color-lime-500: #008958;
+  --color-lime-600: #006a39;
+  --color-lime-700: #005329;
+  --color-lime-800: #003617;
+  --color-lime-900: #00220b;
+  --color-lime-950: #000d02;
+
+  /* yellow */
+  --color-yellow-50: #fefaf1;
+  --color-yellow-100: #fcf3e2;
+  --color-yellow-200: #f7e5c5;
+  --color-yellow-300: #edd19f;
+  --color-yellow-400: #c29a4b;
+  --color-yellow-500: #976800;
+  --color-yellow-600: #794800;
+  --color-yellow-700: #603600;
+  --color-yellow-800: #402000;
+  --color-yellow-900: #291200;
+  --color-yellow-950: #110400;
+
+  /* amber — aviso — amarelo institucional */
+  --color-amber-50: #fefaf1;
+  --color-amber-100: #fcf3e2;
+  --color-amber-200: #f7e5c5;
+  --color-amber-300: #edd19f;
+  --color-amber-400: #c29a4b;
+  --color-amber-500: #976800;
+  --color-amber-600: #a36800;
+  --color-amber-700: #8f5500;
+  --color-amber-800: #402000;
+  --color-amber-900: #291200;
+  --color-amber-950: #110400;
+
+  /* orange */
+  --color-orange-50: #fff8f4;
+  --color-orange-100: #ffefe8;
+  --color-orange-200: #ffded0;
+  --color-orange-300: #ffc6b1;
+  --color-orange-400: #da896b;
+  --color-orange-500: #b0532e;
+  --color-orange-600: #903000;
+  --color-orange-700: #732000;
+  --color-orange-800: #4e0e00;
+  --color-orange-900: #330500;
+  --color-orange-950: #170100;
+
+  /* red — erro e atenção — laranja institucional */
+  --color-red-50: #fff8f4;
+  --color-red-100: #ffefe8;
+  --color-red-200: #ffded0;
+  --color-red-300: #ffc6b1;
+  --color-red-400: #da896b;
+  --color-red-500: #b0532e;
+  --color-red-600: #cc4900;
+  --color-red-700: #b63400;
+  --color-red-800: #4e0e00;
+  --color-red-900: #330500;
+  --color-red-950: #170100;
+
+  /* rose */
+  --color-rose-50: #fff8f4;
+  --color-rose-100: #ffefe8;
+  --color-rose-200: #ffded0;
+  --color-rose-300: #ffc6b1;
+  --color-rose-400: #da896b;
+  --color-rose-500: #b0532e;
+  --color-rose-600: #903000;
+  --color-rose-700: #732000;
+  --color-rose-800: #4e0e00;
+  --color-rose-900: #330500;
+  --color-rose-950: #170100;
+
+  /* pink */
+  --color-pink-50: #fff8f4;
+  --color-pink-100: #ffefe8;
+  --color-pink-200: #ffded0;
+  --color-pink-300: #ffc6b1;
+  --color-pink-400: #da896b;
+  --color-pink-500: #b0532e;
+  --color-pink-600: #903000;
+  --color-pink-700: #732000;
+  --color-pink-800: #4e0e00;
+  --color-pink-900: #330500;
+  --color-pink-950: #170100;
+
+  /* fuchsia */
+  --color-fuchsia-50: #fbf8ff;
+  --color-fuchsia-100: #f7f1ff;
+  --color-fuchsia-200: #ece1ff;
+  --color-fuchsia-300: #ddcbfe;
+  --color-fuchsia-400: #ac90d9;
+  --color-fuchsia-500: #805db2;
+  --color-fuchsia-600: #633c94;
+  --color-fuchsia-700: #4d2b76;
+  --color-fuchsia-800: #321851;
+  --color-fuchsia-900: #1f0c35;
+  --color-fuchsia-950: #0b0218;
+
+  /* purple */
+  --color-purple-50: #fbf8ff;
+  --color-purple-100: #f7f1ff;
+  --color-purple-200: #ece1ff;
+  --color-purple-300: #ddcbfe;
+  --color-purple-400: #ac90d9;
+  --color-purple-500: #805db2;
+  --color-purple-600: #633c94;
+  --color-purple-700: #4d2b76;
+  --color-purple-800: #321851;
+  --color-purple-900: #1f0c35;
+  --color-purple-950: #0b0218;
+
+  /* violet */
+  --color-violet-50: #fbf8ff;
+  --color-violet-100: #f7f1ff;
+  --color-violet-200: #ece1ff;
+  --color-violet-300: #ddcbfe;
+  --color-violet-400: #ac90d9;
+  --color-violet-500: #805db2;
+  --color-violet-600: #633c94;
+  --color-violet-700: #4d2b76;
+  --color-violet-800: #321851;
+  --color-violet-900: #1f0c35;
+  --color-violet-950: #0b0218;
+
+  /* indigo — acento secundário — violeta */
+  --color-indigo-50: #fbf8ff;
+  --color-indigo-100: #f7f1ff;
+  --color-indigo-200: #ece1ff;
+  --color-indigo-300: #ddcbfe;
+  --color-indigo-400: #ac90d9;
+  --color-indigo-500: #805db2;
+  --color-indigo-600: #5c2e91;
+  --color-indigo-700: #5c2e91;
+  --color-indigo-800: #321851;
+  --color-indigo-900: #1f0c35;
+  --color-indigo-950: #0b0218;
+
+  /* Escala de texto do ASAP, preservada */
+  --text-2xs: calc(11px * var(--font-scale, 1));
+  --text-xs: calc(13px * var(--font-scale, 1));
+  --text-sm: calc(0.875rem * var(--font-scale, 1));
+  --text-base: calc(1rem * var(--font-scale, 1));
+  --text-lg: calc(1.125rem * var(--font-scale, 1));
+  --text-xl: calc(1.25rem * var(--font-scale, 1));
+  --text-2xl: calc(1.5rem * var(--font-scale, 1));
+  --text-3xl: calc(1.875rem * var(--font-scale, 1));
+}

@@ -1,0 +1,67 @@
+
+class UserSettingsController < ApplicationController
+  self.main_menu = false
+  before_action :require_login
+  # let user change user's password when user has to
+  skip_before_action :check_password_change, :check_twofa_activation, :only => :password
+
+  accept_api_auth :account
+
+  require_sudo_mode :account, only: :put
+  require_sudo_mode :reset_atom_key, :reset_api_key, :show_api_key, :destroy
+
+  helper :issues
+  helper :users
+  helper :custom_fields
+  helper :queries
+  helper :activities
+  # helper :calendars
+
+  def show
+    @user = User.current
+    @pref = @user.pref
+    render partial: 'user_settings/show', locals: { user: @user}
+  end
+
+  def update
+    @user = User.current
+    @pref = @user.pref
+    @user.safe_attributes = params[:user]
+    @user.pref.safe_attributes = params[:pref]
+    if params[:pref] && params[:pref][:theme]
+      @user.pref[:theme] = params[:pref][:theme]
+    end
+    if params[:pref] && params[:pref][:font_size]
+      @user.pref[:font_size] = params[:pref][:font_size]
+    end
+    if params[:pref]
+      if params[:pref].key?(:issue_panel_beta)
+        @user.pref[:issue_panel_beta] = params[:pref][:issue_panel_beta].to_s == '1' ? '1' : '0'
+      end
+      if params[:pref].key?(:bold_assigned_to_me)
+        @user.pref[:bold_assigned_to_me] = params[:pref][:bold_assigned_to_me].to_s == '1' ? '1' : '0'
+      end
+      if params[:pref].key?(:board_view_enabled)
+        @user.pref[:board_view_enabled] = params[:pref][:board_view_enabled].to_s == '1' ? '1' : '0'
+      end
+      if params[:pref].key?(:inapp_notifications_enabled)
+        @user.pref[:inapp_notifications_enabled] = params[:pref][:inapp_notifications_enabled].to_s == '1' ? '1' : '0'
+      end
+    end
+    if @user.save
+      @user.pref.save
+      set_language_if_valid @user.language
+      redirect_back(fallback_location:"/")
+    end
+  end
+
+  ALLOWED_PREF_KEYS = %w[keyboard_shortcuts_enabled issue_panel_beta bold_assigned_to_me board_view_enabled inapp_notifications_enabled].freeze
+
+  def update_pref
+    key = params[:key].to_s
+    return head :forbidden unless ALLOWED_PREF_KEYS.include?(key)
+    User.current.pref[key.to_sym] = params[:value].to_s == '1' ? '1' : '0'
+    User.current.pref.save
+    head :ok
+  end
+end

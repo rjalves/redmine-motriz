@@ -1,0 +1,45 @@
+/* ==========================================================================
+   motriz_2 — entrada do build Tailwind.
+
+   Ordem importa. O `@import "tailwindcss"` cria as camadas theme/base/
+   components/utilities; CSS **sem camada** (todo o legado do ASAP e o
+   motriz-marca.css) vence qualquer regra em camada. Por isso as regras da
+   marca entram por último entre os imports sem camada.
+
+   Build:  npm install && npx tailwindcss -i src/input.css -o stylesheets/application.css
+   Paleta: gerada por tools/build_tailwind_theme.py — não editar à mão.
+   ========================================================================== */
+
+/* --- legado do ASAP, sem camada ------------------------------------------ */
+@import './legacy.css';
+@import './legacy-responsive.css';
+@import './layout.css';
+@import './components.css';
+@import './icons.css';
+@import './buttons.css';
+@import './forms.css';
+@import './lists.css';
+@import './issue.css';
+@import './news.css';
+@import './documents.css';
+@import './wiki.css';
+@import './project.css';
+@import './gantt.css';
+@import './user.css';
+@import './my-page.css';
+@import './plugins.css';
+
+/* --- Motriz: fontes, paleta e regras de marca ---------------------------- */
+@import './motriz-fonts.css';
+@import './motriz-theme.css';
+@import './motriz-marca.css';
+
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/aspect-ratio";
+@plugin "@tailwindcss/typography";
+
+@source  "../../app/views/**/*.html.erb";
+@source  "../../lib/redmine_asap_theme/*.rb";

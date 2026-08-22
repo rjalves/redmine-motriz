@@ -42,6 +42,14 @@ WORKDIR $REDMINE_HOME
 # nativas. Assim, mexer no CSS reconstrói em segundos.
 COPY redmine-7/Gemfile $REDMINE_HOME/Gemfile
 
+# O Gemfile do Redmine faz `Dir.glob plugins/*/{Gemfile,PluginGemfile}` (linha 133)
+# e avalia o que encontrar. Se os Gemfile dos plugins não estiverem aqui ANTES do
+# `bundle install`, as gems deles não são instaladas — e quando a árvore completa
+# é copiada mais abaixo, o mesmo glob passa a encontrá-los e todo `bundle exec`
+# morre com gem faltando. Só os Gemfile entram nesta camada, para não perder o
+# cache do bundle a cada mudança no plugin.
+COPY redmine-7/plugins/motriz_2/Gemfile $REDMINE_HOME/plugins/motriz_2/Gemfile
+
 # O Gemfile do Redmine LÊ config/database.yml para decidir quais gems de banco
 # instalar (linha 54 do Gemfile). Sem este arquivo, nenhum adaptador é instalado.
 # Declaramos os três para que a escolha do banco seja feita em runtime, sem

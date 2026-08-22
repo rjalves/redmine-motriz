@@ -35,6 +35,11 @@ Os arquivos reais do Redmine estão em `docs/redmine/reference/` —
 - **Canvas de design** (telas aprovadas): https://claude.ai/code/artifact/a80afa4d-459b-46bd-be9c-af8dea28f2c4
   Fontes das artboards em `design/` (`_base.css` + fragmentos + `build.py`).
 - **Gerador de cor** em `tools/build_tokens.py` — falha se algum par cair abaixo de AA.
+- **Plugin `motriz_2`** em `redmine-7/plugins/motriz_2/` — fork do Redmine ASAP Theme
+  v2.4.0 (MIT, Tantic) com paleta, tipografia e logotipo Motriz. Cores por
+  `tools/build_tailwind_theme.py`. **Alternativa ao tema, não complemento**: o layout
+  dele não carrega o `application.css`, então com o plugin ligado o tema `motriz` não
+  pinta nada. Ver `docs/redmine/13-asap-theme-como-base.md`.
 
 ## Decisões tomadas
 
@@ -57,6 +62,10 @@ Descobertas ao instalar no código real, contra o que a wiki oficial diz:
    traz 3 cores próprias em hex fixo. Overrides mobile precisam de `body` na frente.
 3. **Caminhos lógicos de asset achatam o subdiretório**: `images/logo.svg` vira
    `themes/motriz/logo.svg`. Nomes precisam ser únicos entre subpastas.
+   Vale igual para plugins (`assets/stylesheets/x.css` → `plugin_assets/<id>/x.css`).
+4. **O tutorial de plugins da wiki é da era Redmine 3/4.** `require_dependency` no
+   `init.rb` quebra o Zeitwerk do 7.0; assets não são mais copiados para
+   `public/plugin_assets`. Divergências completas no doc 14.
 
 ## Pendências
 
@@ -66,5 +75,6 @@ Descobertas ao instalar no código real, contra o que a wiki oficial diz:
 - [ ] Mapear os identificadores reais dos projetos na seção 15 do CSS (cor por frente)
 - [ ] Mapear os ids reais de situação das tarefas (seção 15)
 - [ ] Aval da Comunicação sobre os tons derivados para estados de interface
-- [ ] Plugin fino, se necessário — ver `docs/redmine/09-plugin-fino.md`
+- [ ] Plugin fino, se necessário — fronteira em `docs/redmine/09-plugin-fino.md`,
+      API completa em `docs/redmine/14-plugins-tutorial.md`
 - [ ] Confirmar as 3 inconsistências do brandbook (`docs/redmine/10-identidade-motriz.md`)

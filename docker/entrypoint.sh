@@ -118,7 +118,12 @@ if [ "$primeiro_argumento" = 'bundle' ] || [ "$primeiro_argumento" = 'rake' ] ||
     esperar_banco
     log "aplicando migrações"
     bundle exec rake db:migrate
-    if [ -n "${REDMINE_PLUGINS_MIGRATE:-}" ]; then
+    # Migrações de plugin passam a rodar sozinhas quando há plugin instalado.
+    # Antes dependiam só de REDMINE_PLUGINS_MIGRATE, e esquecer a variável no
+    # painel deixava o Redmine de pé com colunas faltando — erro 500 em toda
+    # tela que tocasse a tabela alterada. A variável continua valendo como
+    # forçador explícito.
+    if [ -n "${REDMINE_PLUGINS_MIGRATE:-}" ] || compgen -G "plugins/*/init.rb" > /dev/null; then
       log "aplicando migrações de plugins"
       bundle exec rake redmine:plugins:migrate
     fi

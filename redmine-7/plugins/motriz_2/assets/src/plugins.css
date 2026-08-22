@@ -1,0 +1,1043 @@
+/* Quick nav (command palette) */
+.qn-section {
+    @apply px-4 pt-3 pb-1 text-[10px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider;
+}
+.qn-item {
+    @apply flex items-center gap-3 px-4 py-2.5 cursor-pointer;
+}
+.qn-item:hover,
+.qn-item.qn-active {
+    @apply bg-gray-100 dark:bg-gray-800;
+}
+.qn-id {
+    @apply text-[10px] font-mono text-gray-400 dark:text-gray-500 shrink-0 w-12;
+}
+.qn-label {
+    @apply text-sm text-gray-800 dark:text-gray-100 truncate flex-1;
+}
+.qn-meta {
+    @apply text-[10px] text-gray-500 dark:text-gray-400 shrink-0 truncate max-w-[140px] bg-gray-100 dark:bg-gray-700 rounded px-1.5 py-0.5;
+}
+.qn-project-icon {
+    @apply w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0;
+}
+.qn-empty {
+    @apply px-4 py-8 text-sm text-gray-400 dark:text-gray-500 text-center;
+}
+
+/* Notifications */
+.notif-item {
+    @apply flex items-start gap-3 px-4 py-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors;
+}
+.notif-icon {
+    @apply w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5;
+}
+.notif-icon--assigned  { @apply bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400; }
+.notif-icon--mentioned { @apply bg-purple-100 text-purple-600 dark:bg-purple-900/40 dark:text-purple-400; }
+.notif-body { @apply flex-1 min-w-0; }
+.notif-message {
+    @apply text-xs text-gray-700 dark:text-gray-200 leading-snug;
+}
+.notif-ago {
+    @apply text-[10px] text-gray-400 dark:text-gray-500 mt-0.5;
+}
+.notif-dismiss {
+    @apply flex-shrink-0 w-5 h-5 rounded flex items-center justify-center text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer;
+}
+
+/* Keyboard shortcuts — selected item highlight */
+tr.issue.ks-selected {
+    background-color: rgb(239 246 255) !important;
+    outline: 2px solid rgb(96 165 250);
+    outline-offset: -2px;
+}
+.dark tr.issue.ks-selected {
+    background-color: rgb(30 58 138 / 0.2) !important;
+    outline-color: rgb(59 130 246);
+}
+.board-card-wrapper.ks-selected {
+    outline: 2px solid rgb(96 165 250);
+    outline-offset: -2px;
+    border-radius: 6px;
+}
+.dark .board-card-wrapper.ks-selected {
+    outline-color: rgb(59 130 246);
+}
+
+/* Additionals */
+
+#my-page.dashboard {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+    #list-top,
+    #list-bottom {
+        @apply md:col-span-2 w-full;
+    }
+    .splitcontentright,
+    .splitcontentleft {
+        @apply w-full;
+    }
+    .block-receiver {
+        @apply pt-0! border-0;
+        .mypage-box {
+            @apply shadow mt-0 mb-4 bg-white border border-gray-200 rounded-lg  p-8 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200;
+        }
+        .mypage-box h3 {
+            @apply mb-6 w-full;
+        }
+
+        .mypage-box h3 .icon-svg {
+            @apply text-gray-800 dark:text-gray-200 stroke-current;
+        }
+
+        .mypage-box h3 .icon-label {
+            @apply text-xs uppercase text-gray-800 dark:text-gray-200 font-medium;
+        }
+    }
+}
+
+#sidebar {
+    h3.dashboards {
+        @apply px-4 py-2;
+    }
+    ul.dashboards {
+        li {
+            @apply mb-1 w-full flex;
+            a {
+                @apply text-xs hover:bg-gray-100 rounded w-full px-4 py-2;
+                &.selected {
+                    @apply bg-gray-100 text-blue-800  px-4 py-2;
+                }
+            }
+            .icon .icon-svg {
+                @apply fill-blue-800;
+            }
+        }
+    }
+    .active-dashboards {
+        @apply my-4 bg-gray-100 rounded px-4 py-2;
+        ul {
+            li {
+                @apply text-xs;
+            }
+        }
+    }
+}
+
+#fast-desc-link.icon-edit {
+    @apply bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-300 hover:bg-blue-700 hover:text-blue-100;
+}
+
+/* Aditionnals_tags */
+.tags {
+    @apply relative;
+    #tags-data {
+        .contextual {
+            @apply relative inline-block right-auto bottom-auto top-auto;
+        }
+    }
+}
+
+/* Redmineup agile plugin */
+
+.controller-agile_boards {
+    span.assignable-user,
+    span.user {
+        @apply inline-flex flex-wrap items-center bg-white text-xs dark:bg-gray-700 border border-gray-100 hover:bg-gray-50 rounded px-2.5 py-1 text-gray-900 hover:text-blue-800;
+        > .gravatar,
+        > .user-avatar {
+            @apply mr-1;
+        }
+        a .gravatar,
+        a .user-avatar {
+            display: none;
+        }
+
+        a span {
+            border: 0;
+            @apply break-words whitespace-normal;
+        }
+    }
+
+    .agile-board {
+        @apply mt-12;
+    }
+
+    #sidebar-wrapper {
+        span.assignable-user {
+            /* float:left; */
+        }
+        h3 {
+            clear: both;
+            @apply mt-4;
+        }
+    }
+
+    #query_form {
+        @apply w-full flex flex-col mt-12;
+        h2 {
+            @apply flex items-center bg-gray-50 rounded p-2 font-medium;
+            span {
+                @apply ml-3 h-full;
+                a.icon-add {
+                    @apply hover:bg-gray-100 rounded-full p-2;
+                }
+            }
+        }
+    }
+    .query-totals {
+        margin-top: -3.3em;
+        padding-right: 2em;
+    }
+
+    .container-fixed {
+        @apply z-50 relative mt-4;
+        .issue-card {
+            @apply shadow-md  rounded bg-white dark:bg-gray-700 p-4 border-b border-gray-200;
+            .fields {
+                @apply flex flex-col;
+                > * {
+                    @apply my-1;
+                }
+                .quick-edit-card {
+                    @apply border-0 bottom-4;
+                    > a {
+                        @apply p-2 hover:bg-gray-100 rounded-full;
+                    }
+                }
+            }
+        }
+    }
+
+    table.issues-board {
+        tr {
+            @apply bg-gray-50!;
+            td {
+                @apply border-r! border-gray-200!;
+            }
+        }
+    }
+
+    .issue-card {
+        .info {
+            @apply border-t border-gray-100;
+        }
+        .last-comment {
+            @apply inline-flex items-center gap-1 text-xs;
+        }
+        .fields {
+            > *:not(.issue-id) {
+                /*@apply px-2;*/
+            }
+        }
+        p.name {
+            @apply py-2.5;
+            a {
+                @apply text-gray-900;
+            }
+        }
+        .sub-issues {
+            > ul {
+                @apply pl-0;
+                > li {
+                    @apply py-1 hover:bg-gray-50 dark:hover:bg-gray-700;
+                    > a {
+                        @apply w-full;
+                    }
+                }
+            }
+        }
+    }
+}
+html.agile-board-fullscreen div.agile-board {
+    @apply z-50;
+    .issues-board.sticky {
+        @apply z-50;
+        th {
+            @apply h-14;
+        }
+    }
+}
+
+.controller-agile_versions {
+    span.assignable-user,
+    span.user {
+        > .gravatar,
+        > .user-avatar {
+            display: none;
+        }
+    }
+
+    .planning-board {
+        @apply relative mt-4;
+        .issue-card {
+            @apply shadow bg-white p-4 border-0;
+            .fields {
+                @apply flex flex-col;
+                > * {
+                    @apply my-1;
+                }
+            }
+        }
+    }
+}
+
+/* Redmineup checklist plugin */
+#checklist-menu ul,
+#checklist-menu li,
+#checklist-menu a,
+#cf-checklist-menu ul,
+ul.cf-checklist-menu li,
+ul.cf-checklist-menu a {
+    @apply inline-flex w-full;
+}
+
+.controller-issues {
+    #checklist {
+        ul#checklist_items {
+            @apply my-4;
+            li {
+                @apply ml-0! border border-gray-100 px-4 mb-1 py-2;
+            }
+        }
+    }
+}
+
+#checklist_form {
+    .checklist-item.existing.show {
+        @apply flex items-center gap-1 bg-gray-50 dark:bg-gray-700 rounded px-4;
+        .checklist-remove {
+            @apply ml-auto;
+        }
+    }
+}
+
+/* Redmine Asap User Features */
+.controller-inbox {
+    #content {
+        padding: 0px !important;
+    }
+    #attribute {
+        .splitcontentleft {
+            @apply space-y-2;
+            > div {
+                @apply flex flex-col md:flex-row;
+                .label {
+                    @apply mr-3 w-full md:w-40;
+                }
+            }
+        }
+    }
+    #issue-menu {
+        a.icon-fav:not(#context-menu a.icon-fav) {
+            & .icon-label {
+                @apply flex! hover:bg-blue-50! dark:hover:bg-blue-700! rounded!;
+            }
+        }
+    }
+    #issue_tree,
+    #relations {
+        > p {
+            @apply mb-2;
+        }
+    }
+    [data-inbox-target="detail"] .contextual {
+        position: relative;
+        z-index: 20;
+    }
+    /* .context-menu-selection:hover, .context-menu-selection{
+    @apply bg-blue-50! text-gray-900!
+  } */
+    div.journal {
+        /*@apply my-4;*/
+        .note {
+            @apply bg-white dark:bg-gray-800 rounded ml-10;
+            .journal-header {
+                @apply flex items-center;
+                .journal-info {
+                    @apply flex;
+                }
+                .journal-meta {
+                    @apply ml-auto;
+                }
+            }
+            > .contextual {
+                @apply pr-4;
+            }
+            .note-header {
+                @apply relative py-2 px-4 border-b border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-200 text-xs;
+                > .gravatar {
+                    @apply relative top-0 float-left -ml-14 w-8 h-8;
+                }
+                a.user.active {
+                    span {
+                        @apply p-0 shadow-none align-bottom border-0;
+                        img {
+                            @apply hidden;
+                        }
+                    }
+                }
+            }
+            .details {
+                @apply p-4 text-xs;
+            }
+            .wiki {
+                @apply p-4;
+            }
+        }
+    }
+}
+
+.controller-my {
+    #content {
+        @apply p-0;
+    }
+}
+
+.controller-todo {
+    #content {
+        @apply p-0;
+    }
+}
+
+.controller-portfolios {
+    #content {
+        @apply p-0;
+    }
+}
+
+/* Redmine asap user features */
+.user-card {
+    @apply absolute bg-white dark:bg-gray-600 dark:text-gray-300 shadow p-4 rounded w-72 z-50;
+    h2.title {
+        @apply flex items-center;
+        img {
+            @apply ms-0! me-0!;
+        }
+        .username {
+            @apply ml-2! text-base font-medium;
+        }
+    }
+}
+
+.controller-inbox {
+    tr.issue td.subject {
+        white-space: normal;
+    }
+}
+
+/* Notes */
+.controller-notes {
+    #content {
+        padding: 0px !important;
+    }
+}
+
+/* Aditionals Tags */
+
+#sidebar-wrapper {
+    .sidebar-tags {
+        @apply my-6;
+    }
+}
+
+/* redmine_oauth */
+#oauth-form {
+    @apply w-full!;
+    #login-oauth-submit {
+        @apply my-2 w-full flex text-white items-center justify-center px-2.5 py-2 shadow rounded text-xs;
+        i {
+            @apply mr-2;
+        }
+        b {
+            @apply ml-1;
+        }
+    }
+}
+
+/* ── Vis.js Timeline (planning portfolio + pilot) ────────── */
+
+/* Permet au label de sortir au-dessus de la barre */
+.vis-item {
+    overflow: visible !important;
+}
+
+.vis-item .vis-item-content {
+    padding: 0;
+    width: 100%;
+}
+
+/* Template custom-item : conteneur interne */
+.custom-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Label flottant AU-DESSUS de la barre */
+.item-label {
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    font-size: 11px;
+    font-weight: 500;
+    @apply text-gray-700 dark:text-gray-300;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    line-height: 1.3;
+}
+
+/* Boîte de la barre (fond géré par vis-item lui-même) */
+.item-box {
+    width: 100%;
+    height: 100%;
+}
+
+/* visibleFrameTemplate : barre de progression + pourcentage */
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 3px;
+}
+
+.progress-bar {
+    height: 4px;
+    @apply bg-white/50;
+    border-radius: 2px;
+    transition: width 0.25s ease;
+    flex-shrink: 0;
+}
+
+/* Easy Gantt */
+
+.controller-easy_gantt {
+    .content-title {
+        @apply flex items-center;
+        #toggle-query-form {
+            @apply ml-auto;
+        }
+    }
+    #query_form_content {
+        table {
+            td {
+                @apply flex items-center;
+                .buttons {
+                    @apply flex;
+                    input {
+                        @apply p-2 hover:bg-gray-100 rounded-full dark:hover:bg-gray-600 cursor-pointer;
+                    }
+                }
+            }
+        }
+    }
+    .redmine .gantt-menu-button {
+        display: inline-flex;
+    }
+    .redmine .push-right {
+        @apply ml-auto;
+    }
+    #checkbox_silencer {
+        @apply ml-2 mr-1;
+    }
+    .redmine a.disabled {
+        @apply text-gray-600 opacity-100;
+    }
+    #button_save {
+        @apply text-white;
+        &.disabled {
+            @apply bg-green-100 text-green-800 border-green-100;
+        }
+    }
+    #button_task_control {
+        .icon-label {
+            display: block;
+        }
+    }
+    .gantt-grid-header-collapse-buttons {
+        @apply flex items-center h-full;
+        .gantt-button-symbol {
+            @apply flex items-center justify-center p-2;
+            .icon-label {
+                display: none;
+            }
+        }
+        #button_close_all_milestones svg,
+        #button_close_all_parent_issues svg {
+            display: none;
+        }
+    }
+}
+
+.controller-easy_wbs {
+    .content-title {
+        @apply flex items-center;
+        #toggle-query-form {
+            @apply ml-auto;
+        }
+    }
+}
+
+/* Le table-generator jstoolbar est appendé au body : sans z-index il passe derrière le panel (z-50) */
+.table-generator {
+    @apply z-[9999];
+}
+
+/* jstoolbar dans le panel flottant (hors #content, donc les règles natives ne s'appliquent pas) */
+.issue-panel__body .jstTabs.tabs {
+    margin-bottom: -1px;
+    ul {
+        @apply border-b-0 flex overflow-x-auto;
+    }
+    li {
+        height: 42px;
+        .jstElements {
+            @apply flex items-center;
+        }
+        a {
+            @apply flex text-[11px]! items-center justify-center text-gray-500 bg-gray-50 dark:bg-gray-600 border-gray-100 px-2 py-1;
+        }
+        a.selected {
+            @apply text-blue-700;
+        }
+    }
+}
+
+/* Observateurs dans le panel : avatar circulaire qui s'agrandit en pill au hover */
+.issue-panel__body .panel-watchers-section {
+    /*@apply bg-white dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800 px-6 py-2.5 mb-4 flex items-center gap-4;*/
+    @apply flex items-center gap-4;
+}
+.issue-panel__body .panel-watchers-section h3 {
+    @apply text-xs font-semibold m-0 whitespace-nowrap shrink-0;
+}
+.issue-panel__body .panel-watchers-section ul.watchers {
+    @apply list-none pl-16 py-0 m-0 flex flex-row items-center;
+}
+.issue-panel__body .panel-watchers-section ul.watchers li {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    max-width: 32px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: white;
+    box-shadow:
+        0 0 0 2px white,
+        0 1px 3px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    margin-left: -8px;
+    z-index: 1;
+    transition:
+        max-width 0.22s ease,
+        padding-right 0.2s ease,
+        box-shadow 0.2s ease;
+    @apply dark:bg-gray-700 dark:border-gray-500;
+}
+.issue-panel__body .panel-watchers-section ul.watchers li:first-child {
+    margin-left: 0;
+}
+.issue-panel__body .panel-watchers-section ul.watchers li:hover {
+    max-width: 220px;
+    padding-right: 10px;
+    z-index: 10;
+    box-shadow:
+        0 0 0 2px white,
+        0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.issue-panel__body .panel-watchers-section ul.watchers li .avatar {
+    display: block;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 0;
+    object-fit: cover;
+    font-size: 12px;
+    line-height: 32px;
+    text-align: center;
+}
+.issue-panel__body .panel-watchers-section ul.watchers li a.user {
+    font-size: 12px;
+    font-weight: 500;
+    color: #2d4647;
+    padding-left: 8px;
+    padding-right: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    pointer-events: none;
+    flex-shrink: 0;
+    @apply dark:text-gray-200;
+}
+.issue-panel__body .panel-watchers-section ul.watchers li a.delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 6px;
+    flex-shrink: 0;
+    color: #d3d5d7;
+    transition: color 0.15s;
+}
+.issue-panel__body .panel-watchers-section ul.watchers li a.delete:hover {
+    color: #d96334;
+}
+.issue-panel__body .panel-watchers-section ul.watchers li a.delete svg {
+    width: 14px;
+    height: 14px;
+}
+/* bouton + pour ajouter : cercle en pointillés en bout de rangée */
+.issue-panel__body .panel-watchers-section .add-watcher-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    border: 2px dashed #d3d5d7;
+    background: white;
+    color: #a1a3a5;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1;
+    text-decoration: none;
+    margin-left: -8px;
+    transition:
+        border-color 0.15s,
+        color 0.15s,
+        background-color 0.15s;
+    @apply dark:border-gray-500 dark:text-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600;
+}
+.issue-panel__body .panel-watchers-section .add-watcher-btn:hover {
+    border-color: #00a1ac;
+    color: #00a1ac;
+    background: #f3f5f8;
+}
+
+/* Members box sidebar : même pill avatar que les watchers */
+.members.box .members-stack {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.members.box .members-stack li {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 16px;
+    background: white;
+    box-shadow:
+        0 0 0 2px white,
+        0 1px 3px rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
+    margin-left: -8px;
+    z-index: 1;
+    transition:
+        max-width 0.22s ease,
+        padding-right 0.2s ease;
+    cursor: default;
+    @apply dark:bg-gray-600 h-8 max-w-8 dark:shadow-none dark:shadow-gray-700 dark:text-blue-200;
+}
+.members.box .members-stack li:first-child {
+    margin-left: 0;
+}
+.members.box .members-stack li:hover {
+    max-width: 200px;
+    padding-right: 10px;
+    z-index: 10;
+}
+.members.box .members-stack li .avatar {
+    display: block;
+    flex-shrink: 0;
+    @apply w-8 h-8 min-w-8;
+    border-radius: 0;
+    object-fit: cover;
+    font-size: 12px;
+    line-height: 32px;
+    text-align: center;
+}
+.members.box .members-stack li a.user {
+    font-size: 12px;
+    font-weight: 500;
+    color: #2d4647;
+    padding-left: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    pointer-events: none;
+    @apply dark:text-blue-200;
+}
+.members.box .members-stack li:hover a.user {
+    pointer-events: auto;
+    color: #008994;
+    @apply bg-gray-100 dark:bg-gray-600 dark:text-blue-200 h-full flex items-center;
+}
+/* bouton +N : cercle gris, hover bleu */
+.members.box .members-stack li.member-more {
+    background: #e5e7ea;
+    color: #707274;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    justify-content: center;
+    @apply w-8 h-8 rounded-full;
+    transition:
+        background 0.15s,
+        color 0.15s;
+}
+.members.box .members-stack li.member-more:hover {
+    max-width: 32px;
+    padding-right: 0;
+    background: #00a1ac;
+    color: white;
+}
+/* état "déplié" via JS (classe expanded) */
+.members.box .members-stack.expanded {
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.members.box .members-stack.expanded li {
+    max-width: none;
+    width: auto;
+    flex-shrink: 0;
+    padding-right: 10px;
+    margin-left: 0 !important;
+}
+.members.box .members-stack.expanded li.member-more {
+    display: none !important;
+}
+
+/* Subprojects tree */
+.subprojects-tree,
+.subprojects-tree .sp-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.subprojects-tree .sp-children {
+    padding-left: 16px;
+}
+.subprojects-tree .sp-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 4px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+.subprojects-tree .sp-row:hover {
+    background: #f2f5f7;
+}
+.dark .subprojects-tree .sp-row:hover {
+    background: #0f2e30;
+}
+.subprojects-tree .sp-toggle,
+.subprojects-tree .sp-leaf {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+}
+.subprojects-tree .sp-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #707274;
+    transition: color 0.15s;
+    border-radius: 3px;
+}
+.subprojects-tree .sp-toggle::before {
+    content: "+";
+}
+.subprojects-tree .sp-toggle[aria-expanded="true"]::before {
+    content: "−";
+}
+.subprojects-tree .sp-toggle:hover {
+    color: #00a1ac;
+}
+.subprojects-tree .sp-leaf {
+    color: #d3d5d7;
+    font-size: 18px;
+    font-weight: 400;
+}
+.subprojects-tree .sp-leaf::before {
+    content: "·";
+}
+.subprojects-tree .sp-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+    font-size: 12px;
+    color: #2d4647;
+    text-decoration: none;
+}
+.dark .subprojects-tree .sp-link {
+    color: #d3d5d7;
+}
+.subprojects-tree .sp-link:hover {
+    color: #008994;
+}
+.subprojects-tree .sp-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── redmine_maintenance_mode compat ──────────────────────── */
+/* Le banner (fixed top:0 z:1000) chevauche la navbar (fixed top:0).
+   On décale la navbar + le contenu de la hauteur estimée du banner. */
+body:has(#maintenance_mode_banner) {
+    --maintenance-banner-h: 36px;
+}
+body:has(#maintenance_mode_banner) #main-navbar {
+    top: var(--maintenance-banner-h);
+}
+body:has(#maintenance_mode_banner) #wrapper {
+    padding-top: var(--maintenance-banner-h);
+}
+body:has(#maintenance_mode_banner) #sticky-issue-header {
+    top: calc(3.5rem + var(--maintenance-banner-h));
+}
+.action-login .maintenance_message {
+    @apply flex flex-col items-center w-full absolute top-0 left-0 right-0 p-4;
+    p {
+        @apply font-medium;
+    }
+}
+#admin-menu a.redmine-maintenance-mode,
+#main-navbar #admin-menu a.icon-maintenance_mode {
+    @apply pl-5 ml-3;
+}
+
+/* Inline field editor — float above grid to avoid layout shift */
+[data-controller~="field-edit"] {
+    position: relative;
+    /*align-self: flex-start;*/
+}
+.field-edit--active .value {
+    position: relative;
+}
+.field-edit--active [data-field-edit-target="editor"] {
+    position: absolute;
+    z-index: 50;
+    left: 0;
+    width: auto;
+    /*min-width: 180px;*/
+    /*border: 1px solid #00a1ac;*/
+    border-radius: 4px;
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);*/
+    @apply px-6  py-2.5 bg-gray-100 dark:bg-gray-800;
+    > * {
+        @apply my-0 py-0;
+    }
+}
+
+.description .field-edit--active [data-field-edit-target="editor"],
+.field-edit--inline.field-edit--active [data-field-edit-target="editor"] {
+    position: relative;
+    top: 0px;
+    background: transparent;
+    padding: 0;
+}
+.dark .field-edit--active [data-field-edit-target="editor"] {
+    background: #2d4647;
+}
+
+/* ── Todo (redmine_asap_user_features) ──────────────────────────────── */
+.todo-add-input {
+    @apply w-full px-3 py-1.5 text-xs text-gray-500 dark:text-gray-400
+           bg-transparent border border-dashed border-gray-200 dark:border-gray-700
+           rounded-lg outline-none
+           placeholder:text-gray-400 dark:placeholder:text-gray-500
+           focus:border-blue-300 dark:focus:border-blue-600
+           focus:bg-white dark:focus:bg-gray-800
+           focus:text-gray-900 dark:focus:text-gray-100
+           transition-colors;
+}
+
+/* ── Todo card (redmine_asap_user_features) ──────────────────────────── */
+.todo-card {
+    padding-left: 0.625rem;
+}
+.todo-card__top {
+    @apply flex items-start gap-2;
+    input[type="checkbox"] {
+        margin-top: 1px;
+    }
+}
+.todo-card__footer {
+    @apply flex items-center gap-2 mt-1.5;
+}
+
+/* ── Notes (redmine_asap_user_features) ──────────────────────────────── */
+.notes-panel {
+    @apply w-64 shrink-0 border-r border-gray-200 dark:border-gray-700
+           flex flex-col h-full bg-gray-50 dark:bg-gray-900;
+}
+.notes-panel__header {
+    @apply flex items-center justify-between px-4 py-4
+           border-b border-gray-200 dark:border-gray-700;
+}
+.notes-panel__title {
+    @apply text-sm font-semibold text-gray-700 dark:text-gray-200;
+}
+.notes-list-item {
+    @apply py-1.5 cursor-pointer border-b border-gray-100 dark:border-gray-800
+           hover:bg-white dark:hover:bg-gray-800
+           select-none transition-colors;
+}
+.notes-list-item.is-active {
+    @apply bg-white dark:bg-gray-800;
+    box-shadow: inset 2px 0 0 #00a1ac;
+}
+.notes-list-item__title {
+    @apply block text-sm font-medium text-gray-800 dark:text-gray-200 truncate;
+}
+.notes-list-item__date {
+    @apply block text-[10px] text-gray-400 dark:text-gray-500;
+}
+.notes-title-input {
+    @apply w-full text-xl font-bold text-gray-900 dark:text-gray-100
+           bg-transparent border-none outline-none
+           placeholder:text-gray-300 dark:placeholder:text-gray-600;
+}
+.notes-content-input {
+    @apply w-full grow min-h-0 resize-none text-sm text-gray-700 dark:text-gray-300
+           bg-transparent border-none outline-none
+           leading-relaxed font-mono
+           placeholder:text-gray-300 dark:placeholder:text-gray-600;
+}
+/* jsToolBar wrapper chain must also grow to fill the flex column */
+[data-notes-target="editPane"] .jstBlock,
+[data-notes-target="editPane"] .jstEditor {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+.notes-preview-pane {
+    @apply p-4 cursor-text bg-white mx-8 dark:bg-gray-800 shadow rounded-lg;
+    min-height: 10rem;
+}
+.notes-preview-pane[data-empty]::before {
+    content: "Cliquez pour rédiger...";
+    @apply text-gray-300 dark:text-gray-600 text-sm italic;
+}
+.notes-list-add-child {
+    @apply shrink-0 p-0.5 rounded text-gray-400
+           hover:bg-gray-200 dark:hover:bg-gray-600
+           hover:text-gray-600 dark:hover:text-gray-200
+           transition-colors;
+}

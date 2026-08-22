@@ -1,0 +1,29 @@
+<nav id="main-navbar" data-controller="navbar" class="bg-white h-14 dark:bg-gray-900 fixed w-full z-49 top-0 left-0 shadow dark:border-gray-600">
+  <div class="flex mx-auto h-full">
+
+    <%
+      # O logotipo Motriz é horizontal (proporção 1,98). O slot quadrado do ASAP
+      # o distorceria, e o brandbook proíbe distorcer ou separar o símbolo do
+      # logotipo — daí altura fixa e largura automática.
+      bg_color = Setting.plugin_motriz_2['redmine_asap_colors_logo_bg'].presence || '#024b40'
+      hover_bg_color = Setting.plugin_motriz_2['redmine_asap_colors_logo_bg_hover'].presence || '#1f5f53'
+    %>
+    <%= link_to home_path(), :title => Setting.app_title, :class=>"motriz-logo flex h-14 text-blue-50 cursor-pointer px-4 flex items-center justify-center", style: "background-color:#{bg_color}", :onmouseover=>"this.style.backgroundColor='#{hover_bg_color}'", :onmouseout=>"this.style.backgroundColor='#{bg_color}'" do %>
+      <%= image_tag 'logo-motriz-digital-negativo.png', :plugin => 'motriz_2', class: 'h-8 w-auto max-w-none', alt: 'Motriz Digital' %>
+    <% end %>
+    <div id="project-breadcrumb" class="hidden sm:flex items-center">
+      <%= project_parent_breadcrumb %>
+    </div>
+
+    <%= render "layouts/project-menu" %>
+
+    <div class="ml-auto hidden md:flex">
+      <%= render "layouts/navbar-right-menu" %>
+    </div>
+
+  </div>
+</nav>
+
+<div class="flex z-50 fixed md:hidden bottom-0 w-full h-14 bg-white dark:bg-gray-800 shadow-2xl items-center justify-center">
+  <%= render "layouts/navbar-right-menu" %>
+</div>

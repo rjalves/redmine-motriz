@@ -1,0 +1,219 @@
+# English strings go here for Rails i18n
+en:
+  # my_label: "My label"
+  label_redmine_asap_theme: Theme
+  no_project: No projects yet...
+  my_projects: My projects
+  label_filters: Filters
+  placeholder_search_member: "Search member…"
+  placeholder_search_subproject: "Search subproject…"
+  button_expand_all: "Expand all"
+  label_avatar: Avatar
+  message_avatar_uploaded: Saved Avatar
+  button_change_avatar: Edit avatar
+  are_you_sure_delete_avatar: Are you sure you want to remove your avatar?
+  avatar_deleted: Avatar deleted
+  unable_to_delete_avatar: An error occured during the deletion of the avatar.
+  label_subprojects: Subs-projects
+  label_about: About
+  label_settings_menu: Settings
+  label_settings_general: General
+  label_settings_preferences: Preferences
+  label_settings_notifications: Notifications
+  label_settings_avatar: Avatar
+  label_settings_appearance: Appearance
+  label_settings_keys: Access keys
+  label_redmine_configuration: Configuration
+  label_redmine_environment: Environment
+  label_redmine_versioned_name: Redmine version
+  label_redmine_ruby: Ruby
+  label_redmine_ruby_platform: Ruby platform
+  label_redmine_rails: Rails
+  label_redmine_environment: Environment
+  label_redmine_database_adapter: Database connector
+  label_redmine_mailer_queue: Mailer queue
+  label_redmine_mailer_delivery: Mailer delivery
+  label_redmine_plugins: Plugins
+  label_redmine_plugins_none: No plugin installed
+  label_redmine_statistics: Statistics
+  label_redmine_projects_number: Projects
+  label_redmine_users: Users
+  label_redmine_groups: Groups
+  label_redmine_issues: Issues
+  label_redmine_asap_theme_login: Authentication page
+  label_redmine_asap_theme_colors: Colors
+  label_display: Display
+  label_issue_open: Fullscreen mode
+  label_issue_general: General
+  label_issue_relations: Relations
+  label_issue_progress: Progress
+  label_issue_watchers: Watchers
+  label_issue_others: Others
+  redmine_asap_colors_logo_title: Logo
+  redmine_asap_colors_logo_bg: Background color
+  redmine_asap_colors_logo_bg_hover: Background color on mouse over
+  label_redmine_asap_theme_general: General
+  redmine_asap_theme_turbo: Enable turbo for a faster experience (beta)
+  turbo_panel: "Enable Turbo Frames panel — side panel without full page reload (beta)"
+  label_description_empty: No description
+  see_more_projects: See more projects
+  display_settings: Displays settings
+  show_reports: Show reports
+  label_close_panel: Close
+  label_members_all: See all members
+  label_members_reduce: Reduce members
+  label_tracker_display: Display
+  label_user_theme_settings: Theme
+  label_user_theme_settings_light: Light
+  label_user_theme_settings_dark: Dark
+  label_user_font_size: Text size
+  label_issue_panel_beta: Issue panel (quick view)
+  label_issue_panel_beta_description: Opens the issue in a side panel when clicking its title in the list
+  label_bold_assigned_to_me: Bold my assigned issues
+  label_bold_assigned_to_me_description: Display in bold the subject of issues assigned to me in the issues list
+  label_board: Columns
+  label_board_view_enabled: Kanban view
+  label_board_view_enabled_description: Shows a Table / Board switcher in the issues list
+  label_board_columns: Columns
+  label_board_column_by: By
+  label_board_column_type: Group columns by
+  label_board_column_status: Status
+  label_board_column_version: Version
+  label_board_status_columns: Visible
+  label_board_columns_auto: "Default: non-empty columns only"
+  label_font_size_xs: Very small
+  label_font_size_sm: Small
+  label_font_size_md: Normal
+  label_font_size_lg: Large
+  label_font_size_xl: Very large
+  label_redmine_asap_theme_cf_icons: "Field icons"
+  label_redmine_asap_cf_icons_description: "Associate an icon (emoji) with each value of a list-type custom field. The icon will be displayed everywhere the value is visible."
+  label_redmine_asap_cf_icons_field: "Custom field"
+  label_redmine_asap_cf_icons_no_list_cf: "No list-type custom field found on issues."
+  label_redmine_asap_cf_icons_mapping: "Map an icon to each value"
+  label_redmine_asap_cf_icons_preview: "Preview:"
+  label_my_issues: "My issues"
+  label_version_status_open: "Open"
+  label_version_status_locked: "Locked"
+  label_version_status_closed: "Closed"
+  label_gantt_today: "Today"
+  label_subprojects_count:
+    one: "%{count} sub-project"
+    other: "%{count} sub-projects"
+  flash_message:
+    notice: Information
+    error: Error
+    alert: Alert
+  error_saving_avatar: An error occured during the avatar upload
+  label_project_options: Options
+  label_project_logo: Logo
+  label_project_logo_current: Current logo
+  label_project_logo_upload: Change logo
+  label_project_logo_saved: Logo saved.
+  label_project_logo_deleted: Logo deleted.
+  label_project_logo_error: Error saving the logo.
+  label_project_logo_delete_section: Delete logo
+  welcome:
+    tabs:
+      quicklinks: Quick links
+      my_projects: My projects
+      my_issues: My issues
+    projects:
+      title: Projects
+      all: See all
+      bookmarked: Favorites
+      others: My projects
+      load_more: Load more projects
+      sub_projects_count:
+        one: "%{count} sub-project"
+        other: "%{count} sub-projects"
+      remaining: "%{count} remaining"
+    recent_projects:
+      title: Recents projects
+      none: No recent project.
+      none_description: This list will be updated with your navigation in the projects. The number of projects displayed is configured in the "My account"
+    favorite_projects:
+      title: Favorite projects
+      none: No favorite projects.
+      none_description: To add some, go on a project and then "Add to my favorites"
+    news:
+      title: News
+      all: See all
+      none: No news
+    shortcuts:
+      title: Shortcuts
+      new_issue: New issue
+      documentation: Documentation
+      help: Help
+    accordion:
+      my_issues: My issues
+      no_issues: No assigned issues in this project.
+      all_issues: "View all %{count} issues →"
+      view_project: View project
+      loading: Loading…
+      toggle: Show details
+      due_date_prefix: "→"
+    my_watched_issues:
+      title: My watched issues
+    my_assigned_issues:
+      title: My assigned issues
+    my_projects:
+      title: My projects
+    stats:
+      assigned: Assigned issues
+      watched: Watched issues
+      overdue: Overdue
+      projects: Projects
+    issues:
+      none: No open issues, all clear!
+      see_all: "See all %{count} issues"
+  asap_notifications:
+    assigned: "%{actor} assigned you %{title}"
+    mentioned: "%{actor} mentioned you in %{title}"
+    mark_all_read: Mark all as read
+    empty: No new notifications
+    title: Notifications
+    inapp_section_title: In-app notifications
+    inapp_toggle_label: Enable in-app notifications
+    inapp_toggle_hint: Shows a bell icon in the navigation bar with your latest notifications.
+  keyboard_shortcuts:
+    menu_label: Keyboard shortcuts
+    modal_title: Keyboard shortcuts
+    toggle_label: Keyboard shortcuts enabled
+    close: Close
+    then: then
+    section_global: Global shortcuts
+    section_issue: On an issue
+    section_nav: List / kanban navigation
+    quick_nav: Quick navigation
+    quick_search: Quick search
+    create_issue: Create issue
+    shortcut_modal: Keyboard shortcuts
+    go_issues: Go to issues
+    go_projects: Go to projects
+    toggle_sidebar: Toggle sidebar
+    close_panel: Close panel / modal
+    comment: Comment
+    edit: Edit
+    nav_next: Next issue
+    nav_prev: Previous issue
+    open_selected: Open selected issue
+    open_after_nav: "Open (after j/k)"
+    quick_nav_placeholder: "Go to… (#123, @user or free text)"
+  warning_board_too_many_issues: "This view contains %{count} issues. The board may be slow to load."
+  quick_nav:
+    section_actions: Actions
+    section_issues: Issues
+    section_projects: Projects
+    section_wiki_pages: Wiki pages
+    section_documents: Documents
+    section_users: Users
+    no_results: No results
+    action_new_issue: Create an issue
+    action_my_profile: My profile
+    action_my_issues: My issues
+    action_my_page: My page
+    action_my_todos: My tasks (Todo)
+    action_inbox: Inbox
+    action_my_notes: My notes
+    action_admin: Administration

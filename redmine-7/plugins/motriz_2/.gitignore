@@ -1,0 +1,8 @@
+# Dependências de build do Tailwind: regeneráveis com `npm install`, e os
+# binários nativos são específicos da plataforma de quem instalou.
+assets/node_modules/
+
+# Capturas de tela do upstream, removidas na cópia.
+doc/screenshots/
+
+.DS_Store

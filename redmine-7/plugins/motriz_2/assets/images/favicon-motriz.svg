@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PLACEHOLDER — apenas a cor institucional, sem letra nem símbolo, para não inventar
+  uma marca. Substituir pelo ícone oficial da Motriz Digital quando existir.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#024b40"/>
+  <rect x="14" y="26" width="36" height="12" rx="6" fill="#4dcb93"/>
+</svg>

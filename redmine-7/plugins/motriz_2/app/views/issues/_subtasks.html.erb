@@ -1,0 +1,22 @@
+<section class="subtasks ">
+    <div class="flex items-center  bg-gray-50 dark:bg-gray-700 px-6 py-2.5 border-b border-gray-100 font-semibold text-2xs uppercase text-gray-400 tracking-wider leading-tight">
+        <%=l(:label_subtask_plural)%>
+        <span class="issues-stat text-[calc(12px*var(--font-scale,1))] ml-2">
+        <%= render_descendants_stats(@issue) unless @issue.leaf? %>
+        </span>
+        <div class="ml-auto">
+        <%= link_to_new_subtask(@issue) if User.current.allowed_to?(:manage_subtasks, @project) %>
+        </div>
+    </div>
+
+
+
+
+    <% unless @issue.leaf? %>
+    <%= form_tag({}, :data => {:cm_url => issues_context_menu_path}) do %>
+        <div class="subtasks-wrapper">
+        <%= render_descendants_tree(@issue) %>
+        </div>
+    <% end %>
+    <% end %>
+</section>
