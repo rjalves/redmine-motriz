@@ -9,7 +9,11 @@
     static values = {
       issueId: Number,
       canEdit: Boolean,
-      canDone: Boolean
+      canDone: Boolean,
+      // URL do Sortable resolvida pelo Propshaft na view. O caminho cru
+      // /plugin_assets/... não existe: o pipeline serve em /assets/... com
+      // digest, e o subdiretório javascripts/ some do caminho lógico.
+      sortableUrl: String
     }
 
     async connect() {
@@ -32,7 +36,7 @@
       if (!window.Sortable) {
         await new Promise((resolve, reject) => {
           const script = document.createElement('script');
-          script.src = '/plugin_assets/motriz_2/javascripts/vendor/sortable.min.js';
+          script.src = this.sortableUrlValue;
           script.onload = resolve;
           script.onerror = () => resolve(); // degrade gracefully
           document.head.appendChild(script);
