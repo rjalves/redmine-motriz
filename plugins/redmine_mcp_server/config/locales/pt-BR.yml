@@ -1,0 +1,45 @@
+pt-BR:
+  label_mcp_server: Servidor MCP (assistentes de IA)
+  label_mcp_connection_url: URL de conexão
+  label_mcp_enabled: Habilitar o servidor MCP
+  label_mcp_dynamic_registration: Permitir registro automático de clientes
+  label_mcp_rate_limit: Limite de chamadas por minuto, por usuário
+  label_mcp_retention_days: Dias de retenção da auditoria
+  label_mcp_endpoint: Endereço do endpoint
+  label_mcp_tool_calls: Chamadas do MCP
+  label_mcp_tool: Ferramenta
+  label_mcp_arguments: Argumentos
+  label_mcp_target: Alvo
+  label_mcp_outcome: Resultado
+  label_mcp_duration: Duração
+  label_mcp_ok: ok
+  label_mcp_only_writes: Só escritas
+  label_mcp_only_failed: Só falhas
+  button_mcp_enable: Habilitar acesso por IA
+  button_mcp_disable: Desabilitar
+  button_mcp_revoke_tokens: Revogar todos os acessos
+  notice_mcp_enabled: Acesso por IA habilitado.
+  notice_mcp_disabled: Acesso por IA desabilitado.
+  notice_mcp_tokens_revoked: "%{count} acesso(s) revogado(s)."
+  text_mcp_intro: >-
+    Permite que seu assistente de IA consulte e edite o Redmine em seu nome.
+    Ele enxerga e faz exatamente o que você pode — nada além.
+  text_mcp_url_is_shared: >-
+    Esta URL é a mesma para todo mundo e não contém segredo algum: quem
+    identifica você é a autorização que o assistente pede ao conectar.
+  text_mcp_disable_confirm: Desabilitar o acesso por IA?
+  text_mcp_revoke_confirm: >-
+    Revogar todos os acessos concedidos a assistentes de IA? Eles precisarão
+    ser autorizados de novo.
+  text_mcp_rest_api_disabled: >-
+    A API REST do Redmine está desligada, então nenhum assistente consegue
+    autenticar. Peça ao administrador para ligá-la.
+  text_mcp_rest_api_required: >-
+    O servidor MCP exige a API REST ligada para autenticar. Ative-a em
+  text_mcp_enabled_info: Desligado, o endpoint responde 503 e o bloco em Minha conta some.
+  text_mcp_dynamic_registration_info: >-
+    Deixa o conector obter um client_id sozinho (RFC 7591). Desligado, o
+    administrador precisa criar a aplicação OAuth à mão.
+  text_mcp_rate_limit_info: Padrão 60. Ao estourar, a ferramenta devolve erro e o modelo recua.
+  text_mcp_retention_info: >-
+    Registros mais antigos são apagados por rake redmine_mcp_server:purge_audit. 0 desliga o expurgo.

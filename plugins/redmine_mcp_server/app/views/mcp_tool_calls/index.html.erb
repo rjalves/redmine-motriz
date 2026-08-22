@@ -1,0 +1,50 @@
+<%= title l(:label_mcp_tool_calls) %>
+
+<%= form_tag mcp_tool_calls_path, method: :get, class: 'mcp-audit-filters' do %>
+  <%= select_tag 'tool_name',
+                 options_for_select([[l(:label_all), '']] + @tool_names.map { |n| [n, n] }, params[:tool_name]) %>
+  <label><%= check_box_tag 'only_writes', '1', params[:only_writes] == '1' %> <%= l(:label_mcp_only_writes) %></label>
+  <label><%= check_box_tag 'only_failed', '1', params[:only_failed] == '1' %> <%= l(:label_mcp_only_failed) %></label>
+  <%= submit_tag l(:button_apply), name: nil %>
+<% end %>
+
+<% if @calls.any? %>
+  <div class="autoscroll">
+    <table class="list">
+      <thead>
+        <tr>
+          <th><%= l(:field_created_on) %></th>
+          <th><%= l(:field_user) %></th>
+          <th><%= l(:label_mcp_tool) %></th>
+          <th><%= l(:label_mcp_arguments) %></th>
+          <th><%= l(:label_mcp_target) %></th>
+          <th><%= l(:label_mcp_outcome) %></th>
+          <th><%= l(:label_mcp_duration) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @calls.each do |call| %>
+          <tr class="<%= call.ok? ? '' : 'error' %>">
+            <td><%= format_time(call.created_on) %></td>
+            <td><%= link_to_user call.user %></td>
+            <td><code><%= call.tool_name %></code></td>
+            <%# Só os NOMES dos argumentos. O conteúdo nunca é gravado aqui. %>
+            <td class="mcp-arg-keys"><%= call.argument_keys %></td>
+            <td>
+              <% if call.target_type == 'Issue' && call.target_id %>
+                <%= link_to "##{call.target_id}", issue_path(call.target_id) %>
+              <% elsif call.target_id %>
+                <%= "#{call.target_type} #{call.target_id}" %>
+              <% end %>
+            </td>
+            <td><%= call.ok? ? l(:label_mcp_ok) : h(call.error_code) %></td>
+            <td><%= "#{call.duration_ms} ms" if call.duration_ms %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <span class="pagination"><%= pagination_links_full @pages, @count %></span>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

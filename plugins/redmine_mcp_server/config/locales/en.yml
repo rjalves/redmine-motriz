@@ -1,0 +1,44 @@
+en:
+  label_mcp_server: MCP server (AI assistants)
+  label_mcp_connection_url: Connection URL
+  label_mcp_enabled: Enable the MCP server
+  label_mcp_dynamic_registration: Allow dynamic client registration
+  label_mcp_rate_limit: Calls per minute, per user
+  label_mcp_retention_days: Audit retention, in days
+  label_mcp_endpoint: Endpoint address
+  label_mcp_tool_calls: MCP tool calls
+  label_mcp_tool: Tool
+  label_mcp_arguments: Arguments
+  label_mcp_target: Target
+  label_mcp_outcome: Outcome
+  label_mcp_duration: Duration
+  label_mcp_ok: ok
+  label_mcp_only_writes: Writes only
+  label_mcp_only_failed: Failures only
+  button_mcp_enable: Enable AI access
+  button_mcp_disable: Disable
+  button_mcp_revoke_tokens: Revoke all access
+  notice_mcp_enabled: AI access enabled.
+  notice_mcp_disabled: AI access disabled.
+  notice_mcp_tokens_revoked: "%{count} access token(s) revoked."
+  text_mcp_intro: >-
+    Lets your AI assistant read and edit Redmine on your behalf. It sees and
+    does exactly what you can — nothing more.
+  text_mcp_url_is_shared: >-
+    This URL is the same for everyone and holds no secret: you are identified
+    by the authorization your assistant requests when it connects.
+  text_mcp_disable_confirm: Disable AI access?
+  text_mcp_revoke_confirm: >-
+    Revoke every access granted to AI assistants? They will have to be
+    authorized again.
+  text_mcp_rest_api_disabled: >-
+    The Redmine REST API is disabled, so no assistant can authenticate. Ask an
+    administrator to enable it.
+  text_mcp_rest_api_required: The MCP server needs the REST API enabled to authenticate. Turn it on in
+  text_mcp_enabled_info: When off, the endpoint answers 503 and the My account block disappears.
+  text_mcp_dynamic_registration_info: >-
+    Lets a connector obtain a client_id on its own (RFC 7591). When off, an
+    administrator must create the OAuth application by hand.
+  text_mcp_rate_limit_info: Defaults to 60. On overflow the tool returns an error and the model backs off.
+  text_mcp_retention_info: >-
+    Older rows are deleted by rake redmine_mcp_server:purge_audit. 0 disables purging.

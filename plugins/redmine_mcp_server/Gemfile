@@ -1,0 +1,2 @@
+# Sem gems: o servidor MCP é JSON-RPC sobre uma rota Rails comum, e a
+# autenticação reaproveita o Doorkeeper que o Redmine já embarca.

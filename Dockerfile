@@ -51,6 +51,7 @@ COPY redmine-7/Gemfile $REDMINE_HOME/Gemfile
 # antes desta camada.
 COPY redmine-7/plugins/motriz_2/Gemfile $REDMINE_HOME/plugins/motriz_2/Gemfile
 COPY plugins/redmine_google_sso/Gemfile $REDMINE_HOME/plugins/redmine_google_sso/Gemfile
+COPY plugins/redmine_mcp_server/Gemfile $REDMINE_HOME/plugins/redmine_mcp_server/Gemfile
 
 # O Gemfile do Redmine LÊ config/database.yml para decidir quais gems de banco
 # instalar (linha 54 do Gemfile). Sem este arquivo, nenhum adaptador é instalado.
@@ -97,6 +98,7 @@ COPY redmine-7/ $REDMINE_HOME/
 # O plugin de SSO vive fora de redmine-7/ para não se misturar com a árvore do
 # upstream.
 COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
+COPY plugins/redmine_mcp_server/ $REDMINE_HOME/plugins/redmine_mcp_server/
 
 # O middleware OmniAuth precisa entrar em tempo de config, e o único gancho para
 # isso é config/additional_environment.rb. Ele vem versionado dentro do plugin

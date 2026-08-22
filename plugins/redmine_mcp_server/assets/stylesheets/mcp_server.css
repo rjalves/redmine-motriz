@@ -1,0 +1,25 @@
+/* Bloco de acesso MCP em Minha conta e tela de auditoria.
+   Propriedades lógicas, como o CSS do core do Redmine 7. */
+
+#mcp-access input[readonly] {
+  inline-size: 100%;
+  max-inline-size: 34em;
+  font-family: monospace;
+  background: var(--oc-gray-1, #f1f3f5);
+}
+
+#mcp-access form { display: inline-block; margin-inline-end: .5em; }
+
+#mcp-access p.info,
+#mcp-access p.warning { margin-block: .5em; }
+
+.mcp-audit-filters { margin-block-end: 1em; }
+.mcp-audit-filters label { margin-inline: .8em .3em; }
+
+table.list td.mcp-arg-keys {
+  font-family: monospace;
+  font-size: .9em;
+  color: var(--oc-gray-7, #495057);
+}
+
+table.list tr.error td { background: var(--oc-red-0, #fff5f5); }

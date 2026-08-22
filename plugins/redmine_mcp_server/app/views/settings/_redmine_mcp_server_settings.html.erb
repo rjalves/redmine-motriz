@@ -1,0 +1,41 @@
+<% unless Setting.rest_api_enabled? %>
+  <p class="warning">
+    <%= l(:text_mcp_rest_api_required) %>
+    <%= link_to l(:label_settings), {controller: 'settings', action: 'index', tab: 'api'} %>
+  </p>
+<% end %>
+
+<%# O hidden antes de cada checkbox é obrigatório: SettingsController#plugin grava
+    o hash inteiro do POST, então campo ausente some da configuração e desmarcar
+    nunca persistiria. %>
+<p>
+  <label for="settings_enabled"><%= l(:label_mcp_enabled) %></label>
+  <%= hidden_field_tag 'settings[enabled]', 0, id: nil %>
+  <%= check_box_tag 'settings[enabled]', 1, settings['enabled'].to_s == '1', id: 'settings_enabled' %>
+  <em class="info"><%= l(:text_mcp_enabled_info) %></em>
+</p>
+
+<p>
+  <label for="settings_dynamic_registration"><%= l(:label_mcp_dynamic_registration) %></label>
+  <%= hidden_field_tag 'settings[dynamic_registration]', 0, id: nil %>
+  <%= check_box_tag 'settings[dynamic_registration]', 1,
+                    settings['dynamic_registration'].to_s == '1', id: 'settings_dynamic_registration' %>
+  <em class="info"><%= l(:text_mcp_dynamic_registration_info) %></em>
+</p>
+
+<p>
+  <label for="settings_rate_limit"><%= l(:label_mcp_rate_limit) %></label>
+  <%= text_field_tag 'settings[rate_limit]', settings['rate_limit'], id: 'settings_rate_limit', size: 6 %>
+  <em class="info"><%= l(:text_mcp_rate_limit_info) %></em>
+</p>
+
+<p>
+  <label for="settings_retention_days"><%= l(:label_mcp_retention_days) %></label>
+  <%= text_field_tag 'settings[retention_days]', settings['retention_days'], id: 'settings_retention_days', size: 6 %>
+  <em class="info"><%= l(:text_mcp_retention_info) %></em>
+</p>
+
+<p>
+  <label><%= l(:label_mcp_endpoint) %></label>
+  <code><%= RedmineMcpServer::Config.resource_uri %></code>
+</p>

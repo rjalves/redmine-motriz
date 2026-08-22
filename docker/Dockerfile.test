@@ -1,4 +1,7 @@
-# Imagem só para rodar a suíte de testes do plugin redmine_google_sso.
+# Imagem para rodar a suíte de testes dos plugins deste repositório.
+#
+# Qual plugin roda é escolhido em runtime:
+#   docker run --rm -e PLUGIN=redmine_mcp_server redmine-motriz:sso-test
 #
 # Difere da imagem de produção em três pontos:
 #   * instala TODOS os grupos do bundle (produção usa BUNDLE_WITHOUT
@@ -44,17 +47,20 @@ RUN mkdir -p config && printf '%s\n' \
 # `plugins/*/Gemfile` do Gemfile do core o encontre — mesmo padrão da imagem de
 # produção. O resto do plugin vem depois, para não invalidar o cache das gems.
 COPY plugins/redmine_google_sso/Gemfile $REDMINE_HOME/plugins/redmine_google_sso/Gemfile
+COPY plugins/redmine_mcp_server/Gemfile $REDMINE_HOME/plugins/redmine_mcp_server/Gemfile
 
 RUN bundle install --jobs "$(nproc)" --retry 3
 
 COPY redmine-7/ $REDMINE_HOME/
 
-# Testa o plugin isolado. Outros plugins da árvore ficam de fora por dois
+# Só os plugins deste repositório. Os demais da árvore ficam de fora por dois
 # motivos: os Gemfiles deles não foram resolvidos no bundle install acima, e
 # sobreposições de view (Deface) mudariam o HTML que as asserções checam.
-RUN find plugins -mindepth 1 -maxdepth 1 -type d ! -name redmine_google_sso -exec rm -rf {} +
+RUN find plugins -mindepth 1 -maxdepth 1 -type d \
+      ! -name redmine_google_sso ! -name redmine_mcp_server -exec rm -rf {} +
 
 COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
+COPY plugins/redmine_mcp_server/ $REDMINE_HOME/plugins/redmine_mcp_server/
 COPY plugins/redmine_google_sso/config/additional_environment.rb $REDMINE_HOME/config/additional_environment.rb
 
 # O COPY acima trouxe o config/ do upstream por cima; refaz os dois arquivos.
