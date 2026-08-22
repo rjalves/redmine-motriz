@@ -12519,6 +12519,9 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   .h-20 {
     height: calc(var(--spacing) * 20);
   }
+  .h-32 {
+    height: calc(var(--spacing) * 32);
+  }
   .h-64 {
     height: calc(var(--spacing) * 64);
   }
@@ -13057,6 +13060,9 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   }
   .object-contain {
     object-fit: contain;
+  }
+  .object-cover {
+    object-fit: cover;
   }
   .p-0\! {
     padding: calc(var(--spacing) * 0) !important;

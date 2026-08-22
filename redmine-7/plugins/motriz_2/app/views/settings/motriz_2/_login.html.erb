@@ -36,10 +36,19 @@
 <div class="grid grid-cols-6 gap-4">
   <% itens.each do |identificador, nome, enviado| %>
     <div class="flex flex-col items-center bg-white dark:bg-gray-800 p-4 shadow rounded">
+      <%# Altura fixa + object-cover: as imagens têm proporções diferentes e sem
+          isto cada cartão fica com uma altura, deixando a grade irregular.
+          Altura em vez de aspect-video porque este build não gera utilitário de
+          proporção — o plugin @tailwindcss/aspect-ratio, que é da era v3, ocupa
+          esse espaço e não fornece aspect-video. %>
       <img src="<%= motriz_wallpaper_src(identificador) %>" alt="<%= nome %>"
-           class="w-full mb-3 max-w-none rounded" />
+           class="w-full h-32 object-cover mb-3 max-w-none rounded" />
 
-      <label class="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-200 mb-2 text-center break-all">
+      <%# `no-css` é a saída que o próprio Redmine oferece para escapar de
+          `.tabular label`, que nesta tela aplica float: left, width: 175px e
+          margin-left: -180px — era o que jogava o nome para fora do cartão.
+          Mesma especificidade das duas regras, e esta vem depois na folha. %>
+      <label class="no-css flex items-center gap-2 text-xs text-gray-700 dark:text-gray-200 mb-2 break-all">
         <%= radio_button_tag 'settings[redmine_asap_login_wallpaper]', identificador,
                              selecionado.to_s == identificador.to_s %>
         <span><%= nome %></span>
