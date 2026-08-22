@@ -1,0 +1,31 @@
+# Configuração do Redmine — envio de e-mail.
+#
+# Copiado para config/configuration.yml pelo Dockerfile. O Redmine passa este
+# arquivo por ERB antes do YAML (lib/redmine/configuration.rb, linha 102), então
+# todos os valores vêm do ambiente e NENHUM segredo mora aqui: a senha fica no
+# .env do servidor, que não é versionado.
+#
+# Atenção à porta: em VPS do Google Cloud a saída na porta 25 é bloqueada em
+# definitivo, sem exceção. Verificado neste servidor — 25 dá timeout, 587 e 465
+# respondem. Use 587 com STARTTLS (padrão abaixo) ou 465 com SSL.
+#
+# Sem SMTP_ADDRESS definido, nenhum email_delivery é declarado e o Redmine fica
+# sem envio configurado — que é melhor do que apontar para um host inexistente e
+# empilhar erro a cada notificação.
+
+default:
+<% unless ENV['SMTP_ADDRESS'].to_s.strip.empty? %>
+
+  email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+      address: "<%= ENV['SMTP_ADDRESS'] %>"
+      port: <%= (ENV['SMTP_PORT'].to_s.empty? ? 587 : ENV['SMTP_PORT'].to_i) %>
+      domain: "<%= ENV['SMTP_DOMAIN'].to_s.empty? ? ENV['SMTP_ADDRESS'] : ENV['SMTP_DOMAIN'] %>"
+      authentication: :<%= ENV['SMTP_AUTHENTICATION'].to_s.empty? ? 'login' : ENV['SMTP_AUTHENTICATION'] %>
+      user_name: "<%= ENV['SMTP_USER'] %>"
+      password: "<%= ENV['SMTP_PASSWORD'] %>"
+      # 587 fala em claro e sobe para TLS com STARTTLS; 465 já abre cifrado.
+      enable_starttls_auto: <%= ENV['SMTP_PORT'].to_s == '465' ? false : (ENV['SMTP_STARTTLS'].to_s != 'false') %>
+      ssl: <%= ENV['SMTP_PORT'].to_s == '465' %>
+<% end %>

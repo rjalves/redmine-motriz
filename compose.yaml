@@ -39,6 +39,15 @@ services:
       # botão some da tela de login — o Redmine sobe igual.
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      # SMTP. Sem SMTP_ADDRESS, o Redmine sobe sem envio configurado.
+      # Porta 25 não funciona em VPS do Google Cloud — a saída é bloqueada.
+      SMTP_ADDRESS: ${SMTP_ADDRESS:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_DOMAIN: ${SMTP_DOMAIN:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_AUTHENTICATION: ${SMTP_AUTHENTICATION:-login}
+      SMTP_STARTTLS: ${SMTP_STARTTLS:-true}
     # Publica na porta do host. Quando o perfil "tls" estiver ativo, o Caddy é
     # quem atende 80/443 — defina HTTP_PORT=8080 no .env para não conflitar.
     # NÃO trocar por `expose`: sem o Caddy rodando, nada publicaria a porta e o

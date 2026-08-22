@@ -106,6 +106,12 @@ COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
 # .example. Se um dia houver outras configurações locais, junte-as neste arquivo.
 COPY plugins/redmine_google_sso/config/additional_environment.rb $REDMINE_HOME/config/additional_environment.rb
 
+# Envio de e-mail. O arquivo não guarda segredo: o Redmine passa configuration.yml
+# por ERB, então tudo vem do ambiente. Fica em docker/ porque o .gitignore do
+# próprio Redmine ignora config/configuration.yml — versionar lá seria perdê-lo
+# num clone limpo, e o envio falharia em silêncio.
+COPY docker/configuration.yml $REDMINE_HOME/config/configuration.yml
+
 # Diretórios que o Redmine escreve em runtime.
 # public/assets é populado no boot: production.rb traz
 # `config.assets.redmine_detect_update = true`, então o Propshaft recompila
