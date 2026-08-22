@@ -152,6 +152,41 @@ A imagem de teste instala todos os grupos do bundle (produção exclui
 `development:test`, e sem `mocha`/`simplecov` o `test_helper` do Redmine nem
 carrega), usa SQLite e isola este plugin dos demais.
 
+## Diagnóstico
+
+### O botão aparece mas o clique não faz nada
+
+O tema carrega **Turbo** (Hotwire). O Turbo Drive intercepta o submit e o troca
+por um `fetch()`; a resposta de `/auth/google` é um 302 para
+`accounts.google.com` — outra origem, que o Turbo não segue. A navegação nunca
+acontece e **nada aparece no console**.
+
+O formulário do botão já vai com `data-turbo="false"`. Se você reescreveu o
+partial, mantenha o atributo. Para confirmar que é isso, no console do navegador:
+
+```js
+typeof window.Turbo  // "object" => Turbo ativo nesta página
+```
+
+### `redirect_uri_mismatch` na tela do Google
+
+A URI cadastrada no Console tem que bater caractere a caractere com a enviada.
+Para ver a que o Redmine gera:
+
+```bash
+curl -s -o /dev/null -w '%{redirect_url}\n' -X POST \
+  -d "authenticity_token=$TOKEN" https://SEU_DOMINIO/auth/google
+```
+
+Atrás de proxy (Cloudflare, nginx), o proxy precisa enviar
+`X-Forwarded-Proto: https`, senão o Rails monta a URI em `http://` e o Google
+recusa.
+
+### O botão não aparece
+
+`Config.configured?` exige as duas variáveis de ambiente **e** pelo menos um
+domínio na allowlist. Allowlist vazia esconde o botão de propósito.
+
 ## Fora de escopo
 
 - Desvincular a conta pela tela do usuário
