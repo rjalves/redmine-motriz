@@ -41,6 +41,16 @@ class GoogleSsoLoginButtonTest < Redmine::ControllerTest
     end
   end
 
+  # O tema Motriz carrega Turbo. Sem data-turbo="false" o Turbo intercepta o
+  # submit, faz fetch() e recebe um 302 para accounts.google.com — outra origem,
+  # que ele não segue. O clique não faz nada e nenhum erro aparece.
+  def test_form_desliga_o_turbo
+    with_env('GOOGLE_CLIENT_ID' => 'id', 'GOOGLE_CLIENT_SECRET' => 'segredo') do
+      get :login
+      assert_select 'form[action^=?][data-turbo=?]', '/auth/google', 'false'
+    end
+  end
+
   def test_formulario_de_senha_continua_na_tela
     with_env('GOOGLE_CLIENT_ID' => 'id', 'GOOGLE_CLIENT_SECRET' => 'segredo') do
       get :login

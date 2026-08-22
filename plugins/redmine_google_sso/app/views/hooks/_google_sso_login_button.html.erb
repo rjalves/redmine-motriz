@@ -10,6 +10,15 @@
   <% inicio_sso += "?#{{'back_url' => params[:back_url]}.to_query}" if params[:back_url].present? %>
   <div id="google-sso">
     <span class="google-sso-separator"><%= l(:label_google_sso) %></span>
-    <%= button_to RedmineGoogleSso::Config.button_label, inicio_sso, class: 'google-sso-button' %>
+    <%#
+      data-turbo="false" é obrigatório, não enfeite. Temas que carregam Turbo
+      (o Motriz é um) fazem o Turbo Drive interceptar o submit e trocá-lo por
+      um fetch(). A resposta aqui é um 302 para accounts.google.com — outra
+      origem, que o Turbo não segue: o clique não faz nada e nenhum erro
+      aparece. Sem Turbo na página o atributo é inócuo.
+    %>
+    <%= button_to RedmineGoogleSso::Config.button_label, inicio_sso,
+                  class: 'google-sso-button',
+                  form: {data: {turbo: false}} %>
   </div>
 <% end %>
