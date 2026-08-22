@@ -51,6 +51,41 @@ class GoogleSsoLoginButtonTest < Redmine::ControllerTest
     end
   end
 
+  # button_to com rótulo em string gera <input type="submit">, que é elemento
+  # vazio e não aceita imagem dentro. Para ter o logotipo o form precisa da
+  # forma de bloco, que gera <button>.
+  def test_botao_e_um_button_com_o_logotipo_dentro
+    with_env('GOOGLE_CLIENT_ID' => 'id', 'GOOGLE_CLIENT_SECRET' => 'segredo') do
+      get :login
+      assert_select 'form[action^=?]', '/auth/google' do
+        assert_select 'button[type=submit].google-sso-button' do
+          assert_select 'svg.google-sso-icon', 1
+          assert_select 'span.google-sso-label', text: RedmineGoogleSso::Config.button_label
+        end
+        assert_select 'input[type=submit]', 0
+      end
+    end
+  end
+
+  def test_logotipo_traz_as_quatro_cores_oficiais_do_google
+    with_env('GOOGLE_CLIENT_ID' => 'id', 'GOOGLE_CLIENT_SECRET' => 'segredo') do
+      get :login
+      %w[#EA4335 #4285F4 #FBBC05 #34A853].each do |cor|
+        assert_select "svg.google-sso-icon path[fill=?]", cor, 1,
+                      "faltou o traçado #{cor} do logotipo"
+      end
+    end
+  end
+
+  # O ícone é decorativo: o texto ao lado já nomeia a ação, então repetir no
+  # leitor de tela seria ruído.
+  def test_icone_e_escondido_de_leitor_de_tela
+    with_env('GOOGLE_CLIENT_ID' => 'id', 'GOOGLE_CLIENT_SECRET' => 'segredo') do
+      get :login
+      assert_select 'svg.google-sso-icon[aria-hidden=true]', 1
+    end
+  end
+
   def test_formulario_de_senha_continua_na_tela
     with_env('GOOGLE_CLIENT_ID' => 'id', 'GOOGLE_CLIENT_SECRET' => 'segredo') do
       get :login

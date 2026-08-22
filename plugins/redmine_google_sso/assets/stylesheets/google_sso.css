@@ -1,4 +1,11 @@
-/* Botão de SSO na tela de login.
+/* Botão "Entrar com Google" na tela de login.
+   Segue a especificação de marca do Google para o botão claro: fundo branco,
+   borda #747775, altura 40px, ícone de 18px e rótulo Roboto Medium 14px.
+
+   Roboto NÃO é carregada do Google Fonts de propósito: seria uma requisição a
+   terceiro numa tela de login. Quem tiver a fonte instalada a usa; os demais
+   caem em Helvetica/Arial, que é visualmente próxima o bastante.
+
    Propriedades lógicas, como o CSS do core do Redmine 7. */
 
 #google-sso {
@@ -16,21 +23,63 @@
 }
 
 #google-sso form {
-  display: inline;
+  display: inline-block;
 }
 
 #google-sso .google-sso-button {
-  padding-block: .5em;
-  padding-inline: 1.2em;
-  border: 1px solid var(--oc-gray-4, #ced4da);
-  border-radius: 3px;
-  background: var(--oc-white, #fff);
-  color: var(--oc-gray-8, #343a40);
+  /* inline-flex alinha ícone e rótulo pelo eixo central sem depender da
+     line-height herdada do tema, que varia entre o core e o Motriz. */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  block-size: 40px;
+  padding-inline: 12px;
+  padding-block: 0;
+
+  border: 1px solid #747775;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #1f1f1f;
+
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: .25px;
+  white-space: nowrap;
   cursor: pointer;
-  font-size: 1em;
+
+  transition: background-color .15s ease, box-shadow .15s ease;
+}
+
+/* O ícone tem tamanho fixo: sem isto, um `svg { width: 100% }` do tema o
+   estouraria para a largura do botão. */
+#google-sso .google-sso-icon {
+  flex: 0 0 18px;
+  inline-size: 18px;
+  block-size: 18px;
 }
 
 #google-sso .google-sso-button:hover {
-  background: var(--oc-gray-1, #f1f3f5);
-  border-color: var(--oc-gray-5, #adb5bd);
+  background-color: #f2f2f2;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+#google-sso .google-sso-button:active {
+  background-color: #e8e8e8;
+}
+
+#google-sso .google-sso-button:focus-visible {
+  outline: 2px solid #0b57d0;
+  outline-offset: 2px;
+}
+
+/* O botão é branco fixo por exigência de marca — o "G" colorido só tem
+   contraste garantido sobre branco. No modo escuro, ajusta-se a borda para
+   não brilhar demais contra o fundo. */
+@media (prefers-color-scheme: dark) {
+  #google-sso .google-sso-button {
+    border-color: #8e918f;
+  }
 }
