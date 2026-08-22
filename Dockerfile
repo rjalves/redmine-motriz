@@ -95,9 +95,16 @@ RUN set -eux; \
 COPY redmine-7/ $REDMINE_HOME/
 
 # O plugin de SSO vive fora de redmine-7/ para não se misturar com a árvore do
-# upstream. O middleware que ele precisa é instalado por
-# redmine-7/config/additional_environment.rb, que veio no COPY acima.
+# upstream.
 COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
+
+# O middleware OmniAuth precisa entrar em tempo de config, e o único gancho para
+# isso é config/additional_environment.rb. Ele vem versionado dentro do plugin
+# porque o .gitignore do próprio Redmine ignora esse caminho em config/ — deixá-lo
+# lá significaria perdê-lo num clone limpo, e o SSO falharia em silêncio.
+# Sobrescreve qualquer additional_environment.rb do upstream: hoje só existe o
+# .example. Se um dia houver outras configurações locais, junte-as neste arquivo.
+COPY plugins/redmine_google_sso/config/additional_environment.rb $REDMINE_HOME/config/additional_environment.rb
 
 # Diretórios que o Redmine escreve em runtime.
 # public/assets é populado no boot: production.rb traz

@@ -68,7 +68,7 @@ plugins/redmine_google_sso/
 ├─ assets/stylesheets/google_sso.css
 └─ test/{unit,functional}/
 
-config/additional_environment.rb               middleware OmniAuth (fora do plugin)
+│  └─ additional_environment.rb                 middleware OmniAuth, instalado em config/
 ```
 
 **O plugin declara o próprio `Gemfile`**, copiado cedo no Dockerfile. Ver 6.2.

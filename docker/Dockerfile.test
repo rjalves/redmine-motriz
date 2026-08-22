@@ -55,6 +55,7 @@ COPY redmine-7/ $REDMINE_HOME/
 RUN find plugins -mindepth 1 -maxdepth 1 -type d ! -name redmine_google_sso -exec rm -rf {} +
 
 COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
+COPY plugins/redmine_google_sso/config/additional_environment.rb $REDMINE_HOME/config/additional_environment.rb
 
 # O COPY acima trouxe o config/ do upstream por cima; refaz os dois arquivos.
 RUN printf '%s\n' \

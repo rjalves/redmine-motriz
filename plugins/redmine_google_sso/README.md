@@ -55,8 +55,17 @@ bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 
 ### 3. Middleware
 
-Copie o `config/additional_environment.rb` deste repositório para o
-`config/` do Redmine. Ele é lido pela última linha de `config/application.rb`
+Copie o `config/additional_environment.rb` **deste plugin** para o `config/` do
+Redmine:
+
+```bash
+cp plugins/redmine_google_sso/config/additional_environment.rb config/
+```
+
+Ele mora dentro do plugin porque o `.gitignore` do Redmine ignora
+`/config/additional_environment.rb`; versioná-lo lá significaria perdê-lo num
+clone limpo. Se você já tiver um `additional_environment.rb` com outras
+configurações, **junte** os conteúdos em vez de sobrescrever. Ele é lido pela última linha de `config/application.rb`
 com `instance_eval` dentro do corpo da classe `Application` — em tempo de
 config, antes do `build_middleware_stack`. É o único ponto de onde dá para
 instalar middleware Rack sem alterar o fonte do core: o `init.rb` de um plugin
