@@ -71,7 +71,7 @@ plugins/redmine_google_sso/
 config/additional_environment.rb               middleware OmniAuth (fora do plugin)
 ```
 
-**O plugin não declara `Gemfile`.** Justificativa em 6.2.
+**O plugin declara o próprio `Gemfile`**, copiado cedo no Dockerfile. Ver 6.2.
 
 Cada unidade tem um papel único: `Config` só lê configuração, `Provisioner` só
 resolve identidade→usuário (testável sem HTTP e sem controller), o controller só
@@ -167,7 +167,12 @@ require 'omniauth'
 require 'omniauth-google-oauth2'
 require 'omniauth/rails_csrf_protection'
 
-OmniAuth.config.logger = Rails.logger
+# Em after_initialize, não solto: este arquivo roda em tempo de config, quando
+# Rails.logger ainda é nil. Atribuir nil zera o logger padrão do OmniAuth e a
+# primeira falha de CSRF vira HTTP 500 em vez de recusa limpa.
+config.after_initialize do
+  OmniAuth.config.logger = Rails.logger
+end
 
 if ENV['GOOGLE_CLIENT_ID'].present? && ENV['GOOGLE_CLIENT_SECRET'].present?
   config.middleware.use OmniAuth::Builder do
@@ -202,19 +207,18 @@ a árvore da aplicação — otimização de cache já documentada nos comentár
 Gemfile do core faz glob em `plugins/*/Gemfile` (linha 133), mas nesse momento o
 plugin ainda não existe na imagem.
 
-Consequência: **se o plugin trouxesse um `Gemfile` próprio, as gems não seriam
-instaladas no build**, e em runtime o bundler resolveria um Gemfile diferente do
-travado, acusando alteração a cada `bundle exec` — o mesmo problema que os
-comentários do Dockerfile já descrevem para o Puma e para o `database.yml`.
+Consequência: um `Gemfile` de plugin copiado só com a árvore não seria resolvido
+no build, e em runtime o bundler acusaria alteração a cada `bundle exec`.
 
-Portanto as gems entram no `Gemfile.local`, no `RUN` que já existe para o Puma:
+**Correção aplicada na implementação (revisa a decisão original deste spec).** O
+repositório já resolvia isso para o plugin `motriz_2`, copiando só o Gemfile dele
+antes do `bundle install`. O plugin de SSO segue o mesmo padrão, em vez de
+introduzir um segundo: ele **traz o próprio `Gemfile`**, e o Dockerfile o copia
+cedo. Isso também deixa o plugin instalável fora deste Docker sem instrução
+extra, já que o Gemfile do core faz `eval_gemfile` em `plugins/*/Gemfile`.
 
 ```dockerfile
-RUN printf "%s\n" \
-      "gem 'puma'" \
-      "gem 'omniauth-google-oauth2'" \
-      "gem 'omniauth-rails_csrf_protection'" \
-      > Gemfile.local
+COPY plugins/redmine_google_sso/Gemfile $REDMINE_HOME/plugins/redmine_google_sso/Gemfile
 ```
 
 Mais três mudanças de deploy:

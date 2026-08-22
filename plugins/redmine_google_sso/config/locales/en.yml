@@ -1,0 +1,11 @@
+en:
+  label_google_sso: Google SSO
+  label_google_sso_button: Sign in with Google
+  label_google_sso_allowed_domains: Allowed domains
+  label_google_sso_auto_create: Create the user on first sign-in
+  label_google_sso_enforce_twofa: Also require Redmine two-factor authentication
+  label_google_sso_button_label: Button label
+  text_google_sso_allowed_domains: One per line. Leaving it empty blocks every Google sign-in.
+  text_google_sso_credentials_missing: Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the environment.
+  text_google_sso_credentials_ok: Credentials found in the environment.
+  notice_google_sso_denied: Could not sign in with this Google account.

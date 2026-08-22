@@ -1,0 +1,11 @@
+pt-BR:
+  label_google_sso: SSO com Google
+  label_google_sso_button: Entrar com Google
+  label_google_sso_allowed_domains: Domínios permitidos
+  label_google_sso_auto_create: Criar usuário no primeiro acesso
+  label_google_sso_enforce_twofa: Exigir o 2FA do Redmine também
+  label_google_sso_button_label: Rótulo do botão
+  text_google_sso_allowed_domains: Um por linha. Vazio bloqueia todo login por Google.
+  text_google_sso_credentials_missing: Defina GOOGLE_CLIENT_ID e GOOGLE_CLIENT_SECRET no ambiente.
+  text_google_sso_credentials_ok: Credenciais encontradas no ambiente.
+  notice_google_sso_denied: Não foi possível entrar com esta conta Google.

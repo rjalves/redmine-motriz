@@ -1,0 +1,70 @@
+# Imagem só para rodar a suíte de testes do plugin redmine_google_sso.
+#
+# Difere da imagem de produção em três pontos:
+#   * instala TODOS os grupos do bundle (produção usa BUNDLE_WITHOUT
+#     "development:test", e sem mocha/simplecov o test_helper do Redmine
+#     nem carrega);
+#   * usa SQLite, para não depender de um Postgres de teste;
+#   * não instala imagemagick, svn nem mercurial — nada disso é exercitado
+#     pelos testes deste plugin, e cortá-los economiza minutos de build.
+#
+# Contexto de build: a RAIZ do repositório.
+#   docker build -f docker/Dockerfile.test -t redmine-motriz:sso-test .
+#   docker run --rm redmine-motriz:sso-test
+
+FROM ruby:3.4-slim-bookworm
+
+ENV RAILS_ENV=test \
+    RACK_ENV=test \
+    REDMINE_HOME=/redmine \
+    LANG=C.UTF-8
+
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+      build-essential pkg-config ca-certificates git \
+      libsqlite3-dev libxml2-dev libxslt1-dev zlib1g-dev libyaml-dev; \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR $REDMINE_HOME
+
+# Mesma ordem de camadas da imagem de produção: Gemfile primeiro, para que
+# mexer no código do plugin não invalide o cache das gems nativas.
+COPY redmine-7/Gemfile $REDMINE_HOME/Gemfile
+
+# O Gemfile do Redmine varre config/database.yml para decidir quais gems de
+# banco instalar. Aqui só SQLite interessa.
+RUN mkdir -p config && printf '%s\n' \
+      'test:' \
+      '  adapter: sqlite3' \
+      '  database: db/test.sqlite3' \
+      > config/database.yml
+
+# Só o Gemfile do plugin nesta camada, antes do bundle install, para que o glob
+# `plugins/*/Gemfile` do Gemfile do core o encontre — mesmo padrão da imagem de
+# produção. O resto do plugin vem depois, para não invalidar o cache das gems.
+COPY plugins/redmine_google_sso/Gemfile $REDMINE_HOME/plugins/redmine_google_sso/Gemfile
+
+RUN bundle install --jobs "$(nproc)" --retry 3
+
+COPY redmine-7/ $REDMINE_HOME/
+
+# Testa o plugin isolado. Outros plugins da árvore ficam de fora por dois
+# motivos: os Gemfiles deles não foram resolvidos no bundle install acima, e
+# sobreposições de view (Deface) mudariam o HTML que as asserções checam.
+RUN find plugins -mindepth 1 -maxdepth 1 -type d ! -name redmine_google_sso -exec rm -rf {} +
+
+COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
+
+# O COPY acima trouxe o config/ do upstream por cima; refaz os dois arquivos.
+RUN printf '%s\n' \
+      'test:' \
+      '  adapter: sqlite3' \
+      '  database: db/test.sqlite3' \
+      > config/database.yml; \
+    mkdir -p db log tmp/cache files public/assets public/plugin_assets
+
+COPY docker/run-plugin-tests.sh /usr/local/bin/run-plugin-tests.sh
+RUN chmod +x /usr/local/bin/run-plugin-tests.sh
+
+CMD ["/usr/local/bin/run-plugin-tests.sh"]

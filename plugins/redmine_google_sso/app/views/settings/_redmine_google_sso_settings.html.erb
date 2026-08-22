@@ -1,0 +1,40 @@
+<p>
+  <label><%= l(:label_google_sso) %></label>
+  <% if RedmineGoogleSso::Config.credentials? %>
+    <span class="icon icon-ok"><%= l(:text_google_sso_credentials_ok) %></span>
+  <% else %>
+    <span class="icon icon-warning"><%= l(:text_google_sso_credentials_missing) %></span>
+  <% end %>
+</p>
+
+<p>
+  <label for="settings_allowed_domains"><%= l(:label_google_sso_allowed_domains) %></label>
+  <%= text_area_tag 'settings[allowed_domains]', settings['allowed_domains'],
+                    :id => 'settings_allowed_domains', :rows => 4, :cols => 40 %>
+  <em class="info"><%= l(:text_google_sso_allowed_domains) %></em>
+</p>
+
+<%#
+  O hidden antes de cada checkbox é obrigatório: SettingsController#plugin grava
+  o hash inteiro que veio no POST, então um campo ausente simplesmente some da
+  configuração — sem o hidden, desmarcar a caixa nunca persistiria.
+%>
+<p>
+  <label for="settings_auto_create"><%= l(:label_google_sso_auto_create) %></label>
+  <%= hidden_field_tag 'settings[auto_create]', 0, :id => nil %>
+  <%= check_box_tag 'settings[auto_create]', 1, settings['auto_create'].to_s == '1',
+                    :id => 'settings_auto_create' %>
+</p>
+
+<p>
+  <label for="settings_enforce_twofa"><%= l(:label_google_sso_enforce_twofa) %></label>
+  <%= hidden_field_tag 'settings[enforce_twofa]', 0, :id => nil %>
+  <%= check_box_tag 'settings[enforce_twofa]', 1, settings['enforce_twofa'].to_s == '1',
+                    :id => 'settings_enforce_twofa' %>
+</p>
+
+<p>
+  <label for="settings_button_label"><%= l(:label_google_sso_button_label) %></label>
+  <%= text_field_tag 'settings[button_label]', settings['button_label'],
+                     :id => 'settings_button_label', :size => 40 %>
+</p>

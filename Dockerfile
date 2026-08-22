@@ -42,13 +42,15 @@ WORKDIR $REDMINE_HOME
 # nativas. Assim, mexer no CSS reconstrói em segundos.
 COPY redmine-7/Gemfile $REDMINE_HOME/Gemfile
 
-# O Gemfile do Redmine faz `Dir.glob plugins/*/{Gemfile,PluginGemfile}` (linha 133)
-# e avalia o que encontrar. Se os Gemfile dos plugins não estiverem aqui ANTES do
-# `bundle install`, as gems deles não são instaladas — e quando a árvore completa
-# é copiada mais abaixo, o mesmo glob passa a encontrá-los e todo `bundle exec`
-# morre com gem faltando. Só os Gemfile entram nesta camada, para não perder o
-# cache do bundle a cada mudança no plugin.
+# Nota para quem for adicionar plugin com Gemfile próprio: o Gemfile do Redmine
+# faz `Dir.glob plugins/*/{Gemfile,PluginGemfile}` (linha 133) e avalia o que
+# encontrar. Como o `bundle install` acontece ANTES do COPY da árvore, o glob não
+# enxerga plugin nenhum no build; se a árvore copiada depois trouxer um Gemfile de
+# plugin, todo `bundle exec` passa a morrer com gem faltando. As saídas são
+# declarar as gems no Gemfile.local abaixo, ou copiar o Gemfile do plugin para cá
+# antes desta camada.
 COPY redmine-7/plugins/motriz_2/Gemfile $REDMINE_HOME/plugins/motriz_2/Gemfile
+COPY plugins/redmine_google_sso/Gemfile $REDMINE_HOME/plugins/redmine_google_sso/Gemfile
 
 # O Gemfile do Redmine LÊ config/database.yml para decidir quais gems de banco
 # instalar (linha 54 do Gemfile). Sem este arquivo, nenhum adaptador é instalado.
@@ -91,6 +93,11 @@ RUN set -eux; \
 # existem em redmine-7/ (ambos são gitignored pelo Redmine), então esta cópia
 # não sobrescreve o que foi gerado acima.
 COPY redmine-7/ $REDMINE_HOME/
+
+# O plugin de SSO vive fora de redmine-7/ para não se misturar com a árvore do
+# upstream. O middleware que ele precisa é instalado por
+# redmine-7/config/additional_environment.rb, que veio no COPY acima.
+COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
 
 # Diretórios que o Redmine escreve em runtime.
 # public/assets é populado no boot: production.rb traz

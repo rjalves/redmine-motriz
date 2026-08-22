@@ -1,0 +1,15 @@
+<% if RedmineGoogleSso::Config.configured? %>
+  <%#
+    O POST vai direto ao middleware OmniAuth, então nenhuma action do Rails roda
+    antes: o back_url tem que viajar na query string, que é o que o OmniAuth
+    guarda em omniauth.params. O token CSRF deste form é validado pela gem
+    omniauth-rails_csrf_protection — sem ela, a checagem do OmniAuth procuraria
+    o token em session[:csrf] e nunca casaria com o do Rails.
+  %>
+  <% inicio_sso = "#{Redmine::Utils.relative_url_root}/auth/google" %>
+  <% inicio_sso += "?#{{'back_url' => params[:back_url]}.to_query}" if params[:back_url].present? %>
+  <div id="google-sso">
+    <span class="google-sso-separator"><%= l(:label_google_sso) %></span>
+    <%= button_to RedmineGoogleSso::Config.button_label, inicio_sso, class: 'google-sso-button' %>
+  </div>
+<% end %>

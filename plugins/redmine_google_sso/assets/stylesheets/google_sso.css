@@ -1,0 +1,36 @@
+/* Botão de SSO na tela de login.
+   Propriedades lógicas, como o CSS do core do Redmine 7. */
+
+#google-sso {
+  margin-block-start: 1em;
+  padding-block-start: 1em;
+  border-block-start: 1px solid var(--oc-gray-3, #dee2e6);
+  text-align: center;
+}
+
+#google-sso .google-sso-separator {
+  display: block;
+  margin-block-end: .5em;
+  font-size: .9em;
+  color: var(--oc-gray-6, #868e96);
+}
+
+#google-sso form {
+  display: inline;
+}
+
+#google-sso .google-sso-button {
+  padding-block: .5em;
+  padding-inline: 1.2em;
+  border: 1px solid var(--oc-gray-4, #ced4da);
+  border-radius: 3px;
+  background: var(--oc-white, #fff);
+  color: var(--oc-gray-8, #343a40);
+  cursor: pointer;
+  font-size: 1em;
+}
+
+#google-sso .google-sso-button:hover {
+  background: var(--oc-gray-1, #f1f3f5);
+  border-color: var(--oc-gray-5, #adb5bd);
+}

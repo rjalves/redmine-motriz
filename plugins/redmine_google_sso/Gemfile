@@ -1,0 +1,7 @@
+# Gems do plugin. O Gemfile do core faz eval_gemfile em plugins/*/Gemfile.
+#
+# omniauth-rails_csrf_protection não é opcional: o OmniAuth 2 valida CSRF via
+# rack-protection, que procura o token em session[:csrf], enquanto o Rails grava
+# em session[:_csrf_token]. Sem ela, todo login falha.
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
