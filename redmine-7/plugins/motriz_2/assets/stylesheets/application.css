@@ -8727,6 +8727,37 @@ form.board-view-mode #list-definition > div:has(div.query-columns), form.board-v
       color: var(--color-gray-200);
     }
   }
+  .board-card__project {
+    margin-top: calc(var(--spacing) * 1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 10px;
+    color: var(--color-gray-400);
+    &:where(.dark, .dark *) {
+      color: var(--color-gray-500);
+    }
+  }
+  .board-card__progress {
+    margin-top: calc(var(--spacing) * 1.5);
+    height: calc(var(--spacing) * 1);
+    width: 100%;
+    overflow: hidden;
+    border-radius: calc(infinity * 1px);
+    background-color: var(--color-gray-100);
+    &:where(.dark, .dark *) {
+      background-color: var(--color-gray-700);
+    }
+    span {
+      display: block;
+      height: 100%;
+      border-radius: calc(infinity * 1px);
+      background-color: var(--color-blue-600);
+      &:where(.dark, .dark *) {
+        background-color: var(--color-blue-400);
+      }
+    }
+  }
   .board-card__footer {
     margin-top: calc(var(--spacing) * 0.5);
     display: flex;

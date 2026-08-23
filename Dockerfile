@@ -99,6 +99,9 @@ COPY redmine-7/ $REDMINE_HOME/
 # upstream.
 COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
 COPY plugins/redmine_mcp_server/ $REDMINE_HOME/plugins/redmine_mcp_server/
+# motriz_kanban não tem Gemfile e não deve ganhar uma linha de COPY lá em cima
+# junto dos outros: COPY de arquivo inexistente quebra o build.
+COPY plugins/motriz_kanban/ $REDMINE_HOME/plugins/motriz_kanban/
 
 # O middleware OmniAuth precisa entrar em tempo de config, e o único gancho para
 # isso é config/additional_environment.rb. Ele vem versionado dentro do plugin

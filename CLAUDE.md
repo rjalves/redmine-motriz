@@ -40,6 +40,12 @@ Os arquivos reais do Redmine estão em `docs/redmine/reference/` —
   `tools/build_tailwind_theme.py`. **Alternativa ao tema, não complemento**: o layout
   dele não carrega o `application.css`, então com o plugin ligado o tema `motriz` não
   pinta nada. Ver `docs/redmine/13-asap-theme-como-base.md`.
+- **Plugin `motriz_kanban`** em `plugins/motriz_kanban/` — 4 arquivos, sem CSS e sem
+  migração. Só acrescenta `/quadro` e `/projects/:id/quadro` ao **quadro Kanban que já
+  existia dentro do `motriz_2`** e estava desligado por padrão. Depende do `motriz_2`.
+  Armadilhas de menu e permissão em `docs/redmine/16-quadro-kanban.md`.
+- **Plugins próprios ficam em `/plugins/` na raiz**, copiados por linha explícita do
+  `Dockerfile`. `redmine-7/plugins/` é reservado ao fork do tema (`motriz_2`).
 
 ## Decisões tomadas
 

@@ -18,3 +18,21 @@ pt-BR:
   motriz_wallpaper_erro_extensao: "Nome ou extensão não aceitos. Use JPG, PNG, WebP ou GIF."
   motriz_wallpaper_erro_tamanho: "O arquivo passa de 5 MB."
   motriz_wallpaper_erro_formato: "Este arquivo não é uma imagem válida."
+
+  # --- Quadro Kanban ------------------------------------------------------
+  # Toda a interface do quadro caía no fallback em inglês. Estas são as chaves
+  # que aparecem no caminho do quadro; o restante do en.yml do tema continua
+  # sem tradução, o que é dívida conhecida.
+  label_motriz_quadro: "Quadro"
+  label_motriz_tabela: "Tabela"
+  label_board_view_enabled: "Visão Kanban"
+  label_board_view_enabled_description: "Mostra o alternador Tabela / Quadro na lista de tarefas"
+  label_board_columns: "Colunas"
+  label_board_column_by: "Por"
+  label_board_column_type: "Agrupar colunas por"
+  label_board_column_status: "Situação"
+  label_board_column_version: "Versão"
+  label_board_status_columns: "Visíveis"
+  label_board_columns_auto: "Padrão: todas as situações"
+  warning_board_truncated: "Mostrando %{shown} de %{count} tarefas. Estreite os filtros para ver o resto."
+  warning_board_too_many_issues: "Esta visão tem %{count} tarefas. O quadro pode demorar a carregar."

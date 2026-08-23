@@ -25,6 +25,8 @@ Coletado em **21/08/2026**. Versão mais recente do Redmine na época: **7.0.0**
 | 12 | [AdminLTE como base](12-adminlte-como-base.md) | Diagnóstico: por que o template AdminLTE 4 não serve de base, e o que dele se aproveita |
 | 13 | [ASAP Theme como base](13-asap-theme-como-base.md) | Diagnóstico: o `redmine_asap_theme` é plugin, não tema — e desliga o CSS do tema Motriz |
 | 14 | [Desenvolvimento de plugins](14-plugins-tutorial.md) | A API de plugins do Redmine 7 conferida contra o código: ciclo de carga, DSL do `init.rb`, hooks, assets, migrations, testes — e onde a wiki oficial está desatualizada |
+| 15 | [Plugin `dashboard`](15-dashboard-plugin.md) | Diagnóstico: o quadro kanban do akpaevj roda no 7.0.0 e convive com o `motriz_2` — validado em contêiner contra a instância real; quatro ressalvas, a primeira de segurança |
+| 16 | [Quadro Kanban](16-quadro-kanban.md) | O quadro que já existia escondido no `motriz_2`, o plugin `motriz_kanban` que dá acesso a ele, e as três armadilhas de menu/permissão de plugin que o caminho revelou |
 
 ## Fontes de referência (`reference/`)
 

@@ -80,7 +80,9 @@
       <input type="checkbox" name="pref[board_view_enabled]" value="1"
              id="pref_board_view_enabled"
              class="sr-only peer"
-             <%= @user.pref[:board_view_enabled].to_s == '1' ? 'checked' : '' %>>
+             <%# Ligado por padrão: só fica desmarcado para quem desligou de
+                 propósito, o que grava '0'. Mesma regra de issues/index.html.erb. %>
+             <%= @user.pref[:board_view_enabled].to_s != '0' ? 'checked' : '' %>>
       <div class="w-10 h-6 bg-gray-200 dark:bg-gray-600 rounded-full peer-checked:bg-blue-500 transition-colors"></div>
       <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-4"></div>
     </div>

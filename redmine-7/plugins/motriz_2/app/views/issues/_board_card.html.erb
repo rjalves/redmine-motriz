@@ -18,6 +18,17 @@
       <% end %>
     </div>
     <div class="board-card__subject"><%= issue.subject %></div>
+    <%# Na visão global (menu Quadro, ou lista de tarefas fora de projeto) o
+        cartão sozinho não diz de onde a tarefa é. Dentro de um projeto seria
+        ruído, então só aparece quando não há projeto no contexto. %>
+    <% if local_assigns[:show_project] %>
+      <div class="board-card__project" title="<%= issue.project %>"><%= issue.project %></div>
+    <% end %>
+    <% if issue.done_ratio.to_i > 0 %>
+      <div class="board-card__progress" title="<%= l(:field_done_ratio) %>: <%= issue.done_ratio %>%">
+        <span style="width:<%= issue.done_ratio.to_i %>%"></span>
+      </div>
+    <% end %>
     <div class="board-card__footer">
       <% if issue.assigned_to %>
         <span class="board-card__assignee">

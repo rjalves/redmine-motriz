@@ -864,6 +864,21 @@ form.board-view-mode
         @apply text-xs font-medium text-gray-800 dark:text-gray-200 line-clamp-2 leading-4;
     }
 
+    /* Só aparece no quadro global, onde o cartão sozinho não diz de onde a
+       tarefa é. Discreto de propósito: é contexto, não informação principal. */
+    .board-card__project {
+        @apply text-[10px] text-gray-400 dark:text-gray-500 truncate mt-1;
+    }
+
+    /* Barra de progresso (% concluído). A largura vem por style inline no HTML
+       porque é um valor calculado por tarefa — não dá para gerar utilitária. */
+    .board-card__progress {
+        @apply h-1 w-full mt-1.5 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-700;
+        span {
+            @apply block h-full rounded-full bg-blue-600 dark:bg-blue-400;
+        }
+    }
+
     .board-card__footer {
         @apply flex items-center justify-between mt-0.5;
         .board-card__assignee {

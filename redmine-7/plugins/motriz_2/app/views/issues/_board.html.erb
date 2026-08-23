@@ -1,5 +1,10 @@
+<%# Teto de cartões. A consulta aqui não paginava, então um quadro sem filtro
+    carregava todas as tarefas visíveis de uma vez e montava um cartão para cada
+    uma no DOM — a lista de tarefas nunca sofreu disso porque pagina. Quem
+    renderiza a parcial pode apertar o teto passando `limit`. %>
+<% board_limit = (defined?(limit) && limit.present?) ? limit.to_i : 500 %>
 <% board_issue_count = query.issue_count %>
-<% board_issues = query.issues(include: [:assigned_to, :tracker, :priority, :category, :fixed_version, :parent]) %>
+<% board_issues = query.issues(include: [:assigned_to, :tracker, :priority, :category, :fixed_version, :parent], limit: board_limit) %>
 <% cl_badge = {}
    if defined?(Checklist)
      _ids    = board_issues.map(&:id)
@@ -22,7 +27,14 @@
 
 <%# Build column list and helpers depending on column type %>
 <% if board_column_type == 'version'
-     project_versions = project ? project.versions.to_a : []
+     %><%# Sem projeto no contexto (quadro global) não havia de onde tirar as
+          versões, e a tela saía vazia sem explicação. Nesse caso as colunas vêm
+          das versões efetivamente usadas pelas tarefas carregadas. %><%
+     project_versions = if project
+                          project.versions.to_a
+                        else
+                          Version.where(id: board_issues.map(&:fixed_version_id).compact.uniq).to_a
+                        end
      if query.respond_to?(:board_version_ids) && query.board_version_ids.present?
        board_columns = project_versions
                          .select { |v| query.board_version_ids.include?(v.id) }
@@ -42,8 +54,16 @@
      if query.respond_to?(:board_status_ids) && query.board_status_ids.present?
        board_columns = IssueStatus.where(id: query.board_status_ids).sort_by(&:position)
      else
-       used_status_ids = board_issues.map(&:status_id).uniq
-       board_columns = IssueStatus.where(id: used_status_ids).sort_by(&:position)
+       #  O padrão são TODAS as situações, não só as que já têm tarefa.
+       #
+       #  Antes as colunas saíam de board_issues.map(&:status_id).uniq, o que
+       #  quebrava o uso principal de um Kanban: se todas as tarefas estão em
+       #  "Nova", só existe a coluna "Nova" e não há para onde arrastar. O
+       #  quadro só ficava utilizável depois que alguém já tivesse espalhado as
+       #  tarefas por outro caminho. As colunas são o fluxo de trabalho, não a
+       #  distribuição de hoje. Quem quiser menos colunas escolhe em
+       #  "Colunas" no formulário de filtros.
+       board_columns = IssueStatus.sorted.to_a
      end
      col_id_for     = ->(col) { col.id }
      col_name_for   = ->(col) { col.name }
@@ -57,8 +77,13 @@
    end %>
 <% pos_map = project ? BoardCardPosition.positions_for(board_issues.map(&:id), project.id, board_column_type) : {} %>
 
-<% if board_issue_count > 1000 %>
-  <div class="flash warning"><%= l(:warning_board_too_many_issues, count: board_issue_count) %></div>
+<%# O aviso antigo disparava em 1000 e só dizia que podia demorar. Agora o corte
+    é real, então ele precisa dizer que a tela está truncada e quantas ficaram
+    de fora — senão a pessoa toma a decisão errada olhando um quadro incompleto. %>
+<% if board_issue_count > board_limit %>
+  <div class="flash warning">
+    <%= l(:warning_board_truncated, :shown => board_limit, :count => board_issue_count) %>
+  </div>
 <% end %>
 <%= form_tag({}, data: {cm_url: issues_context_menu_path}) do %>
   <%= hidden_field_tag 'back_url', url_for(params: request.query_parameters), id: nil %>
@@ -98,7 +123,7 @@
                   <% col_issues_for.(col, group_issues)
                                     .sort_by { |i| pos_map[[i.id, col_id_for.(col)]]&.position || Float::INFINITY }
                                     .each do |issue| %>
-                    <%= render partial: 'issues/board_card', locals: { issue: issue, cl_badge: cl_badge } %>
+                    <%= render partial: 'issues/board_card', locals: { issue: issue, cl_badge: cl_badge, show_project: project.nil? } %>
                   <% end %>
                 </div>
               </div>
@@ -131,7 +156,7 @@
           <div class="board-column__cards"
                data-action="dragover->board#dragover dragleave->board#dragleave drop->board#drop">
             <% sorted.each do |issue| %>
-              <%= render partial: 'issues/board_card', locals: { issue: issue, cl_badge: cl_badge } %>
+              <%= render partial: 'issues/board_card', locals: { issue: issue, cl_badge: cl_badge, show_project: project.nil? } %>
             <% end %>
           </div>
         </div>

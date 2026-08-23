@@ -4,7 +4,10 @@ module QueryFormBoardOptions
     name:          'add_board_column_options',
     insert_before: 'p.buttons',
     text: <<~ERB
-      <% if params[:view] == 'board' && @query.respond_to?(:board_column_type) %>
+      <%# params[:view] só existe no alternador da lista de tarefas. A tela do
+          plugin motriz_kanban é sempre quadro e não carrega esse parâmetro, daí
+          a segunda condição — sem ela o seletor de colunas sumiria lá. %>
+      <% if (params[:view] == 'board' || params[:controller] == 'motriz_kanban') && @query.respond_to?(:board_column_type) %>
       <fieldset id="board-options" class="collapsible collapsed">
         <legend onclick="toggleFieldset(this);" class="icon icon-collapsed">
           <%= sprite_icon("angle-right", rtl: true) %>
@@ -30,7 +33,9 @@ module QueryFormBoardOptions
               <div class="board-status-list">
                 <%= hidden_field_tag 'query[board_status_ids][]', '' %>
                 <% _sel = @query.respond_to?(:board_status_ids) ? (@query.board_status_ids || []) : [] %>
-                <% _auto_status_ids = _sel.empty? ? Array(@issues).map(&:status_id).uniq : [] %>
+                <%# Acompanha o padrão do quadro, que passou a ser o fluxo
+                    inteiro em vez de só as situações com tarefa. %>
+                <% _auto_status_ids = _sel.empty? ? IssueStatus.sorted.map(&:id) : [] %>
                 <% if _sel.empty? %>
                   <span class="board-status-hint"><%= l(:label_board_columns_auto) %></span>
                 <% end %>
@@ -49,7 +54,11 @@ module QueryFormBoardOptions
               <div class="board-status-list">
                 <%= hidden_field_tag 'query[board_version_ids][]', '' %>
                 <% _proj = @query.project %>
-                <% _versions = _proj ? _proj.versions.open.sort_by { |v| [v.effective_date.to_s, v.name] } : [] %>
+                <%# Sem projeto, cai nas versões usadas pelas tarefas carregadas —
+                    mesma regra da parcial do quadro. Antes a lista vinha vazia. %>
+                <% _versions = (_proj ? _proj.versions.open.to_a
+                                      : Version.where(id: Array(@issues).map(&:fixed_version_id).compact.uniq).to_a)
+                                 .sort_by { |v| [v.effective_date.to_s, v.name] } %>
                 <% _sel_v = @query.respond_to?(:board_version_ids) ? (@query.board_version_ids || []) : [] %>
                 <% _auto_version_ids = _sel_v.empty? ? Array(@issues).map(&:fixed_version_id).compact.uniq : [] %>
                 <% if _sel_v.empty? %>

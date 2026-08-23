@@ -1,4 +1,7 @@
-<% board_enabled = User.current.pref[:board_view_enabled].to_s == '1' %>
+<%# Ligado por padrão. A chave só existe para quem foi em Minha conta →
+    Aparência e salvou; o hidden_field de lá garante que a escolha explícita
+    grave '0' ou '1'. Quem nunca mexeu vem com nil e vê o quadro. %>
+<% board_enabled = User.current.pref[:board_view_enabled].to_s != '0' %>
 <% view_mode = (board_enabled && (params[:view].presence || @query.try(:board_view))) || 'table' %>
 <% if board_enabled %>
 <script>
@@ -30,12 +33,12 @@
     <%= link_to request.params.merge('view' => 'table', 'page' => nil),
           class: "view-switcher__btn#{' active' if view_mode == 'table'}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0c0 .621.504 1.125 1.125 1.125h17.25" /></svg>
-      Table
+      <%= l(:label_motriz_tabela) %>
     <% end %>
     <%= link_to request.params.merge('view' => 'board', 'page' => nil),
           class: "view-switcher__btn#{' active' if view_mode == 'board'}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" /></svg>
-      <%= l(:label_board) %>
+      <%= l(:label_motriz_quadro) %>
     <% end %>
   </div>
   <% end %>
@@ -67,17 +70,18 @@
 <% end %>
 
 <% if @query.valid? %>
-  <% if @issues.empty? %>
+  <%# O corte por lista vazia vale só para a tabela. Num quadro as colunas
+      vazias é que mostram o fluxo e convidam a criar o primeiro cartão —
+      esconder tudo e escrever "sem dados" deixava a tela sem sentido. %>
+  <% if view_mode == 'board' %>
+    <%= render_query_totals(@query) %>
+    <%= render :partial => 'issues/board', :locals => {:issues => @issues, :query => @query, :project => @project} %>
+  <% elsif @issues.empty? %>
     <p class="nodata"><%= l(:label_no_data) %></p>
   <% else %>
     <%= render_query_totals(@query) %>
-
-    <% if view_mode == 'board' %>
-      <%= render :partial => 'issues/board', :locals => {:issues => @issues, :query => @query, :project => @project} %>
-    <% else %>
-      <%= render :partial => 'issues/list', :locals => {:issues => @issues, :query => @query} %>
-      <span class="pagination"><%= pagination_links_full @issue_pages, @issue_count %></span>
-    <% end %>
+    <%= render :partial => 'issues/list', :locals => {:issues => @issues, :query => @query} %>
+    <span class="pagination"><%= pagination_links_full @issue_pages, @issue_count %></span>
   <% end %>
 
   <% other_formats_links do |f| %>

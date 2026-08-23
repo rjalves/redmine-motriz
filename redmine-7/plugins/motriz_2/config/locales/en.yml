@@ -71,16 +71,22 @@ en:
   label_issue_panel_beta_description: Opens the issue in a side panel when clicking its title in the list
   label_bold_assigned_to_me: Bold my assigned issues
   label_bold_assigned_to_me_description: Display in bold the subject of issues assigned to me in the issues list
-  label_board: Columns
+  # label_board NÃO pode ser redefinida aqui: é chave do core do Redmine e
+  # significa "Forum" (usada em messages/_form, projects/settings/_boards,
+  # boards/index e boards/edit). Sobrescrevê-la trocava "Forum" por "Columns"
+  # nessas quatro telas. As chaves do quadro são próprias, com prefixo motriz_.
+  label_motriz_quadro: Board
+  label_motriz_tabela: Table
   label_board_view_enabled: Kanban view
   label_board_view_enabled_description: Shows a Table / Board switcher in the issues list
+  warning_board_truncated: "Showing %{shown} of %{count} issues. Narrow the filters to see the rest."
   label_board_columns: Columns
   label_board_column_by: By
   label_board_column_type: Group columns by
   label_board_column_status: Status
   label_board_column_version: Version
   label_board_status_columns: Visible
-  label_board_columns_auto: "Default: non-empty columns only"
+  label_board_columns_auto: "Default: every status"
   label_font_size_xs: Very small
   label_font_size_sm: Small
   label_font_size_md: Normal
