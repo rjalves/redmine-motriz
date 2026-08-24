@@ -26,8 +26,23 @@ module RedmineMcpServer
 
     module_function
 
+    # O Redmine guarda as settings de um plugin como UM hash serializado. Quando
+    # o plugin ganha uma chave nova, ela NÃO aparece nas instalações que já
+    # salvaram a tela de configuração — o `default:` do init.rb não é mesclado
+    # retroativamente. Sem isto, todo upgrade nasce com a funcionalidade nova
+    # desligada e sem nenhum aviso.
+    #
+    # Mesclar o default POR BAIXO do gravado resolve de vez: valor salvo vence,
+    # chave ausente cai no default, e campo esvaziado de propósito pelo admin
+    # continua vazio (a chave existe, com string vazia).
     def settings
-      Setting.plugin_redmine_mcp_server || {}
+      declared_defaults.merge(Setting.plugin_redmine_mcp_server || {})
+    end
+
+    def declared_defaults
+      Redmine::Plugin.find(:redmine_mcp_server).settings[:default] || {}
+    rescue Redmine::PluginNotFound
+      {}
     end
 
     def enabled?
