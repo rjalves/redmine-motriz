@@ -99,8 +99,16 @@ esperar_banco() {
 
 ajustar_permissoes() {
   [ "$(id -u)" = '0' ] || return 0
-  mkdir -p files log tmp/pids tmp/cache tmp/sessions public/assets public/plugin_assets
-  chown -R redmine:redmine files log tmp public/assets public/plugin_assets config sqlite 2>/dev/null || true
+  # public/system guarda os avatares gerados pelo letter_avatar. Ele não vinha
+  # nesta lista, então era criado sob demanda por quem primeiro renderizasse um
+  # avatar — e se isso acontecesse num `docker exec` (que entra como root), o
+  # diretório nascia root e o Puma, que roda como redmine, passava a estourar
+  # Errno::EACCES em TODA página com avatar. Criar aqui, com o dono certo,
+  # remove a dependência de quem chegou primeiro.
+  mkdir -p files log tmp/pids tmp/cache tmp/sessions \
+           public/assets public/plugin_assets public/system
+  chown -R redmine:redmine files log tmp \
+           public/assets public/plugin_assets public/system config sqlite 2>/dev/null || true
 }
 
 # ------------------------------------------------------------------------- boot

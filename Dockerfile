@@ -122,7 +122,7 @@ COPY docker/configuration.yml $REDMINE_HOME/config/configuration.yml
 # `config.assets.redmine_detect_update = true`, então o Propshaft recompila
 # sozinho quando detecta mudança — inclusive nos assets do tema.
 RUN set -eux; \
-    mkdir -p files log tmp/pids tmp/cache tmp/sessions public/assets public/plugin_assets sqlite; \
+    mkdir -p files log tmp/pids tmp/cache tmp/sessions public/assets public/plugin_assets public/system sqlite; \
     chown -R redmine:redmine "$REDMINE_HOME"
 
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
