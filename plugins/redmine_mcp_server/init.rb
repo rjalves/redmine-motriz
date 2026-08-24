@@ -10,6 +10,7 @@ Redmine::Plugin.register :redmine_mcp_server do
              'enabled'              => '0',
              'dynamic_registration' => '0',
              'rate_limit'           => '60',
+             'allowed_origins'      => 'https://claude.ai',
              'retention_days'       => '90'
            },
            partial: 'settings/redmine_mcp_server_settings'

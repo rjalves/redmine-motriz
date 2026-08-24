@@ -3,6 +3,7 @@ pt-BR:
   label_mcp_connection_url: URL de conexão
   label_mcp_enabled: Habilitar o servidor MCP
   label_mcp_dynamic_registration: Permitir registro automático de clientes
+  label_mcp_allowed_origins: Origens de navegador permitidas
   label_mcp_rate_limit: Limite de chamadas por minuto, por usuário
   label_mcp_retention_days: Dias de retenção da auditoria
   label_mcp_endpoint: Endereço do endpoint
@@ -43,3 +44,5 @@ pt-BR:
   text_mcp_rate_limit_info: Padrão 60. Ao estourar, a ferramenta devolve erro e o modelo recua.
   text_mcp_retention_info: >-
     Registros mais antigos são apagados por rake redmine_mcp_server:purge_audit. 0 desliga o expurgo.
+  text_mcp_allowed_origins_info: >-
+    Uma por linha. O conector do Claude sonda o endpoint a partir do navegador; sem a origem aqui, o navegador bloqueia a chamada. Padrao: https://claude.ai

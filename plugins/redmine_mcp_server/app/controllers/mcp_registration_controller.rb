@@ -13,13 +13,21 @@
 # (confidential: false), o que é o correto para cliente nativo com PKCE e
 # significa que não há segredo emitido para vazar.
 class McpRegistrationController < ApplicationController
+  include RedmineMcpServer::Cors
+
   skip_before_action :check_if_login_required
   skip_before_action :check_password_change
   skip_before_action :check_twofa_activation
   skip_before_action :verify_authenticity_token
 
-  before_action :require_registration_enabled
-  before_action :throttle_by_ip
+  before_action :require_registration_enabled, except: :preflight
+  before_action :throttle_by_ip, except: :preflight
+  before_action :apply_cors, if: -> { request.headers['Origin'].present? }
+
+  def preflight
+    apply_preflight_headers!(request.headers['Origin'], 'POST, OPTIONS')
+    head :no_content
+  end
 
   NAME_PREFIX = 'MCP: '
   MAX_REDIRECT_URIS = 5
@@ -64,6 +72,13 @@ class McpRegistrationController < ApplicationController
   end
 
   private
+
+  def apply_cors
+    origin = request.headers['Origin']
+    return head(:forbidden) unless cors_origin_allowed?(origin)
+
+    apply_cors_headers!(origin, 'POST, OPTIONS')
+  end
 
   def application_name(params_hash)
     given = params_hash['client_name'].to_s.strip.presence || 'unnamed client'

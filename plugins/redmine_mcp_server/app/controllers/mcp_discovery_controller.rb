@@ -14,6 +14,11 @@ class McpDiscoveryController < ApplicationController
   skip_before_action :check_twofa_activation
   skip_before_action :verify_authenticity_token
 
+  # Documentos de descoberta são públicos e sem segredo — e um cliente de
+  # navegador precisa lê-los antes de ter qualquer credencial. Liberar para
+  # qualquer origem é o comportamento esperado pelas RFC 9728 e 8414.
+  before_action :allow_any_origin
+
   # RFC 9728. O cliente chega aqui pelo header WWW-Authenticate do 401.
   def protected_resource
     render json: {
@@ -46,6 +51,11 @@ class McpDiscoveryController < ApplicationController
   end
 
   private
+
+  def allow_any_origin
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+  end
 
   def base
     RedmineMcpServer::Config.base_url

@@ -11,6 +11,14 @@
 match 'mcp', to: 'mcp#handle', via: [:post], defaults: {format: 'json'}, as: 'mcp_endpoint'
 match 'mcp', to: 'mcp#handle', via: [:get, :delete, :put, :patch], defaults: {format: 'json'}
 
+# Preflight CORS. Sem esta rota o navegador recebe 404 no OPTIONS e desiste
+# antes de emitir o POST — o cliente só reporta uma falha genérica.
+# `as: nil` porque o Rails autonomearia estas rotas a partir do caminho, e os
+# nomes 'mcp' e 'mcp_register' já pertencem às rotas de POST acima.
+match 'mcp', to: 'mcp#preflight', via: [:options], defaults: {format: 'json'}, as: nil
+match 'mcp/register', to: 'mcp_registration#preflight', via: [:options],
+      defaults: {format: 'json'}, as: nil
+
 # Registro dinâmico de cliente (RFC 7591).
 post 'mcp/register', to: 'mcp_registration#create', defaults: {format: 'json'}, as: 'mcp_register'
 

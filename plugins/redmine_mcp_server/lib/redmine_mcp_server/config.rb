@@ -62,6 +62,12 @@ module RedmineMcpServer
       Setting.protocol && Setting.host_name ? "#{Setting.protocol}://#{Setting.host_name}" : ''
     end
 
+    # Origens de navegador autorizadas a falar com o endpoint. Uma por linha.
+    # A própria origem do Redmine é sempre aceita (ver Cors#cors_origin_allowed?).
+    def allowed_origins
+      settings['allowed_origins'].to_s.split(/[\s,;]+/).map(&:strip).reject(&:blank?)
+    end
+
     def enabled_for?(user)
       return false unless user&.logged?
 

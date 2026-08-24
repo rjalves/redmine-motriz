@@ -21,6 +21,8 @@
 #   3. `Setting.rest_api_enabled?` precisa estar ligado, senão o mesmo :130
 #      nunca chega ao Doorkeeper.
 class McpController < ApplicationController
+  include RedmineMcpServer::Cors
+
   accept_api_auth :handle
 
   # Autenticação aqui é Bearer com desafio RFC 9728, não redirecionamento para
@@ -38,10 +40,16 @@ class McpController < ApplicationController
                      'Invalid JSON in request body', status: :bad_request)
   end
 
-  before_action :reject_non_post
+  before_action :reject_non_post, except: :preflight
   before_action :validate_origin
-  before_action :require_mcp_available
-  before_action :require_mcp_user
+  before_action :require_mcp_available, except: :preflight
+  before_action :require_mcp_user, except: :preflight
+
+  # Resposta ao preflight. Só chega aqui se validate_origin aprovou a origem.
+  def preflight
+    apply_preflight_headers!(request.headers['Origin'], 'POST, OPTIONS')
+    head :no_content
+  end
 
   def handle
     body = parse_body
@@ -70,19 +78,22 @@ class McpController < ApplicationController
   end
 
   # Exigência da especificação, contra DNS rebinding: Origin presente e
-  # desconhecida é 403. Origin ausente (cliente não-navegador) passa.
+  # desconhecida é 403. Origin ausente (cliente não-navegador, como o backend
+  # do Claude) passa direto — não há navegador para enganar.
+  #
+  # Quando a origem É conhecida, a resposta precisa carregar os cabeçalhos CORS,
+  # senão o navegador descarta um 200 perfeitamente válido.
   def validate_origin
     origin = request.headers['Origin'].presence
     return if origin.nil?
-    return if allowed_origins.include?(origin)
+
+    if cors_origin_allowed?(origin)
+      apply_cors_headers!(origin, 'POST, OPTIONS')
+      return
+    end
 
     render_rpc_error(RedmineMcpServer::Envelope::INVALID_REQUEST,
                      'Origin not allowed', status: :forbidden)
-  end
-
-  def allowed_origins
-    [RedmineMcpServer::Config.base_url.presence,
-     "#{request.protocol}#{request.host_with_port}"].compact
   end
 
   def require_mcp_available

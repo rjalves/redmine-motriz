@@ -24,6 +24,13 @@
 </p>
 
 <p>
+  <label for="settings_allowed_origins"><%= l(:label_mcp_allowed_origins) %></label>
+  <%= text_area_tag 'settings[allowed_origins]', settings['allowed_origins'],
+                    :id => 'settings_allowed_origins', :rows => 3, :cols => 40 %>
+  <em class="info"><%= l(:text_mcp_allowed_origins_info) %></em>
+</p>
+
+<p>
   <label for="settings_rate_limit"><%= l(:label_mcp_rate_limit) %></label>
   <%= text_field_tag 'settings[rate_limit]', settings['rate_limit'], id: 'settings_rate_limit', size: 6 %>
   <em class="info"><%= l(:text_mcp_rate_limit_info) %></em>
