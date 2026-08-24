@@ -144,11 +144,37 @@ class McpControllerTest < Redmine::ControllerTest
     assert_equal(-32700, json['error']['code'])
   end
 
-  def test_metodo_desconhecido_e_404_com_32601
+  # 200, não 404. Erro de método é erro de protocolo, e o transporte do MCP
+  # reserva status HTTP para falha de transporte. O conector do Claude sonda
+  # `server/discover` esperando uma recusa limpa para cair no handshake antigo;
+  # um 404 nessa sonda ele lê como "esta URL não é um servidor MCP".
+  def test_metodo_desconhecido_e_200_com_32601
     as(@user)
-    rpc('coisa/inexistente')
-    assert_response :not_found
+    rpc('server/discover')
+    assert_response :success
     assert_equal(-32601, json['error']['code'])
+    assert_nil json['result']
+  end
+
+  # O Claude manda initialize com params.protocolVersion=2025-11-25 enquanto
+  # anuncia 2026-07-28 no cabeçalho. A versão negociada tem que sair do corpo.
+  def test_initialize_negocia_a_versao_do_corpo_e_nao_do_cabecalho
+    as(@user)
+    rpc('initialize', {'protocolVersion' => '2025-11-25'})
+    assert_response :success
+    assert_equal '2025-11-25', json['result']['protocolVersion']
+  end
+
+  # resultType nasceu em 2026-07-28; um cliente que negociou revisão anterior
+  # não deve recebê-lo.
+  def test_result_type_so_aparece_para_cliente_moderno
+    as(@user)
+    rpc('ping')
+    assert_equal 'complete', json['result']['resultType']
+
+    rpc('ping', version: '2025-06-18')
+    assert_response :success
+    refute json['result'].key?('resultType'), json['result'].inspect
   end
 
   def test_notificacao_responde_202_sem_corpo

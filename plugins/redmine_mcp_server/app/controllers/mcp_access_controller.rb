@@ -11,6 +11,13 @@ class McpAccessController < ApplicationController
   before_action :require_login
   before_action :require_mcp_enabled_globally
 
+  def show
+    @mcp_enabled = RedmineMcpServer::Config.enabled_for?(User.current)
+    @tokens = Doorkeeper::AccessToken
+              .where(resource_owner_id: User.current.id, revoked_at: nil)
+              .order(created_at: :desc)
+  end
+
   def update
     # Nunca por GET: é mudança de estado.
     enabled = params[:enabled].to_s == '1'
@@ -19,7 +26,7 @@ class McpAccessController < ApplicationController
 
     Rails.logger.info("MCP: access #{enabled ? 'enabled' : 'disabled'} by '#{User.current.login}'")
     flash[:notice] = l(enabled ? :notice_mcp_enabled : :notice_mcp_disabled)
-    redirect_to my_account_path
+    redirect_to mcp_access_path
   end
 
   # Revoga todos os tokens OAuth do usuário. É a saída de emergência quando
@@ -30,7 +37,7 @@ class McpAccessController < ApplicationController
     tokens.find_each { |t| t.revoke }
     Rails.logger.warn("MCP: '#{User.current.login}' revoked #{count} OAuth token(s)")
     flash[:notice] = l(:notice_mcp_tokens_revoked, count: count)
-    redirect_to my_account_path
+    redirect_to mcp_access_path
   end
 
   private

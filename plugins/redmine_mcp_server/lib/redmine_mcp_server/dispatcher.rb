@@ -22,10 +22,20 @@ module RedmineMcpServer
       when 'tools/list'      then tools_list
       when 'tools/call'      then tools_call
       else
+        # HTTP 200, não 404. "Método não encontrado" é erro de PROTOCOLO: o
+        # transporte funcionou e a resposta é um JSON-RPC error perfeitamente
+        # válido. O status HTTP no transporte do MCP só descreve falhas de
+        # transporte (400 malformado, 401, 403, 405).
+        #
+        # Isto não é purismo. O conector do Claude sonda `server/discover`
+        # (revisão 2026-07-28) em paralelo com `initialize`, contando com a
+        # recusa para cair no handshake antigo. Um 404 nessa sonda é lido como
+        # "esta URL não é um servidor MCP" — que é, palavra por palavra, o erro
+        # que o usuário via.
         raise Envelope::Error.new(
           Envelope::METHOD_NOT_FOUND,
           "Method not found: #{@envelope.method_name}",
-          http_status: 404
+          http_status: 200
         )
       end
     end
@@ -36,11 +46,23 @@ module RedmineMcpServer
     # initialize antes de tudo. Responder é barato e evita travar esses clientes.
     def initialize_result
       complete(
-        'protocolVersion' => @envelope.protocol_version,
+        'protocolVersion' => negotiated_version,
         'capabilities' => {'tools' => {'listChanged' => false}},
         'serverInfo' => SERVER_INFO,
         'instructions' => instructions
       )
+    end
+
+    # No handshake quem propõe a versão é `params.protocolVersion`, não o
+    # cabeçalho de transporte — e os dois divergem na prática: o Claude manda
+    # `initialize` com params.protocolVersion=2025-11-25 enquanto anuncia
+    # 2026-07-28 no envelope. Ecoar a versão do cabeçalho responderia ao cliente
+    # uma versão que ele não ofereceu.
+    def negotiated_version
+      proposed = @envelope.params['protocolVersion'].to_s
+      return proposed if Config::SUPPORTED_PROTOCOL_VERSIONS.include?(proposed)
+
+      @envelope.protocol_version
     end
 
     def instructions
@@ -112,8 +134,13 @@ module RedmineMcpServer
       complete('content' => [{'type' => 'text', 'text' => message}], 'isError' => true)
     end
 
-    # Todo result da era 2026-07-28 carrega resultType.
+    # `resultType` é campo da era 2026-07-28. Mandá-lo para um cliente que
+    # negociou 2025-11-25 é devolver um campo de uma revisão que ele não pediu
+    # — inofensivo se ele ignorar campos extras, quebra se ele validar estrito.
+    # Não há motivo para correr esse risco.
     def complete(payload)
+      return payload unless @envelope.modern?
+
       {'resultType' => 'complete'}.merge(payload)
     end
   end

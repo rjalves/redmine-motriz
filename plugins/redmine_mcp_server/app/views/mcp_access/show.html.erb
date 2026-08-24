@@ -1,0 +1,44 @@
+<h2><%= l(:label_mcp_server) %></h2>
+
+<div class="box" id="mcp-access">
+  <% unless RedmineMcpServer::Config.rest_api_enabled? %>
+    <p class="warning"><%= l(:text_mcp_rest_api_disabled) %></p>
+  <% end %>
+
+  <p><%= l(:text_mcp_intro) %></p>
+
+  <% if @mcp_enabled %>
+    <p>
+      <label for="mcp-url"><%= l(:label_mcp_connection_url) %></label>
+      <%#
+        Não há token nesta URL, e isso é de propósito: a especificação proíbe
+        token em query string. Quem identifica a pessoa é o fluxo OAuth que o
+        cliente percorre depois — por isso a URL é a mesma para todo mundo.
+      %>
+      <input type="text" id="mcp-url" readonly value="<%= RedmineMcpServer::Config.resource_uri %>"
+             onclick="this.select();" size="60" />
+    </p>
+    <p class="info"><%= l(:text_mcp_url_is_shared) %></p>
+
+    <p>
+      <strong><%= l(:label_mcp_active_tokens, count: @tokens.size) %></strong>
+    </p>
+
+    <%# Estes button_to viram <form>. Só são válidos porque esta página é
+        autônoma — dentro do formulário de Minha conta eles seriam descartados
+        pelo parser. Ver o comentário em config/routes.rb. %>
+    <p>
+      <%= button_to l(:button_mcp_disable), mcp_access_update_path(enabled: 0),
+                    data: {turbo: false, confirm: l(:text_mcp_disable_confirm)} %>
+      <%= button_to l(:button_mcp_revoke_tokens), mcp_revoke_tokens_path,
+                    data: {turbo: false, confirm: l(:text_mcp_revoke_confirm)} %>
+    </p>
+  <% else %>
+    <p>
+      <%= button_to l(:button_mcp_enable), mcp_access_update_path(enabled: 1),
+                    data: {turbo: false} %>
+    </p>
+  <% end %>
+</div>
+
+<p><%= link_to l(:label_my_account), my_account_path %></p>

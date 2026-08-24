@@ -40,6 +40,7 @@ class McpController < ApplicationController
                      'Invalid JSON in request body', status: :bad_request)
   end
 
+  before_action :log_protocol_headers, except: :preflight
   before_action :reject_non_post, except: :preflight
   before_action :validate_origin
   before_action :require_mcp_available, except: :preflight
@@ -66,6 +67,21 @@ class McpController < ApplicationController
   end
 
   private
+
+  # O log do Rails registra o corpo (via Parameters) mas não os cabeçalhos, e é
+  # nos cabeçalhos que mora metade do contrato desta revisão. Sem esta linha,
+  # diagnosticar um -32020 vira adivinhação sobre o que o cliente mandou.
+  # `Authorization` fica de fora de propósito: não se escreve token em log.
+  def log_protocol_headers
+    interesting = {
+      'proto' => request.headers['MCP-Protocol-Version'],
+      'method' => request.headers['Mcp-Method'],
+      'name' => request.headers['Mcp-Name'],
+      'origin' => request.headers['Origin'],
+      'auth' => request.headers['Authorization'].present? ? 'bearer' : 'none'
+    }.compact_blank.map { |k, v| "#{k}=#{v}" }.join(' ')
+    Rails.logger.info("MCP headers: #{interesting}")
+  end
 
   # A revisão 2026-07-28 removeu o stream por GET e o encerramento por DELETE.
   def reject_non_post

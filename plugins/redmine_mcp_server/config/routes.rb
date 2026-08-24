@@ -32,8 +32,21 @@ get '.well-known/oauth-protected-resource',
 get '.well-known/oauth-authorization-server',
     to: 'mcp_discovery#authorization_server', defaults: {format: 'json'}, as: 'mcp_authorization_server'
 
-# Habilitação pela pessoa, em Minha conta.
-post 'mcp/access', to: 'mcp_access#update', as: 'mcp_access'
+# Habilitação pela pessoa. Página própria, e não um bloco embutido em Minha
+# conta, por um motivo estrutural: os dois lugares que chamam o hook
+# `view_my_account` — o core (my/account.html.erb:53) e o motriz_2
+# (user_settings/_preferences.html.erb:15) — chamam de DENTRO de um
+# `labelled_form_for`. Um <form> dentro de outro é inválido em HTML; o parser
+# descarta o interno, e o botão passa a submeter o formulário de fora. Ou seja:
+# qualquer botão que o bloco renderizasse ali seria silenciosamente inerte.
+#
+# A alternativa seria um link com data-turbo-method, mas o Turbo não vem do
+# core (config/importmap.rb não o inclui) — quem o carrega é o motriz_2, e só
+# quando a setting `redmine_asap_theme_turbo` está ligada. Depender disso é
+# construir sobre o mesmo alçapão que já quebrou o botão do Google e o do
+# consentimento OAuth.
+get  'mcp/access', to: 'mcp_access#show',   as: 'mcp_access'
+post 'mcp/access', to: 'mcp_access#update', as: 'mcp_access_update'
 post 'mcp/revoke_tokens', to: 'mcp_access#revoke_tokens', as: 'mcp_revoke_tokens'
 
 # Auditoria (admin).

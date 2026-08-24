@@ -16,6 +16,10 @@ pt-BR:
   label_mcp_ok: ok
   label_mcp_only_writes: Só escritas
   label_mcp_only_failed: Só falhas
+  label_mcp_manage_access: Gerenciar acesso por IA
+  label_mcp_active_tokens: "Assistentes autorizados agora: %{count}"
+  text_mcp_status_on: habilitado
+  text_mcp_status_off: não habilitado
   button_mcp_enable: Habilitar acesso por IA
   button_mcp_disable: Desabilitar
   button_mcp_revoke_tokens: Revogar todos os acessos

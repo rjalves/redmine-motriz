@@ -16,6 +16,10 @@ en:
   label_mcp_ok: ok
   label_mcp_only_writes: Writes only
   label_mcp_only_failed: Failures only
+  label_mcp_manage_access: Manage AI access
+  label_mcp_active_tokens: "Assistants currently authorized: %{count}"
+  text_mcp_status_on: enabled
+  text_mcp_status_off: not enabled
   button_mcp_enable: Enable AI access
   button_mcp_disable: Disable
   button_mcp_revoke_tokens: Revoke all access

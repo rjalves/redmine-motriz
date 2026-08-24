@@ -1,38 +1,19 @@
+<%#
+  Este parcial é renderizado pelo hook :view_my_account, que tanto o core
+  (my/account.html.erb:53) quanto o motriz_2 (user_settings/_preferences.html.erb:15)
+  chamam de DENTRO de um <form>. Portanto aqui NÃO pode haver <form>, e nem
+  button_to nem form_tag podem ser usados: o parser HTML descarta o form
+  aninhado e o botão passa a submeter o formulário de fora, sem nunca chegar
+  ao McpAccessController. Só um link. O que muda estado mora em mcp_access#show.
+
+  Há um teste de regressão para isso em test/functional/mcp_access_controller_test.rb.
+%>
 <% if RedmineMcpServer::Config.enabled? %>
-  <% mcp_on = RedmineMcpServer::Config.enabled_for?(User.current) %>
-  <div class="box" id="mcp-access">
-    <h3><%= l(:label_mcp_server) %></h3>
-
-    <% unless RedmineMcpServer::Config.rest_api_enabled? %>
-      <p class="warning"><%= l(:text_mcp_rest_api_disabled) %></p>
-    <% end %>
-
-    <p><%= l(:text_mcp_intro) %></p>
-
-    <% if mcp_on %>
-      <p>
-        <label for="mcp-url"><%= l(:label_mcp_connection_url) %></label>
-        <%#
-          Não há token nesta URL, e isso é de propósito: a especificação proíbe
-          token em query string. Quem identifica a pessoa é o fluxo OAuth que o
-          cliente percorre depois — por isso a URL é a mesma para todo mundo.
-        %>
-        <input type="text" id="mcp-url" readonly value="<%= RedmineMcpServer::Config.resource_uri %>"
-               onclick="this.select();" size="60" />
-      </p>
-      <p class="info"><%= l(:text_mcp_url_is_shared) %></p>
-
-      <p>
-        <%= button_to l(:button_mcp_disable), mcp_access_path(enabled: 0),
-                      data: {turbo: false, confirm: l(:text_mcp_disable_confirm)} %>
-        <%= button_to l(:button_mcp_revoke_tokens), mcp_revoke_tokens_path,
-                      data: {turbo: false, confirm: l(:text_mcp_revoke_confirm)} %>
-      </p>
-    <% else %>
-      <p>
-        <%= button_to l(:button_mcp_enable), mcp_access_path(enabled: 1),
-                      data: {turbo: false} %>
-      </p>
-    <% end %>
-  </div>
+  <p id="mcp-access-link">
+    <label><%= l(:label_mcp_server) %></label>
+    <%= link_to l(:label_mcp_manage_access), mcp_access_path %>
+    <em class="info">
+      <%= RedmineMcpServer::Config.enabled_for?(User.current) ? l(:text_mcp_status_on) : l(:text_mcp_status_off) %>
+    </em>
+  </p>
 <% end %>

@@ -5,6 +5,19 @@
   </p>
 <% end %>
 
+<%#
+  O local `settings` que o SettingsController passa é o hash CRU do banco, sem
+  os defaults do init.rb mesclados. Usá-lo aqui abre um alçapão: uma chave que
+  o plugin ganhou depois da última gravação renderiza vazia, e o primeiro Save
+  persiste "" por cima — que RedmineMcpServer::Config trata, corretamente, como
+  "o admin limpou de propósito". Foi assim que allowed_origins virou "" em
+  produção e o CORS voltou a recusar o claude.ai depois de já estar funcionando.
+
+  Renderizando o valor EFETIVO, a tela mostra o que o servidor de fato usa e o
+  Save preserva em vez de apagar.
+%>
+<% settings = RedmineMcpServer::Config.settings %>
+
 <%# O hidden antes de cada checkbox é obrigatório: SettingsController#plugin grava
     o hash inteiro do POST, então campo ausente some da configuração e desmarcar
     nunca persistiria. %>
