@@ -49,15 +49,39 @@ RUN mkdir -p config && printf '%s\n' \
 COPY plugins/redmine_google_sso/Gemfile $REDMINE_HOME/plugins/redmine_google_sso/Gemfile
 COPY plugins/redmine_mcp_server/Gemfile $REDMINE_HOME/plugins/redmine_mcp_server/Gemfile
 
+# O tema traz letter_avatar e deface. O Gemfile dele entra no bundle apenas na
+# variante COM_TEMA=1: o Gemfile do core resolve `plugins/*/Gemfile` por glob,
+# então deixar as gems no lock sem o Gemfile presente deixaria as duas fontes
+# em desacordo na variante padrão.
+ARG COM_TEMA=0
+COPY redmine-7/plugins/motriz_2/Gemfile $REDMINE_HOME/plugins/motriz_2/Gemfile
+RUN if [ "$COM_TEMA" != '1' ]; then rm -rf "$REDMINE_HOME/plugins/motriz_2"; fi
+
 RUN bundle install --jobs "$(nproc)" --retry 3
 
 COPY redmine-7/ $REDMINE_HOME/
 
-# Só os plugins deste repositório. Os demais da árvore ficam de fora por dois
-# motivos: os Gemfiles deles não foram resolvidos no bundle install acima, e
-# sobreposições de view (Deface) mudariam o HTML que as asserções checam.
-RUN find plugins -mindepth 1 -maxdepth 1 -type d \
-      ! -name redmine_google_sso ! -name redmine_mcp_server -exec rm -rf {} +
+# Por padrão, só os plugins deste repositório: o tema motriz_2 sobrepõe views e
+# layouts, e isso muda o HTML que as asserções funcionais do SSO e do MCP
+# checam.
+#
+# COM_TEMA=1 mantém o tema, para exercitar o código DELE — que já precisou de
+# três correções (URL relativa no namespace do Doorkeeper, Turbo no formulário
+# de consentimento, e o avatar que derrubava a página inteira ao falhar a
+# escrita do cache) sem nenhum teste cobrindo.
+#
+#   docker build -f docker/Dockerfile.test --build-arg COM_TEMA=1 -t redmine-tema-tests .
+#   docker run --rm -e PLUGIN=motriz_2 redmine-tema-tests
+RUN set -eux; \
+    if [ "$COM_TEMA" = '1' ]; then \
+      find plugins -mindepth 1 -maxdepth 1 -type d \
+        ! -name redmine_google_sso ! -name redmine_mcp_server ! -name motriz_2 \
+        -exec rm -rf {} + ; \
+    else \
+      find plugins -mindepth 1 -maxdepth 1 -type d \
+        ! -name redmine_google_sso ! -name redmine_mcp_server \
+        -exec rm -rf {} + ; \
+    fi
 
 COPY plugins/redmine_google_sso/ $REDMINE_HOME/plugins/redmine_google_sso/
 COPY plugins/redmine_mcp_server/ $REDMINE_HOME/plugins/redmine_mcp_server/

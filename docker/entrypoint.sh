@@ -105,8 +105,24 @@ ajustar_permissoes() {
   # diretório nascia root e o Puma, que roda como redmine, passava a estourar
   # Errno::EACCES em TODA página com avatar. Criar aqui, com o dono certo,
   # remove a dependência de quem chegou primeiro.
+  # Criar public/system não bastava. O gem letter_avatar grava em
+  # public/system/letter_avatars/<VERSAO_DO_CACHE>/<iniciais>/, e cria a árvore
+  # inteira sob demanda — quem renderizar o primeiro avatar vira dono dela. Um
+  # único `curl /` dado por dentro do container (docker exec entra como root)
+  # deixou o diretório de versão com dono root, e a partir daí o Puma, que roda
+  # como redmine, não conseguia criar a subpasta de nenhuma inicial nova:
+  # Errno::EACCES em toda página com avatar, ou seja, o Redmine inteiro fora.
+  #
+  # Criando aqui a pasta de versão com o dono certo, o app sempre consegue
+  # criar as subpastas de iniciais dentro dela, independentemente de quem
+  # renderizou primeiro.
+  #
+  # O `2` é LetterAvatar::Avatar::VERSION (versão do formato de cache do gem,
+  # não um tamanho). Se o gem subir essa versão, esta linha para de cobrir o
+  # caminho novo — e aí vale a rede de segurança do outro lado: o patch de
+  # avatar do motriz_2 degrada para o avatar do core em vez de estourar.
   mkdir -p files log tmp/pids tmp/cache tmp/sessions \
-           public/assets public/plugin_assets public/system
+           public/assets public/plugin_assets public/system/letter_avatars/2
   chown -R redmine:redmine files log tmp \
            public/assets public/plugin_assets public/system config sqlite 2>/dev/null || true
 }
