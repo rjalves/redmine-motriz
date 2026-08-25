@@ -1,0 +1,77 @@
+<%# Painel de indicadores da tela inicial.
+    Os dados vêm de RedmineAsapTheme::Dashboard, sempre sobre Issue.visible.
+    Os gráficos são desenhados pelo controller Stimulus dashboard-charts, que
+    carrega o Chart.js do importmap do próprio Redmine. %>
+<% d = @dashboard %>
+<% numeros = d[:numeros] %>
+<% tem_dados = numeros[:abertas].positive? || d[:evolucao][:criadas].sum.positive? %>
+
+<section class="mb-8"
+         data-controller="dashboard-charts"
+         data-dashboard-charts-dados-value="<%= {
+              situacao:    d[:por_situacao],
+              prioridade:  d[:por_prioridade],
+              projeto:     d[:por_projeto].map { |n, v| [n.is_a?(Symbol) ? l(:"welcome.dashboard.#{n}") : n, v] },
+              responsavel: d[:por_responsavel].map { |n, v| [n.is_a?(Symbol) ? l(:"welcome.dashboard.#{n}") : n, v] },
+              evolucao:    d[:evolucao],
+              rotulos:     { criadas: l(:'welcome.dashboard.criadas'), fechadas: l(:'welcome.dashboard.fechadas') }
+            }.to_json %>">
+
+  <div class="flex items-center mb-3">
+    <h2 class="text-2xs text-gray-400 dark:text-gray-500 font-semibold uppercase tracking-wider">
+      <%= l(:'welcome.dashboard.titulo') %>
+    </h2>
+  </div>
+
+  <%# ── Cartões de número ──────────────────────────────────────────────── %>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+    <% [
+         [:abertas,         numeros[:abertas],         issues_path(set_filter: 1, 'status_id' => 'o'),                                  'text-gray-800 dark:text-gray-100'],
+         [:atrasadas,       numeros[:atrasadas],       issues_path(set_filter: 1, 'status_id' => 'o', 'due_date' => '<t-'),             'text-red-600 dark:text-red-400'],
+         [:minhas,          numeros[:minhas],          issues_path(set_filter: 1, 'status_id' => 'o', 'assigned_to_id' => 'me'),        'text-blue-700 dark:text-blue-300'],
+         [:sem_responsavel, numeros[:sem_responsavel], issues_path(set_filter: 1, 'status_id' => 'o', 'assigned_to_id' => '!*'),        'text-amber-600 dark:text-amber-400'],
+         [:fechadas_semana, numeros[:fechadas_semana], issues_path(set_filter: 1, 'status_id' => 'c'),                                  'text-green-500 dark:text-green-400'],
+         [:projetos,        numeros[:projetos],        projects_path,                                                                   'text-gray-800 dark:text-gray-100']
+       ].each do |chave, valor, destino, cor| %>
+      <%# Cada número é um link para a mesma consulta na lista de tarefas: ver
+          "12 atrasadas" e não conseguir chegar nas 12 seria frustrante. %>
+      <%= link_to destino,
+            class: "bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gray-200 dark:hover:border-gray-600 transition px-4 py-3 block" do %>
+        <div class="text-2xl font-semibold leading-none <%= cor %>"><%= valor %></div>
+        <div class="text-2xs text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 leading-tight">
+          <%= l(:"welcome.dashboard.#{chave}") %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if tem_dados %>
+    <%# ── Gráficos ────────────────────────────────────────────────────── %>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+      <%= render partial: 'welcome/dashboard_card',
+                 locals: { titulo: l(:'welcome.dashboard.por_situacao'), alvo: 'situacao', altura: 'h-64' } %>
+      <%= render partial: 'welcome/dashboard_card',
+                 locals: { titulo: l(:'welcome.dashboard.por_prioridade'), alvo: 'prioridade', altura: 'h-64' } %>
+    </div>
+
+    <div class="mb-4">
+      <%= render partial: 'welcome/dashboard_card',
+                 locals: { titulo: l(:'welcome.dashboard.por_evolucao'), alvo: 'evolucao', altura: 'h-64' } %>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <%= render partial: 'welcome/dashboard_card',
+                 locals: { titulo: l(:'welcome.dashboard.por_projeto'), alvo: 'projeto', altura: 'h-72' } %>
+      <%= render partial: 'welcome/dashboard_card',
+                 locals: { titulo: l(:'welcome.dashboard.por_responsavel'), alvo: 'responsavel', altura: 'h-72' } %>
+    </div>
+  <% else %>
+    <div class="rounded-xl border border-dashed border-gray-200 dark:border-gray-700 p-8 flex flex-col items-center justify-center text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-300 dark:text-gray-600 mb-3">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+      </svg>
+      <p class="font-medium text-gray-500 dark:text-gray-400"><%= l(:'welcome.dashboard.sem_dados') %></p>
+      <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 max-w-md"><%= l(:'welcome.dashboard.sem_dados_ajuda') %></p>
+    </div>
+  <% end %>
+</section>

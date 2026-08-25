@@ -36,3 +36,79 @@ pt-BR:
   label_board_columns_auto: "Padrão: todas as situações"
   warning_board_truncated: "Mostrando %{shown} de %{count} tarefas. Estreite os filtros para ver o resto."
   warning_board_too_many_issues: "Esta visão tem %{count} tarefas. O quadro pode demorar a carregar."
+
+  # --- Tela inicial -------------------------------------------------------
+  # A home inteira caía no fallback em inglês. Traduzida junto com o painel de
+  # indicadores, que é a razão de a tela existir.
+  welcome:
+    tabs:
+      quicklinks: "Atalhos"
+      my_projects: "Meus projetos"
+      my_issues: "Minhas tarefas"
+    projects:
+      title: "Projetos"
+      all: "Ver todos"
+      bookmarked: "Favoritos"
+      others: "Meus projetos"
+      load_more: "Carregar mais projetos"
+      sub_projects_count:
+        one: "%{count} subprojeto"
+        other: "%{count} subprojetos"
+      remaining: "faltam %{count}"
+    recent_projects:
+      title: "Projetos recentes"
+      none: "Nenhum projeto recente."
+      none_description: "Esta lista se preenche conforme você navega pelos projetos. A quantidade exibida é configurada em Minha conta."
+    favorite_projects:
+      title: "Projetos favoritos"
+      none: "Nenhum projeto favorito."
+      none_description: "Para incluir, entre num projeto e use \"Adicionar aos favoritos\"."
+    news:
+      title: "Notícias"
+      all: "Ver todas"
+      none: "Nenhuma notícia"
+    shortcuts:
+      title: "Atalhos"
+      new_issue: "Nova tarefa"
+      documentation: "Documentação"
+      help: "Ajuda"
+    accordion:
+      my_issues: "Minhas tarefas"
+      no_issues: "Nenhuma tarefa atribuída a você neste projeto."
+      all_issues: "Ver as %{count} tarefas →"
+      view_project: "Abrir o projeto"
+      loading: "Carregando…"
+      toggle: "Mostrar detalhes"
+      due_date_prefix: "→"
+    my_watched_issues:
+      title: "Tarefas que acompanho"
+    my_assigned_issues:
+      title: "Tarefas atribuídas a mim"
+    my_projects:
+      title: "Meus projetos"
+    stats:
+      assigned: "Tarefas atribuídas"
+      watched: "Tarefas acompanhadas"
+      overdue: "Atrasadas"
+      projects: "Projetos"
+    issues:
+      none: "Nenhuma tarefa aberta — tudo em dia."
+      see_all: "Ver as %{count} tarefas"
+    dashboard:
+      titulo: "Panorama"
+      abertas: "Tarefas abertas"
+      atrasadas: "Atrasadas"
+      minhas: "Atribuídas a mim"
+      sem_responsavel: "Sem responsável"
+      fechadas_semana: "Fechadas na semana"
+      projetos: "Projetos ativos"
+      por_situacao: "Tarefas abertas por situação"
+      por_prioridade: "Tarefas abertas por prioridade"
+      por_projeto: "Tarefas abertas por projeto"
+      por_responsavel: "Tarefas abertas por responsável"
+      por_evolucao: "Criadas e fechadas nas últimas 12 semanas"
+      criadas: "Criadas"
+      fechadas: "Fechadas"
+      outros: "Outros"
+      sem_dados: "Ainda não há tarefas para resumir"
+      sem_dados_ajuda: "Assim que as primeiras tarefas forem cadastradas, os gráficos aparecem aqui automaticamente."

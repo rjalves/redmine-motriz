@@ -1,0 +1,12 @@
+<%# Moldura de um gráfico do painel.
+    O canvas precisa de um pai com altura definida: o Chart.js é responsivo e,
+    sem isso, mede zero e o gráfico não aparece. Daí o `altura` obrigatório e o
+    `relative` no contêiner. %>
+<div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm p-4">
+  <h3 class="text-2xs text-gray-400 dark:text-gray-500 font-semibold uppercase tracking-wider mb-3">
+    <%= titulo %>
+  </h3>
+  <div class="relative <%= altura %>">
+    <canvas data-dashboard-charts-target="<%= alvo %>"></canvas>
+  </div>
+</div>

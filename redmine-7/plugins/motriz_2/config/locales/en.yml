@@ -173,6 +173,24 @@ en:
     issues:
       none: No open issues, all clear!
       see_all: "See all %{count} issues"
+    dashboard:
+      titulo: "Overview"
+      abertas: "Open issues"
+      atrasadas: "Overdue"
+      minhas: "Assigned to me"
+      sem_responsavel: "Unassigned"
+      fechadas_semana: "Closed this week"
+      projetos: "Active projects"
+      por_situacao: "Open issues by status"
+      por_prioridade: "Open issues by priority"
+      por_projeto: "Open issues by project"
+      por_responsavel: "Open issues by assignee"
+      por_evolucao: "Created and closed over the last 12 weeks"
+      criadas: "Created"
+      fechadas: "Closed"
+      outros: "Others"
+      sem_dados: "No issues to summarise yet"
+      sem_dados_ajuda: "As soon as the first issues are created, the charts appear here automatically."
   asap_notifications:
     assigned: "%{actor} assigned you %{title}"
     mentioned: "%{actor} mentioned you in %{title}"

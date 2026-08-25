@@ -1,7 +1,13 @@
 <%= context_menu %>
 <div class="container mx-auto flex flex-col bg-gray-50 dark:bg-gray-900 min-h-full pb-12">
 
-  <div class="flex flex-col md:flex-row px-0 md:px-12 gap-8 mt-16 lg:mt-8">
+  <%# Painel de indicadores. Vem primeiro porque é o que responde "como estamos"
+      logo depois do login; a lista de projetos e as notícias seguem abaixo. %>
+  <div class="px-0 md:px-12 mt-16 lg:mt-8">
+    <%= render partial: 'welcome/dashboard' %>
+  </div>
+
+  <div class="flex flex-col md:flex-row px-0 md:px-12 gap-8">
 
     <%# ── Main column : projects ────────────────────────────────── %>
     <div class="flex-1 min-w-0">

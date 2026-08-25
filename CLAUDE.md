@@ -44,6 +44,10 @@ Os arquivos reais do Redmine estão em `docs/redmine/reference/` —
   migração. Só acrescenta `/quadro` e `/projects/:id/quadro` ao **quadro Kanban que já
   existia dentro do `motriz_2`** e estava desligado por padrão. Depende do `motriz_2`.
   Armadilhas de menu e permissão em `docs/redmine/16-quadro-kanban.md`.
+- **Painel na tela inicial** — seis indicadores e cinco gráficos em
+  `motriz_2/app/views/welcome/_dashboard*`, regra em `lib/redmine_asap_theme/dashboard.rb`.
+  Usa o **Chart.js 4.5.1 que o Redmine já pinava no importmap** e vinha com 0 bytes;
+  repor o arquivo também consertou os gráficos nativos. Ver `docs/redmine/17-painel-inicial.md`.
 - **Plugins próprios ficam em `/plugins/` na raiz**, copiados por linha explícita do
   `Dockerfile`. `redmine-7/plugins/` é reservado ao fork do tema (`motriz_2`).
 

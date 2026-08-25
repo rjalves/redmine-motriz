@@ -12007,6 +12007,7 @@ body:has(#maintenance_mode_banner) #sticky-issue-header {
   --spacing: 0.25rem;
   --container-xs: 20rem;
   --container-sm: 24rem;
+  --container-md: 28rem;
   --container-6xl: 72rem;
   --text-xs--line-height: calc(1 / 0.75);
   --text-sm--line-height: calc(1.25 / 0.875);
@@ -12390,6 +12391,9 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
   }
+  .mt-1\.5 {
+    margin-top: calc(var(--spacing) * 1.5);
+  }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
@@ -12556,6 +12560,9 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   .h-64 {
     height: calc(var(--spacing) * 64);
   }
+  .h-72 {
+    height: calc(var(--spacing) * 72);
+  }
   .h-\[18px\] {
     height: 18px;
   }
@@ -12675,6 +12682,9 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   }
   .max-w-32 {
     max-width: calc(var(--spacing) * 32);
+  }
+  .max-w-md {
+    max-width: var(--container-md);
   }
   .max-w-none {
     max-width: none;
@@ -13251,6 +13261,10 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   .font-mono {
     font-family: var(--font-mono);
   }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
   .text-lg {
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
@@ -13401,6 +13415,9 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   }
   .text-green-400 {
     color: var(--color-green-400);
+  }
+  .text-green-500 {
+    color: var(--color-green-500);
   }
   .text-indigo-600 {
     color: var(--color-indigo-600);
@@ -14239,6 +14256,11 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
       width: calc(var(--spacing) * 80);
     }
   }
+  .lg\:grid-cols-2 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
   .lg\:grid-cols-3 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -14247,6 +14269,11 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   .lg\:grid-cols-4 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .lg\:grid-cols-6 {
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
     }
   }
   .lg\:px-12 {
@@ -14503,6 +14530,11 @@ h1, h2, h3, h4, h5, h6, #main-navbar .app-title, .wiki h1, .wiki h2, .wiki h3, .
   .dark\:text-gray-700 {
     &:where(.dark, .dark *) {
       color: var(--color-gray-700);
+    }
+  }
+  .dark\:text-green-400 {
+    &:where(.dark, .dark *) {
+      color: var(--color-green-400);
     }
   }
   .dark\:text-indigo-400 {

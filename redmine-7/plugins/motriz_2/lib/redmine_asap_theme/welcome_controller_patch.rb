@@ -19,6 +19,19 @@ module RedmineAsapTheme
                           .where.not(id: bookmarked_ids)
                           .order(:name)
       @other_projects_total = other_base.count
+
+      # Recuo para quem não é membro de projeto nenhum.
+      #
+      # A consulta acima exige vínculo em `members`. Um administrador — que
+      # enxerga tudo mas costuma não ser membro de nada — caía numa home que
+      # dizia "nenhum projeto recente" tendo dezenas de projetos visíveis. Sem
+      # vínculo algum, mostramos o que a pessoa pode ver.
+      @projects_por_visibilidade = @other_projects_total.zero? && bookmarked_ids.empty?
+      if @projects_por_visibilidade
+        other_base = Project.active.visible.order(:name)
+        @other_projects_total = other_base.count
+      end
+
       @other_projects = other_base.limit(OTHER_PROJECTS_PER_PAGE).to_a
 
       # ── Requêtes groupées : zéro N+1 ─────────────────────────────────────
@@ -65,6 +78,11 @@ module RedmineAsapTheme
       @stat_watched_count  = Issue.open.joins(:watchers).where(watchers: { user_id: User.current.id }).count
       @stat_overdue_count  = Issue.open.where(assigned_to: User.current).where('due_date < ?', Date.today).count
       @stat_projects_count = bookmarked_ids.size + @other_projects_total
+
+      # ── Indicadores do painel ─────────────────────────────────────────────
+      # Toda a regra vive em RedmineAsapTheme::Dashboard, sempre sobre
+      # Issue.visible(User.current).
+      @dashboard = RedmineAsapTheme::Dashboard.dados(User.current)
     end
 
     def more_projects
