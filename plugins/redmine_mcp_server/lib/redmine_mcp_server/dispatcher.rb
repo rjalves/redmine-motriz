@@ -65,12 +65,31 @@ module RedmineMcpServer
       @envelope.protocol_version
     end
 
+    # O texto abaixo carrega um aviso que parece redundante e não é: sem ele um
+    # assistente lê a lista curta e conclui, de boa-fé, que o servidor não sabe
+    # editar tarefas — foi exatamente o que aconteceu em produção. A lista é
+    # filtrada por permissão ANTES de ele vê-la, então ausência de ferramenta é
+    # indistinguível de ausência de funcionalidade, a menos que se diga.
     def instructions
-        'This server exposes the Redmine instance at ' \
-        "#{Config.base_url}. Every tool runs as the authenticated user and " \
-        'respects their Redmine permissions, so a tool may legitimately refuse. ' \
-        'Call list_enumerations before creating or updating an issue when you ' \
-        'need tracker, status or priority ids.'
+      'This server exposes the Redmine instance at ' \
+      "#{Config.base_url}. Every tool runs as the authenticated user and " \
+      'respects their Redmine permissions, so a tool may legitimately refuse. ' \
+      "\n\n" \
+      'IMPORTANT: the tool list is filtered by your Redmine permissions — a ' \
+      'tool you are not allowed to use is not listed at all. So a missing ' \
+      'capability means a missing permission, not a missing feature. This ' \
+      'server always implements: update_issue (needs edit_issues) and ' \
+      'log_time (needs log_time). If either is absent from your tool list, ' \
+      'the account lacks that permission in every project — say so and ' \
+      'suggest asking a Redmine administrator, rather than reporting that ' \
+      'the server cannot do it. A frequent cause: an administrator account ' \
+      'that belongs to no project, because an OAuth token without the admin ' \
+      'scope drops the administrator bypass and falls back to the ' \
+      'Non-member role. ' \
+      "\n\n" \
+      'Call list_enumerations before creating or updating an issue when you ' \
+      'need tracker, status or priority ids, and list_members to turn a ' \
+      "person's name into the assigned_to_id those tools expect."
     end
 
     def tools_list

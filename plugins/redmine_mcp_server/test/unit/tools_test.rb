@@ -116,6 +116,48 @@ class RedmineMcpServer::ToolsTest < ActiveSupport::TestCase
     assert (ids - Project.visible(@user).pluck(:id)).empty?
   end
 
+  # A razão de existir da ferramenta: sem ela o assistente não converte
+  # "atribuir ao Alberto" em assigned_to_id, porque nenhuma outra revela id de
+  # pessoa. O escopo view_members era pedido no consentimento sem que nada o
+  # usasse.
+  def test_list_members_devolve_id_nome_e_papel
+    out = run_tool(T::ListMembers, 'project_id' => 'ecookbook')
+    membros = out.structured['members']
+    assert membros.any?
+    m = membros.first
+    assert m['id'].is_a?(Integer)
+    assert m['name'].present?
+    assert_includes %w[user group], m['type']
+    assert m['roles'].is_a?(Array)
+  end
+
+  # O id que ela devolve tem que servir de fato para assigned_to_id — é o único
+  # motivo de a ferramenta existir.
+  def test_id_de_list_members_serve_como_assigned_to_id
+    grant(:add_issues)
+    alvo = run_tool(T::ListMembers, 'project_id' => 'ecookbook')
+             .structured['members'].find { |m| m['type'] == 'user' }
+
+    out = run_tool(T::CreateIssue, 'project' => 'ecookbook', 'subject' => 'com responsável',
+                                   'assigned_to_id' => alvo['id'])
+    assert_equal alvo['id'], out.structured['assigned_to']['id']
+  end
+
+  # Montado explicitamente em vez de escolher um projeto das fixtures: jsmith é
+  # membro de todos os privados que existem lá, então qualquer identificador
+  # "óbvio" passaria no teste sem exercitar a visibilidade.
+  def test_list_members_recusa_projeto_invisivel
+    privado = Project.find(2)
+    privado.update_columns(is_public: false)
+    Member.where(project_id: privado.id, user_id: @user.id).destroy_all
+    reload_user
+
+    erro = assert_raises(T::Base::ExecutionError) do
+      run_tool(T::ListMembers, 'project_id' => privado.identifier)
+    end
+    assert_match(/not found/i, erro.message)
+  end
+
   def test_list_enumerations_traz_os_ids_necessarios_para_escrever
     out = run_tool(T::ListEnumerations)
     assert out.structured['trackers'].any?

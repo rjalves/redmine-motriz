@@ -12,6 +12,7 @@ Implementa a revisão **2026-07-28** da especificação.
 |---|---|
 | `search` | `search_project` |
 | `list_projects`, `get_project` | `view_project` |
+| `list_members` | `view_members` (pública) |
 | `list_issues`, `get_issue` | `view_issues` |
 | `list_time_entries` | `view_time_entries` |
 | `get_wiki_page` | `view_wiki_pages` |
@@ -24,6 +25,20 @@ Implementa a revisão **2026-07-28** da especificação.
 A lista **muda por usuário**: quem não pode criar tarefa nem enxerga
 `create_issue`. A especificação autoriza isso — o conjunto de tools *"MAY vary by
 the authorization presented on the request"*.
+
+> **Armadilha operacional.** Como a filtragem acontece **antes** de o assistente
+> ver a lista, ausência de ferramenta é indistinguível de ausência de
+> funcionalidade — e o assistente conclui, de boa-fé, que o servidor não sabe
+> editar tarefas. Aconteceu em produção. Por isso o texto de `instructions`
+> devolvido no `initialize` avisa explicitamente que a lista é filtrada e nomeia
+> `update_issue` e `log_time` como sempre implementadas.
+>
+> A causa mais comum é contrária à intuição: **conectar com uma conta de
+> administrador que não é membro de nenhum projeto**. `User#admin?`
+> (`app/models/user.rb:753`) devolve `false` quando o acesso vem de um token
+> OAuth sem o escopo `admin` — o bypass de administrador cai, e a conta passa a
+> valer pelo papel Não-membro. Conecte com uma conta que seja membro de fato,
+> ou dê a ela uma associação com papel adequado.
 
 ## Como a permissão é garantida
 

@@ -14,6 +14,7 @@ module RedmineMcpServer
       Tools::Search,
       Tools::ListProjects,
       Tools::GetProject,
+      Tools::ListMembers,
       Tools::ListIssues,
       Tools::GetIssue,
       Tools::ListTimeEntries,
